@@ -26,6 +26,6 @@ class CurrentPasswordCheckRule implements Rule
      */
     public function message()
     {
-        return __('The current password field does not match your password');
+        return __('กำหนดรหัสผ่านใหม่ไม่เหมือนกัน กรุณาลองใหม่อีกครั้ง');
     }
 }

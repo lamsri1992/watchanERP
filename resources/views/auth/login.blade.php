@@ -14,9 +14,9 @@
                             <div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }} mb-3">
                                 <div class="input-group input-group-alternative">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                                        <span class="input-group-text"><i class="ni ni-single-02"></i></span>
                                     </div>
-                                    <input class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="{{ __('Email') }}" type="email" name="email" value="{{ old('email') }}" required autofocus>
+                                    <input class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="{{ __('Username') }}" type="email" name="email" value="{{ old('email') }}" required autofocus>
                                 </div>
                                 @if ($errors->has('email'))
                                     <span class="invalid-feedback" style="display: block;" role="alert">
@@ -37,25 +37,10 @@
                                     </span>
                                 @endif
                             </div>
-                            <div class="custom-control custom-control-alternative custom-checkbox">
-                                <input class="custom-control-input" name="remember" id="customCheckLogin" type="checkbox" {{ old('remember') ? 'checked' : '' }}>
-                                <label class="custom-control-label" for="customCheckLogin">
-                                    <span class="text-muted">{{ __('จดจำการเข้าสู่ระบบ') }}</span>
-                                </label>
-                            </div>
                             <div class="text-center">
                                 <button type="submit" class="btn btn-primary my-4">{{ __('เข้าสู่ระบบ') }}</button>
                             </div>
                         </form>
-                    </div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-6">
-                        @if (Route::has('password.request'))
-                            <a href="{{ route('password.request') }}" class="text-light">
-                                <small>{{ __('ลืมรหัสผ่าน ?') }}</small>
-                            </a>
-                        @endif
                     </div>
                 </div>
             </div>

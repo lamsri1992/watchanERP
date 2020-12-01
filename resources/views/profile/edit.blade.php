@@ -23,13 +23,13 @@
                         <div class="text-center">
                             <div style="margin-top: 35%;">
                                 <h3>
-                                    {{ auth()->user()->name }}<span class="font-weight-light">, 28</span>
+                                    {{ auth()->user()->name }}<span class="font-weight-light"></span>
                                 </h3>
                                 <div class="h5 font-weight-300">
-                                    <i class="ni location_pin mr-2"></i>{{ __('นักวิชาการคอมพิวเตอร์ปฏิบัติการ') }}
+                                    <i class="ni location_pin mr-2"></i>{{ auth()->user()->department }}
                                 </div>
                                 <div class="h5 mt-3">
-                                    <i class="ni business_briefcase-24 mr-2"></i>{{ __('กลุ่มงานประกันสุขภาพ ยุทธศาสตร์และสารสนเทศทางการแพทย์') }}
+                                    <i class="ni business_briefcase-24 mr-2"></i>{{ auth()->user()->position ." , ". auth()->user()->job }}
                                 </div>
                             </div>
                         </div>
@@ -72,7 +72,7 @@
                                 </div>
                                 <div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
                                     <label class="form-control-label" for="input-email">{{ __('อีเมล') }}</label>
-                                    <input type="email" name="email" id="input-email" class="form-control form-control-alternative{{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="{{ __('Email') }}" value="{{ old('email', auth()->user()->email) }}" required>
+                                    <input type="email" name="email" id="input-email" class="form-control form-control-alternative{{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="{{ __('Email') }}" value="{{ old('email', auth()->user()->email) }}" readonly>
 
                                     @if ($errors->has('email'))
                                         <span class="invalid-feedback" role="alert">
