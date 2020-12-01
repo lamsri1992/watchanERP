@@ -2,7 +2,7 @@
 
 @section('content')
 @include('users.partials.header', [
-'title' => __('สวัสดี') . ' คุณ'. auth()->user()->name,
+'title' => __('สวัสดี') . ' คุณ'. Auth::User()->name,
 'class' => 'col-lg-12'
 ])
 
@@ -14,7 +14,7 @@
                     <div class="col-lg-3 order-lg-2">
                         <div class="card-profile-image">
                             <a href="#">
-                                <img src="{{ asset('img') }}/employee/{{ auth()->user()->img }}.jpg" class="rounded-circle">
+                                <img src="{{ asset('img') }}/employee/{{ Auth::User()->img }}.jpg" class="rounded-circle">
                             </a>
                         </div>
                     </div>
@@ -23,13 +23,13 @@
                     <div class="text-center">
                         <div style="margin-top: 35%;">
                             <h3>
-                                {{ auth()->user()->name }}<span class="font-weight-light"></span>
+                                {{ Auth::User()->name }}<span class="font-weight-light"></span>
                             </h3>
                             <div class="h5 font-weight-300">
-                                <i class="ni location_pin mr-2"></i>{{ auth()->user()->department }}
+                                <i class="ni location_pin mr-2"></i>{{ Auth::User()->department }}
                             </div>
                             <div class="h5 mt-3">
-                                {{ auth()->user()->position ." , ". auth()->user()->job }}
+                                {{ Auth::User()->position ." , ". Auth::User()->job }}
                             </div>
                         </div>
                     </div>
@@ -71,7 +71,7 @@
                                 <input type="text" name="name" id="input-name"
                                     class="form-control form-control-alternative{{ $errors->has('name') ? ' is-invalid' : '' }}"
                                     placeholder="{{ __('Name') }}"
-                                    value="{{ old('name', auth()->user()->name) }}" required
+                                    value="{{ old('name', Auth::User()->name) }}" required
                                     autofocus>
 
                                 @if($errors->has('name'))
@@ -87,7 +87,7 @@
                                 <input type="email" name="email" id="input-email"
                                     class="form-control form-control-alternative{{ $errors->has('email') ? ' is-invalid' : '' }}"
                                     placeholder="{{ __('Email') }}"
-                                    value="{{ old('email', auth()->user()->email) }}"
+                                    value="{{ old('email', Auth::User()->email) }}"
                                     readonly>
 
                                 @if($errors->has('email'))
