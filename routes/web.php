@@ -30,4 +30,4 @@ Route::group(['middleware' => 'auth'], function () {
 
 Route::namespace('Auth')->group(function () {
 	Route::post('/login','LoginController@login')->name('login');
-  });
+});
