@@ -27,3 +27,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'ProfileController@password']);
 });
 
+
+Route::namespace('Auth')->group(function () {
+	Route::post('/login','LoginController@login')->name('login');
+  });

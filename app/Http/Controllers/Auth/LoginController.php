@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use DB;
 
 class LoginController extends Controller
 {
@@ -36,5 +39,25 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function login(Request $request)
+    {
+        $request->validate([
+            'barcode' => 'required',
+            'password' => 'required'
+        ]);
+
+        $credentials = $request->except(['_token']);
+        $user = DB::table('users')
+                ->join('departments', 'users.department', '=', 'departments.dept_id')
+                ->where('users.barcode', $request->barcode)
+                ->first();;
+            // return dd($user);
+        if (auth()->attempt($credentials)) {
+            return redirect()->route('home');
+        }else{
+            return back()->with('valid','ชื่อผู้ใช้งาน หรือ รหัสผ่านไม่ถูกต้อง');
+        }
     }
 }
