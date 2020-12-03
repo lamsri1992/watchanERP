@@ -28,7 +28,7 @@
                             {{ __('ยินดีต้อนรับ!') }}
                         </h6>
                     </div>
-                    <a href="{{ route('profile.edit') }}" class="dropdown-item">
+                    <a href="{{ route('profile.index') }}" class="dropdown-item">
                         <i class="ni ni-single-02"></i>
                         <span>{{ __('ข้อมูลส่วนตัว') }}</span>
                     </a>
@@ -78,7 +78,8 @@
                         aria-controls="navbar-office">
                         <i class="far fa-folder-open text-success"></i>
                         <span
-                            class="nav-link-text">{{ __('งานบริหารทั่วไป') }}</span>
+                            class="nav-link-text">{{ __('งานบริหารทั่วไป') }}
+                        </span>
                     </a>
                     <div class="collapse hidden" id="navbar-office">
                         <ul class="nav nav-sm flex-column">
@@ -104,8 +105,9 @@
                     <a class="nav-link" href="#navbar-it" data-toggle="collapse" role="button" aria-expanded="true"
                         aria-controls="navbar-it">
                         <i class="fa fa-desktop text-danger"></i>
-                        <span
-                            class="nav-link-text">{{ __('งานเทคโนโลยีสารสนเทศ') }}</span>
+                        <span class="nav-link-text">
+                            {{ __('งานเทคโนโลยีสารสนเทศ') }}
+                        </span>
                     </a>
                     <div class="collapse hidden" id="navbar-it">
                         <ul class="nav nav-sm flex-column">
@@ -122,33 +124,6 @@
                         </ul>
                     </div>
                 </li>
-                {{-- <li class="nav-item">
-                    <a class="nav-link active" href="#navbar-examples" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-examples">
-                        <i class="fab fa-laravel" style="color: #f4645f;"></i>
-                        <span class="nav-link-text" style="color: #f4645f;">{{ __('Laravel Examples') }}</span>
-                </a>
-
-                <div class="collapse show" id="navbar-examples">
-                    <ul class="nav nav-sm flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('profile.edit') }}">
-                                {{ __('User profile') }}
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('user.index') }}">
-                                {{ __('User Management') }}
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                </li> --}}
-
-                {{-- <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="ni ni-planet text-blue"></i> {{ __('Icons') }}
-                </a>
-                </li> --}}
             </ul>
             <!-- Divider -->
             <hr class="my-3">

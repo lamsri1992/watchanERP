@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProfileRequest;
 use App\Http\Requests\PasswordRequest;
 use Illuminate\Support\Facades\Hash;
+use DB;
+use Auth;
 
 class ProfileController extends Controller
 {
@@ -13,9 +15,18 @@ class ProfileController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function edit()
+    public function index()
     {
-        return view('profile.edit');
+        $userID = Auth::user()->id;
+        $data = DB::table('users')
+                ->leftJoin('departments', 'users.department', '=', 'departments.dept_id')
+                ->leftJoin('jobs', 'users.job', '=', 'jobs.job_id')
+                ->where('users.id', $userID)
+                ->first();
+        $unit = DB::table('users')
+                ->where('users.id', $data->unit)
+                ->first();
+        return view('profile.index', ['data' => $data], ['unit' => $unit]);
     }
 
     /**
