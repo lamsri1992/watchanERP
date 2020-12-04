@@ -19,6 +19,7 @@ class ProfileController extends Controller
     {
         $userID = Auth::user()->id;
         $data = DB::table('users')
+                ->leftJoin('personals', 'users.id', '=', 'personals.user_id')
                 ->leftJoin('departments', 'users.department', '=', 'departments.dept_id')
                 ->leftJoin('jobs', 'users.job', '=', 'jobs.job_id')
                 ->where('users.id', $userID)

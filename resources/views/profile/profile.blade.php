@@ -40,10 +40,6 @@
                         <td>{{ $data->work_start }}</td>
                     </tr>
                     <tr>
-                        <th>วันที่ลาออก/โอนย้าย</th>
-                        <td>{{ $data->work_end }}</td>
-                    </tr>
-                    <tr>
                         <th>สถานะการปฏิบัติงาน</th>
                         <td>{{ $data->work_status = 'work' ? 'ปฏิบัติงาน' : 'ลาออก/โอนย้าย' }}</td>
                     </tr>
@@ -54,7 +50,7 @@
                 </table>
             </div>
             <div class="text-center" style="margin-top: 10%;">
-                <small class="text-gray"><i class="far fa-question-circle"></i> หากข้อมูลไม่ถูกต้อง กรุณาแจ้งงานบริหารเพื่อแก้ไขข้อมูล</small>
+                <small class="text-gray"><i class="far fa-question-circle"></i> หากข้อมูลไม่ถูกต้อง กรุณาแจ้งงานบริหาร</small>
             </div>
         </div>
     </div>

@@ -8,6 +8,57 @@
             </div>
         </div>
         <div class="card-body">
+            <form method="post" action="#" autocomplete="off">
+                @csrf
+                <h6 class="heading-small text-muted mb-4">
+                    {{ __('ข้อมูลพื้นฐาน') }}
+                </h6>
+
+                <div class="pl-lg-4">
+                    <div class="form-group">
+                        <label class="form-control-label" for="input-name">
+                            {{ __('เบอร์โทรติดต่อ') }}
+                        </label>
+                        <input type="text" name="name" class="form-control" value="{{ $data->tel }}"
+                            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                            maxlength="10" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label" for="input-name">
+                            {{ __('ผู้ติดต่อยามฉุกเฉิน') }}
+                        </label>
+                        <input type="text" name="name" class="form-control" value="{{ $data->person_name }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label" for="input-name">
+                            {{ __('เบอร์โทรผู้ติดต่อยามฉุกเฉิน') }}
+                        </label>
+                        <input type="text" name="name" class="form-control" value="{{ $data->person_tel }}"
+                            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                            maxlength="10" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label" for="input-name">
+                            {{ __('ที่อยู่') }}
+                        </label>
+                        <textarea name="" class="form-control" rows="3" required>{{ $data->address }}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label" for="input-name">
+                            {{ __('ที่อยู่ผู้ติดต่อยามฉุกเฉิน') }}
+                        </label>
+                        <textarea name="" class="form-control" rows="3"
+                            required>{{ $data->person_address }}</textarea>
+                    </div>
+
+                    <div class="text-left">
+                        <button type="submit" class="btn btn-success">
+                            {{ __('บันทึกการแก้ไข') }}
+                        </button>
+                    </div>
+                </div>
+            </form>
+            <hr class="my-4" />
             <form method="post" action="{{ route('profile.password') }}" autocomplete="off">
                 @csrf
                 @method('put')
@@ -59,13 +110,12 @@
                             for="input-password-confirmation">{{ __('ยืนยันรหัสผ่านใหม่') }}</label>
                         <input type="password" name="password_confirmation" id="input-password-confirmation"
                             class="form-control form-control-alternative"
-                            placeholder="{{ __('Confirm New Password') }}" value=""
-                            required>
+                            placeholder="{{ __('Confirm New Password') }}" value="" required>
                     </div>
 
                     <div class="text-left">
                         <button type="submit"
-                            class="btn btn-success mt-4">{{ __('บันทึกการแก้ไข') }}
+                            class="btn btn-success mt-4">{{ __('เปลี่ยนรหัสผ่าน') }}
                         </button>
                     </div>
                 </div>
