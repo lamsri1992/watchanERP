@@ -8,7 +8,7 @@
             </div>
         </div>
         <div class="card-body">
-            <form method="post" action="#" autocomplete="off">
+            <form id="personal">
                 @csrf
                 <h6 class="heading-small text-muted mb-4">
                     {{ __('ข้อมูลพื้นฐาน') }}
@@ -19,7 +19,7 @@
                         <label class="form-control-label" for="input-name">
                             {{ __('เบอร์โทรติดต่อ') }}
                         </label>
-                        <input type="text" name="name" class="form-control" value="{{ $data->tel }}"
+                        <input type="text" name="tel" class="form-control" value="{{ $data->tel }}"
                             oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
                             maxlength="10" required>
                     </div>
@@ -27,13 +27,14 @@
                         <label class="form-control-label" for="input-name">
                             {{ __('ผู้ติดต่อยามฉุกเฉิน') }}
                         </label>
-                        <input type="text" name="name" class="form-control" value="{{ $data->person_name }}" required>
+                        <input type="text" name="person_name" class="form-control" value="{{ $data->person_name }}"
+                            required>
                     </div>
                     <div class="form-group">
                         <label class="form-control-label" for="input-name">
                             {{ __('เบอร์โทรผู้ติดต่อยามฉุกเฉิน') }}
                         </label>
-                        <input type="text" name="name" class="form-control" value="{{ $data->person_tel }}"
+                        <input type="text" name="person_tel" class="form-control" value="{{ $data->person_tel }}"
                             oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
                             maxlength="10" required>
                     </div>
@@ -41,13 +42,14 @@
                         <label class="form-control-label" for="input-name">
                             {{ __('ที่อยู่') }}
                         </label>
-                        <textarea name="" class="form-control" rows="3" required>{{ $data->address }}</textarea>
+                        <textarea name="address" class="form-control" rows="3"
+                            required>{{ $data->address }}</textarea>
                     </div>
                     <div class="form-group">
                         <label class="form-control-label" for="input-name">
                             {{ __('ที่อยู่ผู้ติดต่อยามฉุกเฉิน') }}
                         </label>
-                        <textarea name="" class="form-control" rows="3"
+                        <textarea name="person_address" class="form-control" rows="3"
                             required>{{ $data->person_address }}</textarea>
                     </div>
 
@@ -123,3 +125,35 @@
         </div>
     </div>
 </div>
+@section('script')
+<script>
+    $('#personal').on("submit", function (event) {
+        event.preventDefault();
+        Swal.fire({
+            title: 'ยืนยันการบันทึกรายการ ?',
+            showCancelButton: true,
+            confirmButtonText: `บันทึก`,
+            cancelButtonText: `ยกเลิก`,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "{{ route('personal',$data->id) }}",
+                    data: $('#personal').serialize(),
+                    success: function (data) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'บันทึกรายการสำเร็จ',
+                            showConfirmButton: false,
+                            timer: 3000
+                        })
+                        window.setTimeout(function () {
+                            location.replace('/profile')
+                        }, 1500);
+                    }
+                });
+            }
+        })
+    });
+
+</script>
+@endsection
