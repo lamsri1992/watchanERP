@@ -22,6 +22,7 @@ class ProfileController extends Controller
                 ->leftJoin('personals', 'users.id', '=', 'personals.user_id')
                 ->leftJoin('departments', 'users.department', '=', 'departments.dept_id')
                 ->leftJoin('jobs', 'users.job', '=', 'jobs.job_id')
+                ->leftJoin('leave_num', 'users.id', '=', 'leave_num.user_id')
                 ->where('users.id', $userID)
                 ->first();
         $unit = DB::table('users')

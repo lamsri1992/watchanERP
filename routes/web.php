@@ -25,9 +25,9 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('profile', ['as' => 'profile.index', 'uses' => 'ProfileController@index']);
 	Route::put('profile', ['as' => 'profile.update', 'uses' => 'ProfileController@update']);
 	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'ProfileController@password']);
+	Route::get('personal','PersonalController@update')->name('personal');
 });
 
-Route::get('personal','PersonalController@update')->name('personal');
 
 Route::namespace('Auth')->group(function () {
 	Route::post('/login','LoginController@login')->name('login');

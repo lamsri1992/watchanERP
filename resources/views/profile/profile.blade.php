@@ -4,7 +4,8 @@
             <div class="col-lg-3 order-lg-2">
                 <div class="card-profile-image">
                     <a href="#">
-                        <img src="{{ asset('img') }}/employee/{{ $data->img }}.jpg" class="rounded-circle">
+                        <img src="{{ asset('img') }}/employee/{{ $data->img }}.jpg"
+                            class="rounded-circle">
                     </a>
                 </div>
             </div>
@@ -30,6 +31,9 @@
                 </div>
             </div>
             <div style="margin-top: 10%;">
+                <div class="h5 font-weight-200">
+                    ข้อมูลการปฏิบัติงาน
+                </div>
                 <table class="table table-sm">
                     <tr>
                         <th>ประเภทบุคลากร</th>
@@ -41,7 +45,8 @@
                     </tr>
                     <tr>
                         <th>สถานะการปฏิบัติงาน</th>
-                        <td>{{ $data->work_status = 'work' ? 'ปฏิบัติงาน' : 'ลาออก/โอนย้าย' }}</td>
+                        <td>{{ $data->work_status = 'work' ? 'ปฏิบัติงาน' : 'ลาออก/โอนย้าย' }}
+                        </td>
                     </tr>
                     <tr>
                         <th>ผู้บังคับบัญชา</th>
@@ -49,8 +54,33 @@
                     </tr>
                 </table>
             </div>
+            <div style="margin-top: 10%;">
+                <div class="h5 font-weight-200">
+                    สิทธิ์วันลา
+                </div>
+                <table class="table table-sm">
+                    <tr>
+                        <th>ลากิจ</th>
+                        <td>{{ $data->busy }}</td>
+                    </tr>
+                    <tr>
+                        <th>ลาป่วย</th>
+                        <td>{{ $data->sick }}</td>
+                    </tr>
+                    <tr>
+                        <th>ลาพักผ่อน</th>
+                        <td>{{ $data->vacation }}</td>
+                    </tr>
+                    <tr>
+                        <th>ลาคลอด</th>
+                        <td>{{ $data->mate }}</td>
+                    </tr>
+                </table>
+            </div>
             <div class="text-center" style="margin-top: 10%;">
-                <small class="text-gray"><i class="far fa-question-circle"></i> หากข้อมูลไม่ถูกต้อง กรุณาแจ้งงานบริหาร</small>
+                <small class="text-gray"><i class="far fa-question-circle"></i>
+                    หากข้อมูลไม่ถูกต้องกรุณาแจ้งงานบริหาร
+                </small>
             </div>
         </div>
     </div>
