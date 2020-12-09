@@ -84,6 +84,11 @@
                     <div class="collapse hidden" id="navbar-office">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
+                                <a class="nav-link" href="hr">
+                                    {{ __('ฐานข้อมูลบุคลากร') }}
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="#">
                                     {{ __('ระบบวันลาออนไลน์') }}
                                 </a>
@@ -101,39 +106,12 @@
                         </ul>
                     </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#navbar-it" data-toggle="collapse" role="button" aria-expanded="true"
-                        aria-controls="navbar-it">
-                        <i class="fa fa-desktop text-danger"></i>
-                        <span class="nav-link-text">
-                            {{ __('งานเทคโนโลยีสารสนเทศ') }}
-                        </span>
-                    </a>
-                    <div class="collapse hidden" id="navbar-it">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    {{ __('ระบบแจ้งซ่อมคอมพิวเตอร์') }}
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    {{ __('ระบบขอรายงานข้อมูล') }}
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
             </ul>
-            <!-- Divider -->
             <hr class="my-3">
-            <!-- Heading -->
             <h6 class="navbar-heading text-muted">คู่มือการใช้งาน</h6>
-            <!-- Navigation -->
             <ul class="navbar-nav mb-md-3">
                 <li class="nav-item">
-                    <a class="nav-link"
-                        href="https://demos.creative-tim.com/argon-dashboard/docs/getting-started/overview.html">
+                    <a class="nav-link" href="#">
                         <i class="ni ni-spaceship"></i> Getting started
                     </a>
                 </li>

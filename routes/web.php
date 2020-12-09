@@ -32,3 +32,7 @@ Route::group(['middleware' => 'auth'], function () {
 Route::namespace('Auth')->group(function () {
 	Route::post('/login','LoginController@login')->name('login');
 });
+
+// Route::group(['prefix' => 'hr'], function () {
+//     Route::get('/','UserDataController@index')->name('hr.index');
+// });

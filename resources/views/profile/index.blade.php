@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-@include('users.partials.header', [
+@include('profile.header', [
 'title' => __('สวัสดี') . ' คุณ'. Auth::User()->name,
 'class' => 'col-lg-12'
 ])

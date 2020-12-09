@@ -50,7 +50,7 @@ class LoginController extends Controller
 
         $credentials = $request->except(['_token']);
         $user = DB::table('users')
-                // ->join('departments', 'users.department', '=', 'departments.dept_id')
+                ->join('permissions', 'users.permission', '=', 'permissions.p_id')
                 ->where('users.barcode', $request->barcode)
                 ->first();;
             // return dd($user);
