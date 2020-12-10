@@ -36,3 +36,7 @@ Route::namespace('Auth')->group(function () {
 // Route::group(['prefix' => 'hr'], function () {
 //     Route::get('/','UserDataController@index')->name('hr.index');
 // });
+
+Route::get('/hr', function () {
+    return view('hr.index');
+});
