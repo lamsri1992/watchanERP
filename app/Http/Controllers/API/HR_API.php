@@ -16,8 +16,12 @@ class HR_API extends Controller
     public function index()
     {
         $result = DB::table('users')
-                    ->select('users.id', 'users.barcode', 'users.name', 'users.position', 'departments.dept_name')
+                    ->select('id', 'barcode', 'name', 'position', 'dept_name','job_name'
+                    ,'address','tel','person_name','person_tel','person_address')
                     ->leftJoin('departments', 'users.department', '=', 'departments.dept_id')
+                    ->leftJoin('personals', 'users.id', '=', 'personals.user_id')
+                    ->leftJoin('jobs', 'users.job', '=', 'jobs.job_id')
+                    ->where('work_status', '=', 'work')
                     ->get();
         return response()->json($result);
     }
