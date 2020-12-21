@@ -131,8 +131,8 @@
         columns: [
             { 'data': 'barcode', className: "text-center" },
             { 'data': 'name' },
-            { 'data': 'position' },
             { 'data': 'dept_name', className: "text-center" },
+            { 'data': 'position' },
             { 'targets': -1, 'data': null, className: "text-center",
                 'defaultContent': '<button class="btn btn-sm btn-success"><i class="fa fa-plus-circle"></i> เพิ่มเติม</button>'}
         ],
