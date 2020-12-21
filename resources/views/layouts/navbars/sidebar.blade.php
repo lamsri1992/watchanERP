@@ -89,7 +89,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
+                                <a class="nav-link" href="/leave">
                                     {{ __('ระบบวันลาออนไลน์') }}
                                 </a>
                             </li>

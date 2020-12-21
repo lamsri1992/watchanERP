@@ -33,10 +33,10 @@ Route::namespace('Auth')->group(function () {
 	Route::post('/login','LoginController@login')->name('login');
 });
 
-// Route::group(['prefix' => 'hr'], function () {
-//     Route::get('/','UserDataController@index')->name('hr.index');
-// });
-
 Route::get('/hr', function () {
     return view('hr.index');
+});
+
+Route::group(['prefix' => 'leave'], function () {
+	Route::get('/','LeaveController@index')->name('leave.index');
 });
