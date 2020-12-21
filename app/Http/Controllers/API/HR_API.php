@@ -17,7 +17,7 @@ class HR_API extends Controller
     {
         $result = DB::table('users')
                     ->select('id', 'barcode', 'name', 'position', 'dept_name','job_name'
-                    ,'address','tel','person_name','person_tel','person_address')
+                    ,'address','tel','person_name','person_tel','person_address','img')
                     ->leftJoin('departments', 'users.department', '=', 'departments.dept_id')
                     ->leftJoin('personals', 'users.id', '=', 'personals.user_id')
                     ->leftJoin('jobs', 'users.job', '=', 'jobs.job_id')
