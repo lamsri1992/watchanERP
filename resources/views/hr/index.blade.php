@@ -66,7 +66,6 @@
           </button>
         </div>
         <div class="modal-body">
-            <div id="x"></div>
             <table class="table table-striped table-sm">
                 <tr>
                     <th>ชื่อ - สกุล</th>
@@ -119,7 +118,7 @@
     $(document).ready(function () {
         $('#hr_table').dataTable( {
         ajax: {
-            url: "http://127.0.0.1:8000/api/hr_api",
+            url: "api/hr_api",
             dataSrc: ""
         },
         columns: [
