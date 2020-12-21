@@ -32,19 +32,19 @@
                         <thead>
                             <tr>
                                 <th width="15%"><i class="far fa-address-card"></i> ID</th>
-                                <th width="20%">ชื่อ - สกุล</th>
+                                <th width="25%">ชื่อ - สกุล</th>
                                 <th width="20%">กลุ่มงาน/หน่วยบริการ</th>
                                 <th width="25%">ตำแหน่ง</th>
-                                <th width="10%"><i class="fa fa-plus-circle"></i></th>
+                                <th width="5%"><i class="fa fa-plus-circle"></i></th>
                             </tr>
                         </thead>
                         <tfoot>
                             <tr>
                                 <th width="15%"><i class="far fa-address-card"></i> ID</th>
-                                <th width="20%">ชื่อ - สกุล</th>
+                                <th width="25%">ชื่อ - สกุล</th>
                                 <th width="20%">กลุ่มงาน/หน่วยบริการ</th>
                                 <th width="25%">ตำแหน่ง</th>
-                                <th width="10%"><i class="fa fa-plus-circle"></i></th>
+                                <th width="5%"><i class="fa fa-plus-circle"></i></th>
                             </tr>
                         </tfoot>
                     </table>
@@ -132,9 +132,9 @@
             { 'data': 'barcode', className: "text-center" },
             { 'data': 'name' },
             { 'data': 'dept_name', className: "text-center" },
-            { 'data': 'position' },
+            { 'data': 'position', className: "text-center" },
             { 'targets': -1, 'data': null, className: "text-center",
-                'defaultContent': '<button class="btn btn-sm btn-success"><i class="fa fa-plus-circle"></i> เพิ่มเติม</button>'}
+                'defaultContent': '<button class="btn btn-sm btn-success btn-block"><i class="fa fa-plus-circle"></i> เพิ่มเติม</button>'}
         ],
         lengthMenu: [
             [20, 50, 100, -1],
