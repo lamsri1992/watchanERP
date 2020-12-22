@@ -86,7 +86,8 @@
                                     {{ DateThai($res->leave_end) }}
                                 </td>
                                 <td class="text-center">
-                                    {{ $res->leave_num }}
+                                    {{ $res->leave_num }}&nbsp;
+                                    <small class="text-danger">{{ $res->time_name }}</small>
                                 </td>
                                 <td class="text-center">
                                     {{ $res->leave_note }}

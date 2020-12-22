@@ -8,7 +8,7 @@
                             <div class="row">
                                 <div class="col">
                                     <h5 class="card-title text-uppercase text-muted mb-0">ลากิจ</h5>
-                                    <span class="h1 font-weight-bold mb-0"><span style="color:red;">0</span> / 45</span>
+                                    <span class="h1 font-weight-bold mb-0"><span style="color:red;">1</span> / 45</span>
                                 </div>
                                 <div class="col-auto">
                                     <div class="icon icon-shape bg-success text-white rounded-circle shadow">

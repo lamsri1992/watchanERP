@@ -14,13 +14,14 @@ class LeaveController extends Controller
         $data = DB::table('leave_list')
                     ->leftJoin('leave_status', 'leave_list.leave_status', '=', 'leave_status.status_id')
                     ->leftJoin('leave_type', 'leave_list.leave_type', '=', 'leave_type.type_id')
+                    ->leftJoin('leave_time', 'leave_list.leave_time', '=', 'leave_time.time_id')
                     ->where('leave_list.user_id', $userID)
                     ->get();
         $uname = DB::table('users')
                     ->select('id', 'name')
                     ->where('work_status', '=', 'work')
                     ->orderBy('users.id', 'asc')
-                    ->get(); 
+                    ->get();
         return view('leave.index', ['data' => $data],['uname' => $uname]);
     }
 
