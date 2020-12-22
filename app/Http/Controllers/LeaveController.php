@@ -8,15 +8,12 @@ use Auth;
 
 class LeaveController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $userID = Auth::User()->id;
         $data = DB::table('leave_list')
+                    ->leftJoin('leave_status', 'leave_list.leave_status', '=', 'leave_status.status_id')
+                    ->leftJoin('leave_type', 'leave_list.leave_type', '=', 'leave_type.type_id')
                     ->where('leave_list.user_id', $userID)
                     ->get();
         $uname = DB::table('users')
@@ -27,48 +24,38 @@ class LeaveController extends Controller
         return view('leave.index', ['data' => $data],['uname' => $uname]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function addLeave(Request $request)
     {
-        //
-    }
+        $strStartDate = $request->get('leave_start');
+        $strEndDate = $request->get('leave_end');
+        $intWorkDay = 0;
+        $intHoliday = 0;
+        $intTotalDay = ((strtotime($strEndDate) - strtotime($strStartDate))/  ( 60 * 60 * 24 )) + 1;
+    
+        while (strtotime($strStartDate) <= strtotime($strEndDate)) {
+    
+            $DayOfWeek = date("w", strtotime($strStartDate));
+            if($DayOfWeek == 0 or $DayOfWeek ==6){ $intHoliday++; }
+            else{ $intWorkDay++; }
+            $strStartDate = date ("Y-m-d", strtotime("+1 day", strtotime($strStartDate)));
+        }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+        if ($request->get('leave_time')== '2' || $request->get('leave_time') == '3'){
+            $intWorkDay = $intWorkDay - 0.5;
+        }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $userID = Auth::User()->id;
+        DB::table('leave_list')->insert(
+            [
+                'leave_type' => $request->get('leave_type'),
+                'leave_start' => $strStartDate,
+                'leave_end' => $strEndDate,
+                'leave_num' => $intWorkDay,
+                'leave_time' => $request->get('leave_time'),
+                'leave_stead' => $request->get('leave_stead'),
+                'leave_note' => $request->get('leave_note'),
+                'user_id' => $userID
+            ]
+        );
     }
 }

@@ -29,13 +29,8 @@
                     <div class="row">
                         <div class="col-md-3">
                             <button type="button" class="btn btn-primary btn-block" data-toggle="modal"
-                                data-target="#addLeave">
+                                data-target="#addLeaveModal">
                                 <i class="far fa-edit"></i> ขออนุมัติวันลา
-                            </button>
-                        </div>
-                        <div class="col-md-3">
-                            <button type="button" class="btn btn-light btn-block">
-                                รอการอนุมัติ <span class="badge badge-light text-white">0</span>
                             </button>
                         </div>
                         <div class="col-md-3">
@@ -44,8 +39,13 @@
                             </button>
                         </div>
                         <div class="col-md-3">
+                            <button type="button" class="btn btn-light btn-block">
+                                รอการอนุมัติ <span class="badge badge-light text-white">1</span>
+                            </button>
+                        </div>
+                        <div class="col-md-3">
                             <button type="button" class="btn btn-success btn-block">
-                                อนุมัติแล้ว <span class="badge badge-success text-white">0</span>
+                                อนุมัติแล้ว <span class="badge badge-success text-white">1</span>
                             </button>
                         </div>
                     </div>
@@ -54,15 +54,16 @@
                     <h6 class="ls-1 mb-1">
                         <i class="fa fa-history"></i> ประวัติการลางาน
                     </h6>
-                    <table id="leave_list" class="table display" style="width:100%;">
+                    <table id="leave_list" class="table table-bordered display" style="width:100%;">
                         <thead class="thead-dark">
                             <tr>
-                                <th class="text-center">รหัสรายการ</th>
+                                <th class="text-center">No.</th>
                                 <th class="text-center">สถานะ</th>
                                 <th class="text-center">ประเภทการลา</th>
                                 <th class="text-center">วันที่ลา</th>
                                 <th class="text-center">วันที่สิ้นสุด</th>
                                 <th class="text-center">จำนวน (วัน)</th>
+                                <th class="text-center">หมายเหตุ</th>
                                 <th class="text-center">ผู้รับผิดชอบงาน</th>
                             </tr>
                         </thead>
@@ -71,19 +72,24 @@
                             <tr>
                                 <td class="text-center">{{ "HR-".$res->leave_id }}</td>
                                 <td class="text-center">
-                                    {{ $res->leave_status }}
+                                    <span class="{{ $res->status_style }}">
+                                        <i class="{{ $res->status_icon }}"></i> {{ $res->status_name }}
+                                    </span>
                                 </td>
                                 <td class="text-center">
-                                    {{ $res->leave_type }}
+                                    {{ $res->type_name }}
                                 </td>
                                 <td class="text-center">
-                                    {{ $res->leave_start }}
+                                    {{ DateThai($res->leave_start) }}
                                 </td>
                                 <td class="text-center">
-                                    {{ $res->leave_end }}
+                                    {{ DateThai($res->leave_end) }}
                                 </td>
                                 <td class="text-center">
                                     {{ $res->leave_num }}
+                                </td>
+                                <td class="text-center">
+                                    {{ $res->leave_note }}
                                 </td>
                                 <td class="text-center">
                                     {{ $res->leave_stead }}
@@ -100,7 +106,7 @@
 </div>
 
 <!-- New Leave Modal -->
-<div class="modal fade" id="addLeave" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="addLeaveModal" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -115,7 +121,7 @@
                     <div class="form-group row">
                         <label class="col-md-12 control-label">ประเภทการลา</label>
                         <div class="col-md-12">
-                            <select name="ltype" class="custom-select" required>
+                            <select name="leave_type" class="custom-select" required>
                                 <option value="">เลือกประเภทการลา</option>
                                 <option value="1">- ลากิจ</option>
                                 <option value="2">- ลาป่วย</option>
@@ -126,7 +132,7 @@
                     <div class="form-group row">
                         <label class="col-md-12 control-label">ระยะเวลา</label>
                         <div class="col-md-12">
-                            <select name="ltime" class="custom-select" required>
+                            <select name="leave_time" class="custom-select" required>
                                 <option value="">เลือกระยะเวลา</option>
                                 <option value="1">- เต็มวัน (8.00น. - 16.00น.)</option>
                                 <option value="2">- ครึ่งเช้า (8:00น. - 12:00น.)</option>
@@ -136,18 +142,18 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-md-6">
-                            <input id="dateStr" name="dstart" type="text" class="form-control input-md"
+                            <input id="dateStr" name="leave_start" type="text" class="form-control input-md"
                                 placeholder="วันที่ลา" readonly required>
                         </div>
                         <div class="col-md-6">
-                            <input id="dateEnd" name="dend" type="text" class="form-control input-md"
+                            <input id="dateEnd" name="leave_end" type="text" class="form-control input-md"
                                 placeholder="วันที่สิ้นสุด" readonly required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-md-4 control-label">หมายเหตุ</label>
                         <div class="col-md-12">
-                            <textarea name="leave_note" class="form-control" rows="3" required></textarea>
+                            <input name="leave_note" class="form-control input-md" placeholder="ระบุหมายเหตุการลา ex. ไปทำธุระ ไปร่วมงานแต่ง ฯลฯ" required>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -186,6 +192,17 @@
             rowReorder: {
                 selector: 'td:nth-child(2)'
             },
+            order: [[ 0, 'desc' ]],
+            oLanguage: {
+                 oPaginate: {
+                    sFirst: '<small>หน้าแรก</small>',
+                    sLast: '<small>หน้าสุดท้าย</small>',
+                    sNext: '<small>ถัดไป</small>',
+                    sPrevious: '<small>กลับ</small>'
+                },
+                sInfo: "<small>ทั้งหมด _TOTAL_ รายการ</small>",
+                sLengthMenu: "<small>แสดง _MENU_ รายการ</small>",
+            }
         });
     });
 
@@ -197,42 +214,69 @@
         });
     });
 
-    // datePicker
-$(function() {
-    $.datetimepicker.setLocale('th');
-    var dt = new Date();
-    dt.setDate(dt.getDate() + 3);
-    $("#dateStr").datetimepicker({
-        format: 'Y/m/d',
-        timepicker: false,
-        lang: 'th',
-        minDate: dt,
-        onShow: function(ct) {
-            this.setOptions({
-                maxDate: jQuery('#dateEnd').val() ? jQuery('#dateEnd').val() : false
-            })
-        },
-        beforeShowDay: function(date) {
-            var day = date.getDay();
-            return [day == 1 || day == 2 || day == 3 || day == 4 || day == 5, ""];
-        }
+    $(function() {
+        $.datetimepicker.setLocale('th');
+        var dt = new Date();
+        dt.setDate(dt.getDate() + 3);
+        $("#dateStr").datetimepicker({
+            format: 'Y/m/d',
+            timepicker: false,
+            lang: 'th',
+            minDate: dt,
+            onShow: function(ct) {
+                this.setOptions({
+                    maxDate: jQuery('#dateEnd').val() ? jQuery('#dateEnd').val() : false
+                })
+            },
+            beforeShowDay: function(date) {
+                var day = date.getDay();
+                return [day == 1 || day == 2 || day == 3 || day == 4 || day == 5, ""];
+            }
+        });
+        $("#dateEnd").datetimepicker({
+            format: 'Y/m/d',
+            timepicker: false,
+            lang: 'th',
+            minDate: dt,
+            onShow: function(ct) {
+                this.setOptions({
+                    minDate: jQuery('#dateStr').val() ? jQuery('#dateStr').val() : false
+                })
+            },
+            beforeShowDay: function(date) {
+                var day = date.getDay();
+                return [day == 1 || day == 2 || day == 3 || day == 4 || day == 5, ""];
+            }
+        });
     });
-    $("#dateEnd").datetimepicker({
-        format: 'Y/m/d',
-        timepicker: false,
-        lang: 'th',
-        minDate: dt,
-        onShow: function(ct) {
-            this.setOptions({
-                minDate: jQuery('#dateStr').val() ? jQuery('#dateStr').val() : false
-            })
-        },
-        beforeShowDay: function(date) {
-            var day = date.getDay();
-            return [day == 1 || day == 2 || day == 3 || day == 4 || day == 5, ""];
-        }
+
+    $('#addLeave').on("submit", function (event) {
+        event.preventDefault();
+        Swal.fire({
+            title: 'ยืนยันการขออนุมัติวันลา ?',
+            showCancelButton: true,
+            confirmButtonText: `บันทึก`,
+            cancelButtonText: `ยกเลิก`,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "{{ route('leave.addLeave') }}",
+                    data: $('#addLeave').serialize(),
+                    success: function (data) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'บันทึกการขออนุมัติสำเร็จ',
+                            showConfirmButton: false,
+                            timer: 3000
+                        })
+                        window.setTimeout(function () {
+                            location.replace('leave')
+                        }, 1500);
+                    }
+                });
+            }
+        })
     });
-});
 
 </script>
 @endsection
