@@ -15,6 +15,7 @@
     <link type="text/css" href="{{ asset('argon') }}/css/argon.css?v=1.0.0" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ asset('datepicker') }}/jquery.datetimepicker.css">
 </head>
 
 <body class="{{ $class ?? '' }}">
@@ -37,6 +38,7 @@
     <script src="{{ asset('argon') }}/js/argon.js?v=1.0.0"></script>
 </body>
 @include('sweetalert::alert')
+<script type="text/javascript" charset="utf8" src="{{ asset('datepicker') }}/jquery.datetimepicker.full.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>

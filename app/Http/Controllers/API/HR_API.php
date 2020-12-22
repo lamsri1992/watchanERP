@@ -17,6 +17,7 @@ class HR_API extends Controller
                     ->leftJoin('personals', 'users.id', '=', 'personals.user_id')
                     ->leftJoin('jobs', 'users.job', '=', 'jobs.job_id')
                     ->where('work_status', '=', 'work')
+                    ->orderBy('users.id', 'asc')
                     ->get();
         return response()->json($result);
     }
