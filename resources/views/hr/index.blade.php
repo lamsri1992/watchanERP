@@ -147,6 +147,16 @@
         rowReorder: {
             selector: 'td:nth-child(2)'
         },
+        oLanguage: {
+                 oPaginate: {
+                    sFirst: '<small>หน้าแรก</small>',
+                    sLast: '<small>หน้าสุดท้าย</small>',
+                    sNext: '<small>ถัดไป</small>',
+                    sPrevious: '<small>กลับ</small>'
+                },
+                sInfo: "<small>ทั้งหมด _TOTAL_ รายการ</small>",
+                sLengthMenu: "<small>แสดง _MENU_ รายการ</small>",
+        },
          initComplete: function() {
             this.api().columns([2, 3]).every(function() {
                 var column = this;
