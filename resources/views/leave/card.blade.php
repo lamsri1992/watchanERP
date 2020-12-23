@@ -2,13 +2,14 @@
     <div class="container-fluid">
         <div class="header-body">
             <div class="row">
+                @foreach ($count as $res)
                 <div class="col-xl-4 col-lg-6">
                     <div class="card card-stats mb-4 mb-xl-0">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col">
-                                    <h5 class="card-title text-uppercase text-muted mb-0">ลากิจ</h5>
-                                    <span class="h1 font-weight-bold mb-0"><span style="color:red;">1</span> / 45</span>
+                                    <h5 class="card-title text-uppercase text-muted mb-0">จำนวนวันที่ลากิจ</h5>
+                                    <span class="h1 font-weight-bold mb-0">{{ $res->busy == 0 ? 0 : $res->busy }}</span>
                                 </div>
                                 <div class="col-auto">
                                     <div class="icon icon-shape bg-success text-white rounded-circle shadow">
@@ -16,8 +17,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <p class="mt-3 mb-0 text-muted text-sm">
-                                <span class="text-nowrap">การลากิจควรทำรายการล่วงหน้าอย่างน้อย 3 วันทำการ</span>
+                            <p class="mt-3 mb-0 text-muted text-sm text-center">
+                                <small class="text-nowrap">การลากิจควรทำรายการล่วงหน้าอย่างน้อย 3 วันทำการ</small>
                             </p>
                         </div>
                     </div>
@@ -27,8 +28,8 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col">
-                                    <h5 class="card-title text-uppercase text-muted mb-0">ลาป่วย</h5>
-                                    <span class="h1 font-weight-bold mb-0"><span style="color:red;">0</span> / 60</span>
+                                    <h5 class="card-title text-uppercase text-muted mb-0">จำนวนวันที่ลาป่วย</h5>
+                                    <span class="h1 font-weight-bold mb-0">{{ $res->sick == 0 ? 0 : $res->sick }}</span>
                                 </div>
                                 <div class="col-auto">
                                     <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
@@ -36,8 +37,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <p class="mt-3 mb-0 text-muted text-sm">
-                                <span class="text-nowrap">การลาป่วยให้แจ้งในกลุ่ม <i class="fab fa-line text-success"></i> Watchan Family ทุกครั้ง</span>
+                            <p class="mt-3 mb-0 text-muted text-sm text-center">
+                                <small class="text-nowrap">การลาป่วยให้แจ้งในกลุ่ม <i class="fab fa-line text-success"></i> Watchan Family ทุกครั้ง</small>
                             </p>
                         </div>
                     </div>
@@ -47,8 +48,8 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col">
-                                    <h5 class="card-title text-uppercase text-muted mb-0">ลาพักผ่อน</h5>
-                                    <span class="h1 font-weight-bold mb-0"><span style="color:red;">0</span> / 10</span>
+                                    <h5 class="card-title text-uppercase text-muted mb-0">จำนวนวันที่ลาพักผ่อน</h5>
+                                    <span class="h1 font-weight-bold mb-0">{{ $res->vacation == 0 ? 0 : $res->vacation }}</span>
                                 </div>
                                 <div class="col-auto">
                                     <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
@@ -56,12 +57,13 @@
                                     </div>
                                 </div>
                             </div>
-                            <p class="mt-3 mb-0 text-muted text-sm">
-                                <span class="text-nowrap">การลาพักผ่อนควรทำรายการล่วงหน้าอย่างน้อย 7 วันทำการ</span>
+                            <p class="mt-3 mb-0 text-muted text-sm text-center">
+                                <small class="text-nowrap">การลาพักผ่อนควรทำรายการล่วงหน้าอย่างน้อย 7 วันทำการ</small>
                             </p>
                         </div>
                     </div>
                 </div>
+                @endforeach
             </div>
         </div>
     </div>
