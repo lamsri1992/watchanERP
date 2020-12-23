@@ -60,5 +60,17 @@ class LeaveController extends Controller
                 'user_id' => $userID
             ]
         );
+        // Get Unithead & Send Line Notify
+        $data = DB::table('users')
+                ->leftJoin('departments', 'users.department', '=', 'departments.dept_id')
+                ->where('users.id', $userID)
+                ->first();
+        $unit = DB::table('users')
+                ->where('users.id', $data->unit)
+                ->first();
+        // $Token = "IwLt940W6WN4NbjGSguvlgdtADxhjfdKMvYNYhHkzRT";
+        $Token = $unit->line_token;
+        $message = "มีรายการขออนุมัติวันลา \n ผู้ทำรายการ : ".Auth::User()->name." \n กรุณาดำเนินการในระบบ : https://erp.watchanhospital.com/";
+        line_notify($Token, $message);
     }
 }
