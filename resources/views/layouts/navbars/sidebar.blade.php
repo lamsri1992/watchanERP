@@ -84,7 +84,7 @@
                     <div class="collapse hidden" id="navbar-office">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a class="nav-link" href="hr">
+                                <a class="nav-link" href="/hr">
                                     {{ __('ฐานข้อมูลบุคลากร') }}
                                 </a>
                             </li>
@@ -107,6 +107,19 @@
                     </div>
                 </li>
             </ul>
+            {{-- Unit Head --}}
+            @if (!isset(Auth::user()->line_token))
+            <hr class="my-3">
+            <h6 class="navbar-heading text-muted">เมนูสำหรับหัวหน้าฝ่าย</h6>
+            <ul class="navbar-nav mb-md-3">
+                <li class="nav-item">
+                    <a class="nav-link" href="/approve">
+                        <i class="far fa-calendar-check"></i> ระบบอนุมัติวันลา
+                    </a>
+                </li>
+            </ul>
+            @endif
+            {{-- End --}}
             <hr class="my-3">
             <h6 class="navbar-heading text-muted">คู่มือการใช้งาน</h6>
             <ul class="navbar-nav mb-md-3">

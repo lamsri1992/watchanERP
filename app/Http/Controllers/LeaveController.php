@@ -51,8 +51,8 @@ class LeaveController extends Controller
         DB::table('leave_list')->insert(
             [
                 'leave_type' => $request->get('leave_type'),
-                'leave_start' => $strStartDate,
-                'leave_end' => $strEndDate,
+                'leave_start' => $request->get('leave_start'),
+                'leave_end' => $request->get('leave_end'),
                 'leave_num' => $intWorkDay,
                 'leave_time' => $request->get('leave_time'),
                 'leave_stead' => $request->get('leave_stead'),
@@ -73,4 +73,33 @@ class LeaveController extends Controller
         $message = "มีรายการขออนุมัติวันลา \n ผู้ทำรายการ : ".Auth::User()->name." \n กรุณาดำเนินการในระบบ : https://erp.watchanhospital.com/";
         line_notify($Token, $message);
     }
+
+    public function approve()
+    {
+        $deptID = Auth::User()->department;
+        $list = DB::table('leave_list')
+                ->leftJoin('users', 'leave_list.user_id', '=', 'users.id')
+                ->leftJoin('leave_type', 'leave_list.leave_type', '=', 'leave_type.type_id')
+                ->leftJoin('leave_time', 'leave_list.leave_time', '=', 'leave_time.time_id')
+                ->leftJoin('leave_status', 'leave_list.leave_status', '=', 'leave_status.status_id')
+                ->where('leave_list.leave_status', '=', 1)
+                ->where('users.department', $deptID)
+                ->get();
+        return view('leave.approve', ['list'=>$list]);
+    }
+
+    public function show($id)
+    {
+        $parm_id = base64_decode($id);
+        $list = DB::table('leave_list')
+                ->leftJoin('users', 'leave_list.user_id', '=', 'users.id')
+                ->leftJoin('leave_type', 'leave_list.leave_type', '=', 'leave_type.type_id')
+                ->leftJoin('leave_time', 'leave_list.leave_time', '=', 'leave_time.time_id')
+                ->leftJoin('leave_status', 'leave_list.leave_status', '=', 'leave_status.status_id')
+                ->leftJoin('personals', 'users.id', '=', 'personals.user_id')
+                ->where('leave_list.leave_id', $parm_id)
+                ->first();
+        return view('leave.approve_show', ['list'=>$list]);
+    }
+
 }

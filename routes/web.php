@@ -39,5 +39,11 @@ Route::get('/hr', function () {
 
 Route::group(['prefix' => 'leave'], function () {
 	Route::get('/','LeaveController@index')->name('leave.index');
-    Route::get('/addLeave','LeaveController@addLeave')->name('leave.addLeave');
+	Route::get('/addLeave','LeaveController@addLeave')->name('leave.addLeave');
+	Route::get('/approve','LeaveController@approve')->name('leave.approve');
+});
+
+Route::group(['prefix' => 'approve'], function () {
+	Route::get('/','LeaveController@approve')->name('leave.approve');
+    Route::get('/{id}','LeaveController@show')->name('leave.approve_show');
 });
