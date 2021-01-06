@@ -30,48 +30,66 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <table class="table table-borderless">
-                                <thead>
-                                    <tr>
-                                        <td><b>วันที่ทำรายการ</b></td>
-                                        <td class="text-left">{{ $list->leave_create }}</td>
-                                        <td><b>เบอร์โทรติดต่อ</b></td>
-                                        <td>{{ $list->tel }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><b>ผู้ทำรายการ</b></td>
-                                        <td class="text-left">{{ $list->name }}</td>
-                                        <td><b>ที่อยู่ที่สามารถติดต่อได้</b></td>
-                                        <td>{{ $list->address }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><b>ประเภทการลา</b></td>
-                                        <td class="text-left">{{ $list->type_name }}</td>
-                                        <td><b>ผู้รับผิดชอบงานแทน</b></td>
-                                        <td class="text-left">{{ $list->leave_stead }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><b>วันที่เริ่มลา</b></td>
-                                        <td class="text-left">{{ DateThai($list->leave_start) }}</td>
-                                        <td><b>หมายเหตุการลา</b></td>
-                                        <td class="text-left">{{ $list->leave_note }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><b>วันที่สิ้นสุด</b></td>
-                                        <td class="text-left">{{ DateThai($list->leave_end) }}</td>
+                    <div class="container-fluid">
+                        <table class="table table-borderless">
+                            <thead>
+                                <tr>
+                                    <td><b>วันที่ทำรายการ</b></td>
+                                    <td class="text-left">{{ $list->leave_create }}</td>
+                                    <td><b>เบอร์โทรติดต่อ</b></td>
+                                    <td>{{ $list->tel }}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>ผู้ทำรายการ</b></td>
+                                    <td class="text-left">{{ $list->name }}</td>
+                                    <td><b>ที่อยู่ที่สามารถติดต่อได้</b></td>
+                                    <td>{{ $list->address }}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>ประเภทการลา</b></td>
+                                    <td class="text-left">{{ $list->type_name }}</td>
+                                    <td><b>ผู้รับผิดชอบงานแทน</b></td>
+                                    <td class="text-left">{{ $list->leave_stead }}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>วันที่เริ่มลา</b></td>
+                                    <td class="text-left">{{ DateThai($list->leave_start) }}</td>
+                                    <td><b>หมายเหตุการลา</b></td>
+                                    <td class="text-left">{{ $list->leave_note }}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>วันที่สิ้นสุด</b></td>
+                                    <td class="text-left">{{ DateThai($list->leave_end) }}</td>
+                                    @if(!is_null($list->leave_hnote))
                                         <td><b>ความเห็นหัวหน้าฝ่าย</b></td>
                                         <td class="text-left">{{ $list->leave_hnote }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><b>จำนวน (วัน)</b></td>
-                                        <td class="text-left">{{ $list->leave_num }} <small class="text-danger">{{ $list->time_name }}</small></td>
-                                    </tr>
-                                </thead>
-                            </table>
-                        </div>
+                                    @endif
+                                </tr>
+                                <tr>
+                                    <td><b>จำนวน (วัน)</b></td>
+                                    <td class="text-left">{{ $list->leave_num }}
+                                        <small class="text-danger">{{ $list->time_name }}</small>
+                                    </td>
+                                </tr>
+                            </thead>
+                        </table>
                     </div>
+                </div>
+                <div class="card-body">
+                    <form id="approveList">
+                        <div class="container-fluid form-row">
+                            <div class="form-group col-md-12">
+                                <label>ความเห็นหัวหน้าฝ่าย</label>
+                                <textarea name="" class="form-control" cols="30" rows="3" placeholder="ระบุความคิดเห็นในการขออนุมัติรายการ..." required></textarea>
+                            </div>
+                            <div class="col-md-6">
+                                <button id="btnApprove" class="btn btn-block btn-lg btn-success"><i class="fa fa-check-circle"></i> อนุมัติรายการ</button>
+                            </div>
+                            <div class="col-md-6">
+                                <button id="btnDisapprove" class="btn btn-block btn-lg btn-danger"><i class="fa fa-times-circle"></i> ไม่อนุมัติรายการ</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

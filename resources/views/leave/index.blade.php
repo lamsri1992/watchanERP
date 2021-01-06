@@ -26,34 +26,17 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <button type="button" class="btn btn-primary btn-block" data-toggle="modal"
-                                data-target="#addLeaveModal">
-                                <i class="far fa-edit"></i> ขออนุมัติวันลา
-                            </button>
-                        </div>
-                        <div class="col-md-3">
-                            <button type="button" class="btn btn-light btn-block">
-                                รอดำเนินการ <span class="badge badge-light text-white">0</span>
-                            </button>
-                        </div>
-                        <div class="col-md-3">
-                            <button type="button" class="btn btn-light btn-block">
-                                รอการอนุมัติ <span class="badge badge-light text-white">1</span>
-                            </button>
-                        </div>
-                        <div class="col-md-3">
-                            <button type="button" class="btn btn-success btn-block">
-                                อนุมัติแล้ว <span class="badge badge-success text-white">1</span>
-                            </button>
-                        </div>
-                    </div>
                 </div>
                 <div class="card-body">
                     <h6 class="ls-1 mb-1">
                         <i class="fa fa-history"></i> ประวัติการลางาน
                     </h6>
+                    <div class="text-right">
+                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
+                            data-target="#addLeaveModal">
+                            <i class="far fa-edit"></i> ทำรายการขออนุมัติวันลา
+                        </button>
+                    </div>
                     <table id="leave_list" class="table table-bordered display" style="width:100%;">
                         <thead class="thead-dark">
                             <tr>
