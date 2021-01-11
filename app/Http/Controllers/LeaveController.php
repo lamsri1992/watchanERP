@@ -91,7 +91,7 @@ class LeaveController extends Controller
                 ->leftJoin('leave_type', 'leave_list.leave_type', '=', 'leave_type.type_id')
                 ->leftJoin('leave_time', 'leave_list.leave_time', '=', 'leave_time.time_id')
                 ->leftJoin('leave_status', 'leave_list.leave_status', '=', 'leave_status.status_id')
-                ->where('leave_list.leave_status', '=', 1)
+                ->whereIn('leave_list.leave_status',[1,5])
                 ->where('users.department', $deptID)
                 ->get();
         return view('leave.approve', ['list'=>$list]);
