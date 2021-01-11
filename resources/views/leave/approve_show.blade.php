@@ -80,7 +80,7 @@
                         <div class="container-fluid form-row">
                             <div class="form-group col-md-12">
                                 <label>ความเห็นหัวหน้าฝ่าย</label>
-                                <textarea name="" class="form-control" cols="30" rows="3" placeholder="ระบุความคิดเห็นในการขออนุมัติรายการ..." required></textarea>
+                                <textarea name="hnote" class="form-control" cols="30" rows="3" placeholder="ระบุความคิดเห็นในการขออนุมัติรายการ..." required></textarea>
                             </div>
                             <div class="col-md-6">
                                 <button id="btnApprove" class="btn btn-block btn-lg btn-success"><i class="fa fa-check-circle"></i> อนุมัติรายการ</button>
@@ -100,6 +100,62 @@
 @endsection
 @section('script')
 <script type="text/javascript">
+     $('#btnApprove').on("click", function (event) {
+        event.preventDefault();
+        Swal.fire({
+            title: 'อนุมัติวันลา\n{{ "รหัสรายการ : HR-".$list->leave_id }}',
+            showCancelButton: true,
+            confirmButtonText: `ตกลง`,
+            cancelButtonText: `ยกเลิก`,
+            icon: "success",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "{{ route('approve.allowList',$list->leave_id) }}",
+                    data: $('#approveList').serialize(),
+                    success: function (data) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'บันทึกรายการแล้ว',
+                            showConfirmButton: false,
+                            timer: 3000
+                        })
+                        window.setTimeout(function () {
+                            location.replace('/approve')
+                        }, 1500);
+                    }
+                });
+            }
+        })
+    });
 
+    $('#btnDisapprove').on("click", function (event) {
+        event.preventDefault();
+        Swal.fire({
+            title: 'ไม่อนุมัติวันลา\n{{ "รหัสรายการ : HR-".$list->leave_id }}',
+            showCancelButton: true,
+            confirmButtonText: `ตกลง`,
+            cancelButtonText: `ยกเลิก`,
+            icon: "error",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "{{ route('approve.disallowList',$list->leave_id) }}",
+                    data: $('#approveList').serialize(),
+                    success: function (data) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'บันทึกรายการแล้ว',
+                            showConfirmButton: false,
+                            timer: 3000
+                        })
+                        window.setTimeout(function () {
+                            location.replace('/approve')
+                        }, 1500);
+                    }
+                });
+            }
+        })
+    });
 </script>
 @endsection

@@ -70,8 +70,17 @@ class LeaveController extends Controller
                 ->first();
         // $Token = "IwLt940W6WN4NbjGSguvlgdtADxhjfdKMvYNYhHkzRT";
         $Token = $unit->line_token;
-        $message = "มีรายการขออนุมัติวันลา \n ผู้ทำรายการ : ".Auth::User()->name." \n กรุณาดำเนินการในระบบ : https://erp.watchanhospital.com/";
+        $message = "มีรายการขออนุมัติวันลา\nจาก : ".Auth::User()->name."\nกรุณาดำเนินการก่อนวันที่ ".DateThai($strStartDate)."\nhttps://erp.watchanhospital.com/";
         line_notify($Token, $message);
+    }
+
+    public function cancleList(Request $request, $id)
+    {
+        DB::table('leave_list')->where('leave_id', $id)->update(
+            [
+                'leave_status' => 5
+            ]
+        );
     }
 
     public function approve()
@@ -100,6 +109,30 @@ class LeaveController extends Controller
                 ->where('leave_list.leave_id', $parm_id)
                 ->first();
         return view('leave.approve_show', ['list'=>$list]);
+    }
+
+    public function allowList(Request $request, $id)
+    {
+        DB::table('leave_list')->where('leave_id', $id)->update(
+            [
+                'leave_hnote' => $request->get('hnote'),
+                'leave_status' => 2
+            ]
+        );
+        // Send Line To PJ
+        $Token = "IwLt940W6WN4NbjGSguvlgdtADxhjfdKMvYNYhHkzRT";
+        $message = "มีรายการขออนุมัติวันลารอดำเนินการ\nกรุณาดำเนินการที่ : https://erp.watchanhospital.com/";
+        line_notify($Token, $message);
+    }
+
+    public function disallowList(Request $request, $id)
+    {
+        DB::table('leave_list')->where('leave_id', $id)->update(
+            [
+                'leave_hnote' => $request->get('hnote'),
+                'leave_status' => 4
+            ]
+        );
     }
 
 }
