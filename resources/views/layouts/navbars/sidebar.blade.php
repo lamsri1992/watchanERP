@@ -108,7 +108,7 @@
                 </li>
             </ul>
             {{-- Unit Head --}}
-            @if (!isset(Auth::user()->line_token))
+            @if (Auth::user()->permission == 1)
             <hr class="my-3">
             <h6 class="navbar-heading text-muted">เมนูสำหรับหัวหน้าฝ่าย</h6>
             <ul class="navbar-nav mb-md-3">

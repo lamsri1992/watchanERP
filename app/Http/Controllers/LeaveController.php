@@ -47,6 +47,11 @@ class LeaveController extends Controller
         if ($request->get('leave_time')== '2' || $request->get('leave_time') == '3'){
             $intWorkDay = $intWorkDay - 0.5;
         }
+        if (!isset(Auth::User()->line_token)){
+            $statusID = '1';
+        }else{
+            $statusID = '2';
+        }
         // Insert Leave Request
         DB::table('leave_list')->insert(
             [
@@ -57,6 +62,7 @@ class LeaveController extends Controller
                 'leave_time' => $request->get('leave_time'),
                 'leave_stead' => $request->get('leave_stead'),
                 'leave_note' => $request->get('leave_note'),
+                'leave_status' => $statusID,
                 'user_id' => $userID
             ]
         );
