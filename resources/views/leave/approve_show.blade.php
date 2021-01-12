@@ -32,7 +32,7 @@
                 <div class="card-body">
                     <div class="container-fluid">
                         <table class="table table-borderless">
-                            <thead>
+                            <tbody>
                                 <tr>
                                     <td><b>วันที่ทำรายการ</b></td>
                                     <td class="text-left">{{ $list->leave_create }}</td>
@@ -71,7 +71,7 @@
                                         <small class="text-danger">{{ $list->time_name }}</small>
                                     </td>
                                 </tr>
-                            </thead>
+                            </tbody>
                         </table>
                     </div>
                 </div>

@@ -41,18 +41,29 @@
                         <thead class="thead-dark">
                             <tr>
                                 <th class="text-center">No.</th>
+                                <th class="text-center">สถานะ</th>
                                 <th class="text-center">ประเภทการลา</th>
                                 <th class="text-center">วันที่ลา</th>
                                 <th class="text-center">วันที่สิ้นสุด</th>
                                 <th class="text-center">จำนวน (วัน)</th>
                                 <th class="text-center">ผู้รับผิดชอบงาน</th>
-                                <th class="text-center">สถานะ</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($data as $res)                                
                             <tr>
-                                <td class="text-center">{{ "HR-".$res->leave_id }}</td>
+                                <td class="text-center">
+                                    <a href="{{ route('leave.list_show',base64_encode($res->leave_id)) }}">
+                                        {{ "HR-".$res->leave_id }}
+                                    </a>
+                                </td>
+                                <td class="text-center">
+                                    <div class="text-center">
+                                        <span class="{{ $res->status_style }}">
+                                              <i class="{{ $res->status_icon }}"></i> {{ $res->status_name }}
+                                        </span>
+                                    </div>
+                                </td>
                                 <td class="text-center">
                                     {{ $res->type_name }}
                                 </td>
@@ -68,21 +79,6 @@
                                 </td>
                                 <td class="text-center">
                                     {{ $res->leave_stead }}
-                                </td>
-                                <td class="text-center">
-                                    <div class="text-center">
-                                        <div class="dropdown mr-1">
-                                          <span role="button" class="{{ $res->status_style }} dropdown-toggle" 
-                                                id="dropdownLeave" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="{{ $res->status_icon }}"></i> {{ $res->status_name }}
-                                          </span>
-                                          @if ($res->status_id == 1)
-                                          <div class="dropdown-menu" aria-labelledby="dropdownLeave">
-                                              <a id="cancleList" class="dropdown-item text-red" href="#"><i class="fas fa-ban"></i> ยกเลิกรายการ</a>
-                                          </div>
-                                          @endif
-                                        </div>
-                                    </div>
                                 </td>
                             </tr>
                             @endforeach
@@ -261,34 +257,6 @@
                         })
                         window.setTimeout(function () {
                             location.replace('leave')
-                        }, 1500);
-                    }
-                });
-            }
-        })
-    });
-    
-    $('#cancleList').on("click", function (event) {
-        event.preventDefault();
-        Swal.fire({
-            title: 'ยกเลิกรายการขออนุมัติวันลา\n{{ "รหัสรายการ : HR-".$res->leave_id }}',
-            showCancelButton: true,
-            confirmButtonText: `ตกลง`,
-            cancelButtonText: `ยกเลิก`,
-            icon: "warning",
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    url: "{{ route('leave.cancleList',$res->leave_id) }}",
-                    success: function (data) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'ดำเนินการเสร็จสิ้น',
-                            showConfirmButton: false,
-                            timer: 3000
-                        })
-                        window.setTimeout(function () {
-                            location.replace('/leave')
                         }, 1500);
                     }
                 });

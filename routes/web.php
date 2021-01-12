@@ -41,6 +41,7 @@ Route::group(['prefix' => 'leave'], function () {
 	Route::get('/','LeaveController@index')->name('leave.index');
 	Route::get('/addLeave','LeaveController@addLeave')->name('leave.addLeave');
 	Route::get('/approve','LeaveController@approve')->name('leave.approve');
+	Route::get('/{id}','LeaveController@list')->name('leave.list_show');
     Route::get('/cancleList/{id}','LeaveController@cancleList')->name('leave.cancleList');
 
 });
