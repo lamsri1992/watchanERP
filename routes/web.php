@@ -55,4 +55,5 @@ Route::group(['prefix' => 'approve'], function () {
 
 Route::group(['prefix' => 'authorize'], function () {
 	Route::get('/','LeaveController@authorizeList')->name('leave.authorize');
+	Route::get('/approve_all','LeaveController@approve_all')->name('leave.approve_all');
 });

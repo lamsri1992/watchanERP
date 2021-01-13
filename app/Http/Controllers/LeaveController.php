@@ -167,4 +167,29 @@ class LeaveController extends Controller
         return view('leave.authorize', ['list'=>$list]);
     }
 
+    public function approve_all()
+    {
+        $list = DB::table('leave_list')
+                ->select('name','leave_id','leave_start')
+                ->leftJoin('users', 'leave_list.user_id', '=', 'users.id')
+                ->where('leave_list.leave_status','=',2)
+                ->get();
+        $text = "";
+        foreach ($list as $res){
+            $text .= "รายการ : รหัส HR-".$res->leave_id."\nผู้ขออนุมัติ : ".$res->name."\nวันที่ลา : ".DateThai($res->leave_start)."\n";
+            $text .= "ได้รับการอนุมัติแล้ว\n\n";
+        }
+        // Send Line To Watchan Family
+        $Token = "IwLt940W6WN4NbjGSguvlgdtADxhjfdKMvYNYhHkzRT";
+        $message = $text;
+        line_notify($Token, $message);
+
+        DB::table('leave_list')->where('leave_status', 2)->update(
+            [
+                'leave_dnote' => 'อนุมัติรายการ',
+                'leave_status' => 3
+            ]
+        );
+    }
+
 }

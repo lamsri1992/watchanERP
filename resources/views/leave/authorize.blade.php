@@ -31,7 +31,7 @@
                     <h4 class="ls-1 mb-1">
                         <i class="far fa-clock"></i> รายการรอดำเนินการ
                         <div class="text-right">
-                            <button class="btn btn-sm btn-success">
+                            <button id="btnAll" class="btn btn-sm btn-success">
                                 <i class="fa fa-tasks"></i> อนุมัติทั้งหมด
                             </button>
                         </div>
@@ -126,5 +126,35 @@
             }
         });
     });
+
+    $('#btnAll').on("click", function (event) {
+        var id = $(this).attr('data-id');
+        event.preventDefault();
+        Swal.fire({
+            title: 'อนุมัติรายการทั้งหมด ?',
+            showCancelButton: true,
+            confirmButtonText: `ยืนยัน`,
+            cancelButtonText: `ยกเลิก`,
+            icon: `warning`,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "{{ route('leave.approve_all') }}",
+                    success: function (data) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'ทำรายการสำเร็จ',
+                            showConfirmButton: false,
+                            timer: 3000
+                        })
+                        window.setTimeout(function () {
+                            location.replace('/authorize')
+                        }, 1500);
+                    }
+                });
+            }
+        })
+    });
+
 </script>
 @endsection
