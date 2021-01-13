@@ -155,4 +155,16 @@ class LeaveController extends Controller
         );
     }
 
+    public function authorizeList()
+    {
+        $list = DB::table('leave_list')
+                ->leftJoin('users', 'leave_list.user_id', '=', 'users.id')
+                ->leftJoin('leave_type', 'leave_list.leave_type', '=', 'leave_type.type_id')
+                ->leftJoin('leave_time', 'leave_list.leave_time', '=', 'leave_time.time_id')
+                ->leftJoin('leave_status', 'leave_list.leave_status', '=', 'leave_status.status_id')
+                ->where('leave_list.leave_status','=',2)
+                ->get();
+        return view('leave.authorize', ['list'=>$list]);
+    }
+
 }

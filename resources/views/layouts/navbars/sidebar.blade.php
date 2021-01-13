@@ -108,15 +108,31 @@
                 </li>
             </ul>
             {{-- Unit Head --}}
-            @if (Auth::user()->permission == 1)
+            @if (isset(Auth::user()->permission))
             <hr class="my-3">
-            <h6 class="navbar-heading text-muted">เมนูสำหรับหัวหน้าฝ่าย</h6>
+            <h6 class="navbar-heading text-muted">ระบบอนุมัติวันลา</h6>
             <ul class="navbar-nav mb-md-3">
+                @if (Auth::user()->permission == 1)
                 <li class="nav-item">
                     <a class="nav-link" href="/approve">
-                        <i class="far fa-calendar-check"></i> ระบบอนุมัติวันลา
+                        <i class="far fa-calendar"></i> สำหรับหัวหน้าฝ่าย
                     </a>
                 </li>
+                @endif
+                @if (Auth::user()->permission == 1)
+                <li class="nav-item">
+                    <a class="nav-link" href="/authorize">
+                        <i class="far fa-calendar-check"></i> สำหรับผู้อำนวยการ
+                    </a>
+                </li>
+                @endif
+                @if (Auth::user()->permission == 1)
+                <li class="nav-item">
+                    <a class="nav-link" href="/hradmin">
+                        <i class="far fa-calendar-alt"></i> สำหรับงานทรัพยากรบุคคล
+                    </a>
+                </li>
+                @endif
             </ul>
             @endif
             {{-- End --}}

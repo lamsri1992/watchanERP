@@ -17,7 +17,7 @@
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item">
                                             <a href="/approve">
-                                                <i class="far fa-calendar-check"></i> ระบบอนุมัติวันลา
+                                                <i class="far fa-calendar"></i> ระบบอนุมัติวันลา
                                             </a>
                                         </li>
                                         <li class="breadcrumb-item active" aria-current="page">

@@ -17,10 +17,10 @@
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item">
                                             <a href="#">
-                                                <i class="far fa-calendar"></i> ระบบอนุมัติวันลา
+                                                <i class="far fa-calendar-check"></i> ระบบอนุมัติวันลา
                                             </a>
                                         </li>
-                                        <li class="breadcrumb-item active" aria-current="page">สำหรับหัวหน้าฝ่าย</li>
+                                        <li class="breadcrumb-item active" aria-current="page">สำหรับผู้อำนวยการ</li>
                                     </ol>
                                 </nav>
                             </div>
@@ -30,8 +30,13 @@
                 <div class="card-body">
                     <h4 class="ls-1 mb-1">
                         <i class="far fa-clock"></i> รายการรอดำเนินการ
+                        <div class="text-right">
+                            <button class="btn btn-sm btn-success">
+                                <i class="fa fa-tasks"></i> อนุมัติทั้งหมด
+                            </button>
+                        </div>
                     </h4>
-                  <table id="leave_list" class="table table-bordered display" style="width:100%;">
+                    <table id="leave_list" class="table table-bordered display" style="width:100%;">
                         <thead class="thead-dark">
                             <tr>
                                 <th class="text-center">No.</th>
@@ -67,15 +72,18 @@
                                     {{ $res->leave_num }}&nbsp;
                                     <small class="text-danger">{{ $res->time_name }}</small>
                                 </td>
-                                @if ($res->status_id==1)
-                                    @php $btnShow = ''; @endphp
-                                @else 
-                                    @php $btnShow = 'disabled'; @endphp
-                                @endif
                                 <td class="text-center">
-                                    <a href="{{ route('leave.approve_show',base64_encode($res->leave_id)) }}" class="btn btn-sm btn-success" {{ $btnShow }}>
-                                        <i class="fa fa-edit"></i> ดำเนินการ
-                                    </a>
+                                    <div class="dropdown">
+                                        <a class="btn btn-outline-primary btn-sm dropdown-toggle" href="#" role="button" id="dropdownApprove" 
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                          <i class="fa fa-cog"></i> รายการอนุมัติ
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownApprove">
+                                          <a class="dropdown-item text-success" href="#"><i class="far fa-check-circle"></i>อนุมัติรายการ</a>
+                                          <a class="dropdown-item text-danger" href="#"><i class="far fa-times-circle"></i>ไม่อนุมัติรายการ</a>
+                                          <a class="dropdown-item text-primary" href="#"><i class="far fa-question-circle"></i>ดูรายละเอียด</a>
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                             @endforeach
