@@ -192,4 +192,29 @@ class LeaveController extends Controller
         );
     }
 
+    public function HrmleaveList()
+    {
+        $list = DB::table('leave_list')
+                ->leftJoin('users', 'leave_list.user_id', '=', 'users.id')
+                ->leftJoin('leave_type', 'leave_list.leave_type', '=', 'leave_type.type_id')
+                ->leftJoin('leave_time', 'leave_list.leave_time', '=', 'leave_time.time_id')
+                ->leftJoin('leave_status', 'leave_list.leave_status', '=', 'leave_status.status_id')
+                ->get();
+        return view('leave.hr', ['list'=>$list]);
+    }
+
+    public function Hrshow($id)
+    {
+        $parm_id = base64_decode($id);
+        $list = DB::table('leave_list')
+                ->leftJoin('users', 'leave_list.user_id', '=', 'users.id')
+                ->leftJoin('leave_type', 'leave_list.leave_type', '=', 'leave_type.type_id')
+                ->leftJoin('leave_time', 'leave_list.leave_time', '=', 'leave_time.time_id')
+                ->leftJoin('leave_status', 'leave_list.leave_status', '=', 'leave_status.status_id')
+                ->leftJoin('personals', 'users.id', '=', 'personals.user_id')
+                ->where('leave_list.leave_id', $parm_id)
+                ->first();
+        return view('leave.hr_show', ['list'=>$list]);
+    }
+
 }

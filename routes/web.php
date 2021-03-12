@@ -57,3 +57,9 @@ Route::group(['prefix' => 'authorize'], function () {
 	Route::get('/','LeaveController@authorizeList')->name('leave.authorize');
 	Route::get('/approve_all','LeaveController@approve_all')->name('leave.approve_all');
 });
+
+Route::group(['prefix' => 'hrm'], function () {
+	Route::get('/leave','LeaveController@HrmLeaveList')->name('leave.hr');
+	Route::get('/leave/{id}','LeaveController@Hrshow')->name('leave.hr_show');
+
+});

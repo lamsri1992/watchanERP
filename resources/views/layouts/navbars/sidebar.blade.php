@@ -128,7 +128,7 @@
                 @endif
                 @if (Auth::user()->permission == 1)
                 <li class="nav-item">
-                    <a class="nav-link" href="/hradmin">
+                    <a class="nav-link" href="/hrm/leave">
                         <i class="far fa-calendar-alt"></i> สำหรับงานทรัพยากรบุคคล
                     </a>
                 </li>
