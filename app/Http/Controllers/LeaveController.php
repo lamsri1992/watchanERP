@@ -22,11 +22,14 @@ class LeaveController extends Controller
                     ->where('work_status', '=', 'work')
                     ->orderBy('users.id', 'asc')
                     ->get();
+        $num = DB::table('leave_num')
+                    ->where('user_id', $userID)
+                    ->first();
         $count = DB::select(DB::raw("SELECT
                     (SELECT SUM(leave_num) FROM leave_list WHERE leave_type = '2' AND user_id = '{$userID}' AND leave_status ='3' GROUP BY user_id) AS sick,
                     (SELECT SUM(leave_num) FROM leave_list WHERE leave_type = '1' AND user_id = '{$userID}' AND leave_status ='3' GROUP BY user_id) AS busy,
                     (SELECT SUM(leave_num) FROM leave_list WHERE leave_type = '3' AND user_id = '{$userID}' AND leave_status ='3' GROUP BY user_id) AS vacation"));
-        return view('leave.index', ['data'=>$data,'uname'=>$uname,'count'=>$count]);
+        return view('leave.index', ['data'=>$data,'uname'=>$uname,'count'=>$count,'num'=>$num]);
     }
 
     public function addLeave(Request $request)
