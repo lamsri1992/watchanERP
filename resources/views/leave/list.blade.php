@@ -35,9 +35,16 @@
                     </div>
                 </div>
                 <div class="card-body">
+                    @if ($list->status_id == 3)
+                    <div class="alert alert-success" role="alert">
+                        <h4 class="alert-heading"><i class="fas fa-check-circle"></i> รายการนี้ถูกอนุมัติแล้ว</h4>
+                        <span><b>วันที่อนุมัติ</b> : {{ DateThai($list->leave_approve) }}</span><br>
+                        <span><b>ความเห็นผู้อำนวยการ</b> : {{ $list->leave_dnote }}</span>
+                    </div>
+                    @endif
                     @if ($list->status_id == 5)
                     <div class="alert alert-danger" role="alert">
-                        <h4 class="alert-heading">รายการนี้ถูกยกเลิกไปแล้ว !!</h4>
+                        <h4 class="alert-heading"><i class="fa fa-times-circle"></i> รายการนี้ถูกยกเลิกไปแล้ว</h4>
                         <span><b>วันที่ยกเลิก</b> : {{ DateThai($list->leave_cancel_date) }}</span><br>
                         <span><b>ผู้ยกเลิก</b> : {{ $list->leave_cancle }}</span><br>
                         <span><b>หมายเหตุ</b> : {{ $list->leave_cancel_note }}</span>
@@ -87,7 +94,7 @@
                     </table>
                 </div>
                 <div class="card-body text-right">
-                    @if ($list->status_id != 5)
+                    @if ($list->status_id != 5 && $list->status_id != 3)
                         <button id="btnCancle" class="btn btn-danger btn-sm" href="#"><i class="fa fa-times-circle"></i> ยกเลิกรายการ</button>
                     @endif
                 </div>

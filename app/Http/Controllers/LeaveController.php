@@ -182,6 +182,7 @@ class LeaveController extends Controller
 
     public function approve_all()
     {
+        $date = date("Y-m-d H:i:s");
         $list = DB::table('leave_list')
                 ->select('name','leave_id','leave_start')
                 ->leftJoin('users', 'leave_list.user_id', '=', 'users.id')
@@ -200,7 +201,8 @@ class LeaveController extends Controller
         DB::table('leave_list')->where('leave_status', 2)->update(
             [
                 'leave_dnote' => 'อนุมัติรายการ',
-                'leave_status' => 3
+                'leave_approve' => $date,
+                'leave_status' => 3,
             ]
         );
     }
