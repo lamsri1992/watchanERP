@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="header bg-gradient-primary pb-8 pt-5 pt-md-8"></div>
+<div class="header bg-gradient-primary pb-5 pt-5 pt-md-8"></div>
 <div class="container-fluid mt--7">
     <div class="row">
         <div class="col-xl-12 mb-5 mb-xl-0">
@@ -35,6 +35,14 @@
                     </div>
                 </div>
                 <div class="card-body">
+                    @if ($list->status_id == 5)
+                    <div class="alert alert-danger" role="alert">
+                        <h4 class="alert-heading">รายการนี้ถูกยกเลิกไปแล้ว !!</h4>
+                        <span><b>วันที่ยกเลิก</b> : {{ DateThai($list->leave_cancel_date) }}</span><br>
+                        <span><b>ผู้ยกเลิก</b> : {{ $list->leave_cancle }}</span><br>
+                        <span><b>หมายเหตุ</b> : {{ $list->leave_cancel_note }}</span>
+                    </div>
+                    @endif
                     <table class="table table-borderless">
                         <tbody>
                             <tr>
@@ -79,8 +87,8 @@
                     </table>
                 </div>
                 <div class="card-body text-right">
-                    @if ($list->status_id == 1)
-                        <button id="cancleList" class="btn btn-danger btn-sm" href="#"><i class="fas fa-ban"></i> ยกเลิกรายการ</button>
+                    @if ($list->status_id != 5)
+                        <button id="btnCancle" class="btn btn-danger btn-sm" href="#"><i class="fa fa-times-circle"></i> ยกเลิกรายการ</button>
                     @endif
                 </div>
             </div>
@@ -92,34 +100,39 @@
 @endsection
 @section('script')
 <script type="text/javascript">
-
-    $('#cancleList').on("click", function (event) {
+ $('#btnCancle').on("click", function (event) {
         event.preventDefault();
         Swal.fire({
-            title: 'ยกเลิกรายการขออนุมัติวันลา\n{{ "รหัสรายการ : HR-".$list->leave_id }}',
+            title: 'ยกเลิกรายการ\n{{ "รหัสรายการ : HR-".$list->leave_id }}',
+            text: 'หากยกเลิกรายการแล้ว จะไม่สามารถย้อนกลับรายการได้อีก',
             showCancelButton: true,
             confirmButtonText: `ตกลง`,
             cancelButtonText: `ยกเลิก`,
-            icon: "warning",
+            icon: 'warning',
+            input: 'text',
+            inputPlaceholder: 'ระบุหมายเหตุการยกเลิกรายการ'
         }).then((result) => {
             if (result.isConfirmed) {
+                var formData = result.value;
+                var token = "{{ csrf_token() }}";
+                console.log(formData);
                 $.ajax({
                     url: "{{ route('leave.cancleList',$list->leave_id) }}",
+                    data:{formData: formData,_token: token},
                     success: function (data) {
                         Swal.fire({
                             icon: 'success',
-                            title: 'ดำเนินการเสร็จสิ้น',
+                            title: 'ยกเลิกรายการแล้ว',
                             showConfirmButton: false,
                             timer: 3000
                         })
                         window.setTimeout(function () {
-                            location.replace('/leave')
+                            location.replace('/hrm/leave')
                         }, 1500);
                     }
                 });
             }
         })
     });
-
 </script>
 @endsection

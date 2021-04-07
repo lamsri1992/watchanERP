@@ -100,10 +100,13 @@ class LeaveController extends Controller
     public function cancleList(Request $request, $id)
     {
         $note = $request->get('formData');
+        $date = date("Y-m-d H:i:s");
         DB::table('leave_list')->where('leave_id', $id)->update(
             [
                 'leave_status' => 5,
+                'leave_cancle' => Auth::User()->name,
                 'leave_cancel_note' => $note,
+                'leave_cancel_date' => $date,
             ]
         );
     }
@@ -116,7 +119,7 @@ class LeaveController extends Controller
                 ->leftJoin('leave_type', 'leave_list.leave_type', '=', 'leave_type.type_id')
                 ->leftJoin('leave_time', 'leave_list.leave_time', '=', 'leave_time.time_id')
                 ->leftJoin('leave_status', 'leave_list.leave_status', '=', 'leave_status.status_id')
-                ->whereIn('leave_list.leave_status',[1,5])
+                // ->whereIn('leave_list.leave_status',[1,5])
                 ->where('users.department', $deptID)
                 ->get();
         return view('leave.approve', ['list'=>$list]);

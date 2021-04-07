@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="header bg-gradient-primary pb-8 pt-5 pt-md-8"></div>
+<div class="header bg-gradient-primary pb-5 pt-5 pt-md-8"></div>
 <div class="container-fluid mt--7">
     <div class="row">
         <div class="col-xl-12 mb-5 mb-xl-0">
@@ -30,6 +30,14 @@
                     </div>
                 </div>
                 <div class="card-body">
+                    @if ($list->status_id == 5)
+                    <div class="alert alert-danger" role="alert">
+                        <h4 class="alert-heading">รายการนี้ถูกยกเลิกไปแล้ว !!</h4>
+                        <span><b>วันที่ยกเลิก</b> : {{ DateThai($list->leave_cancel_date) }}</span><br>
+                        <span><b>ผู้ยกเลิก</b> : {{ $list->leave_cancle }}</span><br>
+                        <span><b>หมายเหตุ</b> : {{ $list->leave_cancel_note }}</span>
+                    </div>
+                    @endif
                     <div class="container-fluid">
                         <table class="table table-borderless">
                             <tbody>
@@ -75,6 +83,7 @@
                         </table>
                     </div>
                 </div>
+                @if ($list->status_id == 1)
                 <div class="card-body">
                     <form id="approveList">
                         <div class="container-fluid form-row">
@@ -91,6 +100,7 @@
                         </div>
                     </form>
                 </div>
+                @endif
             </div>
         </div>
     </div>

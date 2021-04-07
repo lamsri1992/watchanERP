@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="header bg-gradient-primary pb-8 pt-5 pt-md-8"></div>
+<div class="header bg-gradient-primary pb-5 pt-5 pt-md-8"></div>
 <div class="container-fluid mt--7">
     <div class="row">
         <div class="col-xl-12 mb-5 mb-xl-0">
@@ -31,6 +31,14 @@
                     </div>
                 </div>
                 <div class="card-body">
+                    @if ($list->status_id == 5)
+                    <div class="alert alert-danger" role="alert">
+                        <h4 class="alert-heading">รายการนี้ถูกยกเลิกไปแล้ว !!</h4>
+                        <span><b>วันที่ยกเลิก</b> : {{ DateThai($list->leave_cancel_date) }}</span><br>
+                        <span><b>ผู้ยกเลิก</b> : {{ $list->leave_cancle }}</span><br>
+                        <span><b>หมายเหตุ</b> : {{ $list->leave_cancel_note }}</span>
+                    </div>
+                    @endif
                     <div class="container-fluid">
                         <table class="table table-borderless">
                             <tbody>
@@ -76,11 +84,13 @@
                         </table>
                     </div>
                 </div>
+                @if ($list->status_id != 5)
                 <div class="card-body">
                     <div class="text-right">
                         <button id="btnCancle" class="btn btn-sm btn-danger"><i class="fa fa-times-circle"></i> ยกเลิกรายการ</button>
                     </div>
                 </div>
+                @endif
             </div>
         </div>
     </div>
@@ -90,7 +100,7 @@
 @endsection
 @section('script')
 <script type="text/javascript">
-         $('#btnCancle').on("click", function (event) {
+    $('#btnCancle').on("click", function (event) {
         event.preventDefault();
         Swal.fire({
             title: 'ยกเลิกรายการ\n{{ "รหัสรายการ : HR-".$list->leave_id }}',
