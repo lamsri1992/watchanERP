@@ -52,6 +52,9 @@ class LeaveController extends Controller
         }else{
             $statusID = '2';
         }
+        if($request->get('leave_type') == 1 ){ $t_name = 'ลากิจ'; }
+        if($request->get('leave_type') == 2 ){ $t_name = 'ลาป่วย'; }
+        if($request->get('leave_type') == 3 ){ $t_name = 'ลาพักผ่อน'; }
         // Insert Leave Request
         DB::table('leave_list')->insert(
             [
@@ -74,9 +77,9 @@ class LeaveController extends Controller
         $unit = DB::table('users')
                 ->where('users.id', $data->unit)
                 ->first();
-        // $Token = "IwLt940W6WN4NbjGSguvlgdtADxhjfdKMvYNYhHkzRT";
-        $Token = $unit->line_token;
-        $message = "มีรายการขออนุมัติวันลา\nจาก : ".Auth::User()->name."\nกรุณาดำเนินการก่อนวันที่ ".DateThai($strStartDate)."\nhttps://erp.watchanhospital.com/";
+        $Token = "w5QuztyBKpMk262OYuuQP6rV1v7bFO1ooX2JvHHJDzh";
+        // $Token = $unit->line_token;
+        $message = "มีรายการขออนุมัติวันลา\nจาก : ".Auth::User()->name."\nประเภท : ".$t_name."\nวันที่ลา : ".DateThai($request->get('leave_start'))."\nถึงวันที่ : ".DateThai($request->get('leave_end'))."\nจำนวน : ".$intWorkDay." วัน\nกรุณาดำเนินการก่อน ".DateThai($request->get('leave_start'))."\nที่ https://erp.watchanhospital.com/";
         line_notify($Token, $message);
     }
 
