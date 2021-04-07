@@ -11,6 +11,7 @@ class LeaveController extends Controller
     public function index()
     {
         $userID = Auth::User()->id;
+        $userDept = Auth::User()->department;
         $data = DB::table('leave_list')
                     ->leftJoin('leave_status', 'leave_list.leave_status', '=', 'leave_status.status_id')
                     ->leftJoin('leave_type', 'leave_list.leave_type', '=', 'leave_type.type_id')
@@ -18,8 +19,9 @@ class LeaveController extends Controller
                     ->where('leave_list.user_id', $userID)
                     ->get();
         $uname = DB::table('users')
-                    ->select('id', 'name')
+                    ->select('id', 'name', 'department')
                     ->where('work_status', '=', 'work')
+                    ->where('users.department', $userDept)
                     ->orderBy('users.id', 'asc')
                     ->get();
         $num = DB::table('leave_num')
