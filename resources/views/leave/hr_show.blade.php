@@ -103,12 +103,16 @@
             inputPlaceholder: 'ระบุหมายเหตุการยกเลิกรายการ'
         }).then((result) => {
             if (result.isConfirmed) {
+                var formData = result.value;
+                var token = "{{ csrf_token() }}";
+                console.log(formData);
                 $.ajax({
                     url: "{{ route('leave.cancleList',$list->leave_id) }}",
+                    data:{formData: formData,_token: token},
                     success: function (data) {
                         Swal.fire({
                             icon: 'success',
-                            title: 'ดำเนินการเสร็จสิ้น',
+                            title: 'ยกเลิกรายการแล้ว',
                             showConfirmButton: false,
                             timer: 3000
                         })

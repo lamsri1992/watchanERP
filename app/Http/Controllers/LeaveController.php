@@ -99,9 +99,11 @@ class LeaveController extends Controller
 
     public function cancleList(Request $request, $id)
     {
+        $note = $request->get('formData');
         DB::table('leave_list')->where('leave_id', $id)->update(
             [
-                'leave_status' => 5
+                'leave_status' => 5,
+                'leave_cancel_note' => $note,
             ]
         );
     }
@@ -143,7 +145,7 @@ class LeaveController extends Controller
             ]
         );
         // Send Line To PJ
-        $Token = "IwLt940W6WN4NbjGSguvlgdtADxhjfdKMvYNYhHkzRT";
+        $Token = "w5QuztyBKpMk262OYuuQP6rV1v7bFO1ooX2JvHHJDzh";
         $message = "มีรายการขออนุมัติวันลารอดำเนินการ\nกรุณาดำเนินการที่ : https://erp.watchanhospital.com/";
         line_notify($Token, $message);
     }
@@ -183,7 +185,7 @@ class LeaveController extends Controller
             $text .= "ได้รับการอนุมัติแล้ว\n\n";
         }
         // Send Line To Watchan Family
-        $Token = "IwLt940W6WN4NbjGSguvlgdtADxhjfdKMvYNYhHkzRT";
+        $Token = "w5QuztyBKpMk262OYuuQP6rV1v7bFO1ooX2JvHHJDzh";
         $message = $text;
         line_notify($Token, $message);
 
