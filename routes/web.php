@@ -37,6 +37,10 @@ Route::get('/hr', function () {
     return view('hr.index');
 });
 
+Route::group(['prefix' => 'worktime'], function () {
+	Route::get('/','TimeController@index')->name('worktime.index');
+});
+
 Route::group(['prefix' => 'leave'], function () {
 	Route::get('/','LeaveController@index')->name('leave.index');
 	Route::get('/addLeave','LeaveController@addLeave')->name('leave.addLeave');
