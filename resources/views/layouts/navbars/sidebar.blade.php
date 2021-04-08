@@ -98,13 +98,13 @@
                                     {{ __('ระบบบันทึกเวลาเข้างาน') }}
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    {{ __('ดาวน์โหลดแบบฟอร์ม') }}
-                                </a>
-                            </li>
                         </ul>
                     </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-file-download text-info"></i> ดาวน์โหลดแบบฟอร์ม
+                    </a>
                 </li>
             </ul>
             {{-- Unit Head --}}
