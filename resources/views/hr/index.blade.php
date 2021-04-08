@@ -28,23 +28,23 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <table id="hr_table" class="display responsive nowrap" style="width:100%">
-                        <thead>
+                    <table id="hr_table" class="table display nowrap" style="width:100%">
+                        <thead class="thead-dark">
                             <tr>
-                                <th width="15%"><i class="far fa-address-card"></i> ID</th>
-                                <th width="25%">ชื่อ - สกุล</th>
-                                <th width="20%">กลุ่มงาน/หน่วยบริการ</th>
-                                <th width="25%">ตำแหน่ง</th>
-                                <th width="5%"><i class="fa fa-plus-circle"></i></th>
+                                <th><i class="far fa-address-card"></i> ID</th>
+                                <th>ชื่อ - สกุล</th>
+                                <th>กลุ่มงาน/หน่วยบริการ</th>
+                                <th>ตำแหน่ง</th>
+                                <th><i class="fa fa-plus-circle"></i></th>
                             </tr>
                         </thead>
-                        <tfoot>
+                        <tfoot class="thead-dark">
                             <tr>
-                                <th width="15%"><i class="far fa-address-card"></i> ID</th>
-                                <th width="25%">ชื่อ - สกุล</th>
-                                <th width="20%">กลุ่มงาน/หน่วยบริการ</th>
-                                <th width="25%">ตำแหน่ง</th>
-                                <th width="5%"><i class="fa fa-plus-circle"></i></th>
+                                <th><i class="far fa-address-card"></i> ID</th>
+                                <th>ชื่อ - สกุล</th>
+                                <th>กลุ่มงาน/หน่วยบริการ</th>
+                                <th>ตำแหน่ง</th>
+                                <th><i class="fa fa-plus-circle"></i></th>
                             </tr>
                         </tfoot>
                     </table>
@@ -143,10 +143,6 @@
         oLanguage: {
             sSearch: "<i class='fa fa-search'></i> ค้นหา : ",
         },
-        responsive: true,
-        rowReorder: {
-            selector: 'td:nth-child(2)'
-        },
         oLanguage: {
                  oPaginate: {
                     sFirst: '<small>หน้าแรก</small>',
@@ -161,7 +157,7 @@
             this.api().columns([2, 3]).every(function() {
                 var column = this;
                 var select = $(
-                        '<select class="custom-select"><option value="">แสดงทั้งหมด</option></select>')
+                        '<select class=""><option value="">แสดงทั้งหมด</option></select>')
                     .appendTo($(column.footer()).empty())
                     .on('change', function() {
                         var val = $.fn.dataTable.util.escapeRegex(
