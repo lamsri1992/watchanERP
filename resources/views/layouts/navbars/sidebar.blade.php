@@ -74,7 +74,7 @@
             <!-- Navigation -->
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="#navbar-office" data-toggle="collapse" role="button" aria-expanded="true"
+                    <a class="nav-link" href="#navbar-office" data-toggle="collapse" role="button" aria-expanded="false"
                         aria-controls="navbar-office">
                         <i class="far fa-folder-open text-success"></i>
                         <span
@@ -96,6 +96,29 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="/worktime">
                                     {{ __('ระบบบันทึกเวลาเข้างาน') }}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#navbar-repair" data-toggle="collapse" role="button" aria-expanded="false"
+                        aria-controls="navbar-repair">
+                        <i class="fas fa-wrench text-dark"></i>
+                        <span
+                            class="nav-link-text">{{ __('ระบบงานแจ้งซ่อม') }}
+                        </span>
+                    </a>
+                    <div class="collapse hidden" id="navbar-repair">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/helpdesk">
+                                    {{ __('แจ้งซ่อมคอมพิวเตอร์') }}
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    {{ __('แจ้งงานซ่อมทั่วไป') }}
                                 </a>
                             </li>
                         </ul>
@@ -129,7 +152,7 @@
                 @if (Auth::user()->permission == 3 || Auth::user()->permission == 4)
                 <li class="nav-item">
                     <a class="nav-link" href="/hrm/leave">
-                        <i class="far fa-calendar-alt"></i> สำหรับงานทรัพยากรบุคคล
+                        <i class="far fa-calendar-alt"></i> ผู้ดูแลระบบวันลา
                     </a>
                 </li>
                 @endif

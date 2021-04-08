@@ -37,10 +37,6 @@ Route::get('/hr', function () {
     return view('hr.index');
 });
 
-Route::group(['prefix' => 'worktime'], function () {
-	Route::get('/','TimeController@index')->name('worktime.index');
-});
-
 Route::group(['prefix' => 'leave'], function () {
 	Route::get('/','LeaveController@index')->name('leave.index');
 	Route::get('/addLeave','LeaveController@addLeave')->name('leave.addLeave');
@@ -65,5 +61,12 @@ Route::group(['prefix' => 'authorize'], function () {
 Route::group(['prefix' => 'hrm'], function () {
 	Route::get('/leave','LeaveController@HrmLeaveList')->name('leave.hr');
 	Route::get('/leave/{id}','LeaveController@Hrshow')->name('leave.hr_show');
+});
 
+Route::group(['prefix' => 'worktime'], function () {
+	Route::get('/','TimeController@index')->name('worktime.index');
+});
+
+Route::group(['prefix' => 'helpdesk'], function () {
+	Route::get('/','HelpDeskController@index')->name('helpdesk.index');
 });
