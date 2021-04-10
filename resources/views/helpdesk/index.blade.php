@@ -57,7 +57,7 @@
                                             </div>
                                             <div class="col-auto">
                                                 <div class="icon icon-shape bg-info text-white rounded-circle shadow">
-                                                    <i class="fas fa-spinner fa-spin"></i>
+                                                    <i class="fas fa-clock"></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -102,6 +102,17 @@
                     </div>
                 </div>
                 <div class="card-body">
+                    <div class="" style="margin-bottom: 1rem;">
+                        <h6 class="ls-1 mb-1">
+                            <i class="fas fa-clipboard-list"></i> รายการแจ้งซ่อมคอมพิวเตอร์
+                        </h6>
+                        <div class="text-right">
+                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
+                                data-target="#addNew">
+                                <i class="fas fa-wrench"></i> แจ้งซ่อมคอมพิวเตอร์
+                            </button>
+                        </div>
+                    </div>
                     <table id="list_table" class="table display nowrap" style="width:100%">
                         <thead class="thead-dark">
                             <tr>
@@ -136,6 +147,62 @@
     @include('layouts.footers.auth')
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="addNew" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    <i class="fa fa-plus-circle"></i> เปิดรายการแจ้งซ่อม
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="addFrm">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <table class="table table-bordered text-center" style="font-size:13px;">
+                            <tr>
+                                <td>
+                                    <b>วันที่แจ้งซ่อม :</b>
+                                    @php $curdate = date('Y-m-d H:i:s'); @endphp
+                                    {{ DateTimeThai($curdate) }}
+                                </td>
+                                <td>
+                                    <b>ชื่อ-สกุล :</b>
+                                    {{ Auth::user()->name }}
+                                </td>
+                                <td>
+                                    <b>ตำแหน่ง :</b>
+                                    {{ Auth::user()->position }}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="form-group">
+                        <span style="font-size:14px;">ระบุอาการ/ปัญหาการใช้งานไม่ได้</span>
+                        <textarea type="text" name="title" rows="5" class="form-control" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <select name="place" class="js-single" required>
+                            <option></option>
+                            @php
+                                foreach ($place as $arr){ echo "<option value='".$arr->place_id ."'>".$arr->place_name ."</option>"; }
+                            @endphp
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" id="btnSave" class="btn btn-success">
+                            <i class="fa fa-save"></i> บันทึกการแจ้งซ่อม
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 @endsection
 @section('script')
 <script type="text/javascript">
@@ -157,6 +224,7 @@
                 sLengthMenu: "<small>แสดง _MENU_ รายการ</small>",
         },
         order: [[ 4, 'asc' ]],
+        scrollX: true,
         initComplete: function() {
             this.api().columns([2, 3]).every(function() {
                 var column = this;
@@ -179,5 +247,43 @@
         }
     });
 });
+
+$('#addFrm').on("submit", function (event) {
+        event.preventDefault();
+        Swal.fire({
+            title: 'ยืนยันการบันทึกรายการแจ้งซ่อม ?',
+            showCancelButton: true,
+            confirmButtonText: `บันทึก`,
+            cancelButtonText: `ยกเลิก`,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "{{ route('helpdesk.addHelpdesk') }}",
+                    data: $('#addFrm').serialize(),
+                    success: function (data) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'บันทึกรายการแจ้งซ่อมสำเร็จ',
+                            text: 'เจ้าหน้าที่จะใช้เวลาเข้าไปถึงหน้างานไม่เกิน 30 นาที',
+                            showConfirmButton: false,
+                            timer: 3000
+                        })
+                        window.setTimeout(function () {
+                            location.replace('helpdesk')
+                        }, 2900);
+                    }
+                });
+            }
+        })
+    });
+
+$(document).ready(function() {
+        $('.js-single').select2({
+            width: '100%',
+            placeholder: "ระบุสถานที่/ห้อง",
+            allowClear: true,
+        });
+    });
+
 </script>
 @endsection
