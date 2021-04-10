@@ -118,7 +118,7 @@
                             <tr>
                                 <th class="text-center">รหัสแจ้งซ่อม</th>
                                 <th class="text-center">วันที่แจ้ง</th>
-                                <th>ฝ่าย/กลุ่มงาน</th>
+                                <th>สถานที่/ห้อง</th>
                                 <th>รายละเอียด</th>
                                 <th class="text-center">สถานะ</th>
                             </tr>
@@ -126,9 +126,17 @@
                         <tbody>
                             @foreach ($list as $res)
                             <tr>
-                                <td class="text-center">{{ "IT-".str_pad($res->help_id, 4, '0', STR_PAD_LEFT) }}</td>
+                                <td class="text-center">
+                                    <a href="#">
+                                        {{ "IT-".str_pad($res->help_id, 4, '0', STR_PAD_LEFT) }}
+                                    </a>
+                                </td>
                                 <td class="text-center">{{ DateTimeThai($res->help_date) }}</td>
-                                <td>{{ $res->dept_name }}</td>
+                                <td>
+                                    <a href="#" data-toggle="tooltip" data-placement="right" title="{{ $res->dept_name }}">
+                                        {{ $res->place_name }}
+                                    </a>
+                                </td>
                                 <td>{{ $res->help_title }}</td>
                                 <td class="text-center">
                                     <span class="{{ $res->hs_text }}">
