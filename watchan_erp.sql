@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 10, 2021 at 10:30 AM
+-- Generation Time: Apr 11, 2021 at 12:35 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.9
 
@@ -66,7 +66,7 @@ CREATE TABLE `helpdesk` (
   `help_place` varchar(10) DEFAULT NULL,
   `help_status` varchar(50) DEFAULT '1',
   `help_type` varchar(50) DEFAULT NULL,
-  `help_support` varchar(5) DEFAULT NULL,
+  `help_support` varchar(255) DEFAULT NULL,
   `help_end` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -75,7 +75,8 @@ CREATE TABLE `helpdesk` (
 --
 
 INSERT INTO `helpdesk` (`help_id`, `help_date`, `help_title`, `help_fix`, `help_cause`, `help_create`, `help_dept`, `help_place`, `help_status`, `help_type`, `help_support`, `help_end`) VALUES
-(0001, '2021-04-10 15:29:20', 'ทดสอบระบบ', NULL, NULL, '91', '8', '4', '1', NULL, NULL, NULL);
+(0001, '2021-04-10 15:29:20', 'ทดสอบระบบ', 'ทดสอบวิธีแก้ไข', 'ทดสอบสาเหตุ', '91', '8', '4', '3', '1', 'เกียรติศักดิ์ เด่นแสงจันทร์', '2021-04-11 12:46:49'),
+(0002, '2021-04-11 12:13:25', 'ทดสอบแจ้งบุคคลอื่น', 'ทดสอบ 2', 'ทดสอบ 1', '2', '11', '10', '3', '2', 'ศติญา เชียงแรง', '2021-04-11 17:34:42');
 
 -- --------------------------------------------------------
 
@@ -98,6 +99,27 @@ INSERT INTO `helpdesk_status` (`hs_id`, `hs_name`, `hs_text`, `hs_icon`) VALUES
 (1, 'รอดำเนินการ', 'badge badge-info', 'fa fa-spinner fa-spin'),
 (2, 'ส่งซ่อม', 'badge badge-warning', 'fa fa-truck'),
 (3, 'สำเร็จ', 'badge badge-success', 'fa fa-check-circle');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `helpdesk_type`
+--
+
+CREATE TABLE `helpdesk_type` (
+  `ht_id` int(11) NOT NULL,
+  `ht_name` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `helpdesk_type`
+--
+
+INSERT INTO `helpdesk_type` (`ht_id`, `ht_name`) VALUES
+(1, 'ปัญหาด้าน Software / โปรแกรม'),
+(2, 'ปัญหาด้าน Hardware / อุปกรณ์'),
+(3, 'ปัญหาด้าน Network / ระบบเครือข่าย'),
+(4, 'อื่นๆ ไม่ระบุ');
 
 -- --------------------------------------------------------
 
@@ -1228,7 +1250,10 @@ CREATE TABLE `permissions` (
 INSERT INTO `permissions` (`p_id`, `permission_name`, `permission_allow`) VALUES
 (1, 'Unithead', NULL),
 (2, 'Director', NULL),
-(3, 'HR', NULL);
+(3, 'HR', NULL),
+(4, 'Administrator', NULL),
+(5, 'IT Helpdesk', NULL),
+(6, 'Maintenance', NULL);
 
 -- --------------------------------------------------------
 
@@ -15851,6 +15876,12 @@ ALTER TABLE `helpdesk_status`
   ADD PRIMARY KEY (`hs_id`);
 
 --
+-- Indexes for table `helpdesk_type`
+--
+ALTER TABLE `helpdesk_type`
+  ADD PRIMARY KEY (`ht_id`);
+
+--
 -- Indexes for table `jobs`
 --
 ALTER TABLE `jobs`
@@ -15931,13 +15962,19 @@ ALTER TABLE `departments`
 -- AUTO_INCREMENT for table `helpdesk`
 --
 ALTER TABLE `helpdesk`
-  MODIFY `help_id` int(4) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `help_id` int(4) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `helpdesk_status`
 --
 ALTER TABLE `helpdesk_status`
   MODIFY `hs_id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `helpdesk_type`
+--
+ALTER TABLE `helpdesk_type`
+  MODIFY `ht_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `jobs`
@@ -15979,7 +16016,7 @@ ALTER TABLE `leave_type`
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `p_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `p_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `personals`

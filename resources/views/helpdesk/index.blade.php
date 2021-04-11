@@ -277,7 +277,7 @@ $('#addFrm').on("submit", function (event) {
                             timer: 3000
                         })
                         window.setTimeout(function () {
-                            location.replace('helpdesk')
+                            location.replace('/helpdesk')
                         }, 2900);
                     }
                 });

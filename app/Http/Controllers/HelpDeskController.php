@@ -52,9 +52,30 @@ class HelpDeskController extends Controller
                 ->leftJoin('users', 'users.id', '=', 'helpdesk.help_create')
                 ->leftJoin('departments', 'departments.dept_id', '=', 'helpdesk.help_dept')
                 ->leftJoin('places', 'places.place_id', '=', 'helpdesk.help_place')
+                ->leftJoin('helpdesk_type', 'helpdesk_type.ht_id', '=', 'helpdesk.help_type')
                 ->leftJoin('helpdesk_status', 'helpdesk_status.hs_id', '=', 'helpdesk.help_status')
                 ->where('helpdesk.help_id', $parm_id)
                 ->first();
-        return view('helpdesk.show', ['list'=>$list]);
+        $type = DB::table('helpdesk_type')
+                ->get();
+        $stat = DB::table('helpdesk_status')
+                ->get();
+        return view('helpdesk.show', ['list'=>$list,'type'=>$type,'stat'=>$stat]);
+    }
+
+    public function fixHelpdesk(Request $request, $id)
+    {
+        // $note = $request->get('fixFrm');
+        $date = date("Y-m-d H:i:s");
+        DB::table('helpdesk')->where('help_id', $id)->update(
+            [
+                'help_fix' => $request->get('fix'),
+                'help_cause' => $request->get('cause'),
+                'help_type' => $request->get('type'),
+                'help_support' => Auth::User()->name,
+                'help_status' => $request->get('stat'),
+                'help_end' => $date,
+            ]
+        );
     }
 }

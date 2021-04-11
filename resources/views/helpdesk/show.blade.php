@@ -63,6 +63,68 @@
                         </div>
                         <div class="col-md-6">
                             <h4><i class="fa fa-tools"></i> วิธีดำเนินการ</h4>
+                            @if (Auth::user()->permission == 4)
+                            <form id="fixFrm">
+                                <table class="table table-borderless table-bordered">
+                                    <tr>
+                                        <th>วันที่ดำเนินการ</th>
+                                        <td>{{ DateTimeThai($list->help_end) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>ผู้ดำเนินการ</th>
+                                        <td>{{ $list->help_support }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>สาเหตุ</th>
+                                        <td>
+                                            <input type="text" name="cause" class="form-control" value="{{ $list->help_cause }}" required>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>วิธีแก้ไข</th>
+                                        <td>
+                                            <input type="text" name="fix" class="form-control" value="{{ $list->help_fix }}" required>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>ประเภทปัญหา</th>
+                                        <td>
+                                            <select name="type" class="custom-select" required>
+                                                <option>เลือกประเภท</option>
+                                                @foreach ($type as $ts)
+                                                <option value="{{ $ts->ht_id }}"
+                                                    @if ($list->help_type == $ts->ht_id)
+                                                        {{ 'SELECTED' }}
+                                                    @endif>
+                                                    {{ $ts->ht_name }}
+                                                </option>
+                                                @endforeach
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>สถานะดำเนินการ</th>
+                                        <td>
+                                            <select name="stat" class="custom-select" required>
+                                                @foreach ($stat as $stats)
+                                                <option value="{{ $stats->hs_id }}"
+                                                    @if ($list->help_status == $stats->hs_id)
+                                                        {{ 'SELECTED' }}
+                                                    @endif>
+                                                    {{ $stats->hs_name }}
+                                                </option>
+                                                @endforeach
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" class="text-right">
+                                            <button class="btn btn-sm btn-primary"><i class="fa fa-save"></i> บันทึกการซ่อม</button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </form>
+                            @else
                             <table class="table table-borderless table-bordered">
                                 <tr>
                                     <th>วันที่ดำเนินการ</th>
@@ -82,15 +144,19 @@
                                 </tr>
                                 <tr>
                                     <th>ประเภทปัญหา</th>
-                                    <td>{{ $list->dept_name }}</td>
+                                    <td>{{ $list->ht_name }}</td>
+                                </tr>
+                                <tr>
+                                    <th>สถานะ</th>
+                                    <td>
+                                        <span class="{{ $list->hs_text }}">
+                                            <i class="{{ $list->hs_icon }}"></i> {{ $list->hs_name }}
+                                        </span>
+                                    </td>
                                 </tr>
                             </table>
+                            @endif
                         </div>
-                    </div>
-                </div>
-                <div class="card-body text-center">
-                    <div class="alert alert-{{ SUBSTR($list->hs_text,12,20) }}" role="alert">
-                        สถานะการดำเนินการ : <i class="{{ $list->hs_icon }}"></i> {{ $list->hs_name }}
                     </div>
                 </div>
             </div>
@@ -102,6 +168,33 @@
 @endsection
 @section('script')
 <script type="text/javascript">
-
+$('#fixFrm').on("submit", function (event) {
+        event.preventDefault();
+        Swal.fire({
+            title: 'ยืนยันดำเนินการซ่อมเสร็จสิ้น ?',
+            showCancelButton: true,
+            confirmButtonText: `บันทึก`,
+            cancelButtonText: `ยกเลิก`,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "{{ route('helpdesk.fixHelpdesk',$list->help_id) }}",
+                    data: $('#fixFrm').serialize(),
+                    success: function (data) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'บันทึกรายการซ่อมสำเร็จ',
+                            text: 'ผู้ดำเนินการ : {{ Auth::user()->name }}',
+                            showConfirmButton: false,
+                            timer: 3000
+                        })
+                        window.setTimeout(function () {
+                            location.replace('/helpdesk')
+                        }, 2900);
+                    }
+                });
+            }
+        })
+    });
 </script>
 @endsection
