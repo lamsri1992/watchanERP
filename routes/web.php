@@ -70,4 +70,5 @@ Route::group(['prefix' => 'worktime'], function () {
 Route::group(['prefix' => 'helpdesk'], function () {
 	Route::get('/','HelpDeskController@index')->name('helpdesk.index');
 	Route::get('/addHelpdesk','HelpDeskController@addHelpdesk')->name('helpdesk.addHelpdesk');
+	Route::get('/{id}','HelpDeskController@show')->name('helpdesk.show');
 });

@@ -127,7 +127,7 @@
                             @foreach ($list as $res)
                             <tr>
                                 <td class="text-center">
-                                    <a href="#">
+                                    <a href="{{ route('helpdesk.show',base64_encode($res->help_id)) }}">
                                         {{ "IT-".str_pad($res->help_id, 4, '0', STR_PAD_LEFT) }}
                                     </a>
                                 </td>

@@ -44,4 +44,17 @@ class HelpDeskController extends Controller
         $message = "มีรายการแจ้งซ่อมคอมพิวเตอร์\nจาก : ".Auth::User()->name."\nอาการ : ".$request->get('title')."\nสถานที่/ห้อง : ".$place->place_name."\nกรุณาดำเนินที่ : https://erp.watchanhospital.com/";
         line_notify($Token, $message);
     }
+
+    public function show($id)
+    {
+        $parm_id = base64_decode($id);
+        $list = DB::table('helpdesk')
+                ->leftJoin('users', 'users.id', '=', 'helpdesk.help_create')
+                ->leftJoin('departments', 'departments.dept_id', '=', 'helpdesk.help_dept')
+                ->leftJoin('places', 'places.place_id', '=', 'helpdesk.help_place')
+                ->leftJoin('helpdesk_status', 'helpdesk_status.hs_id', '=', 'helpdesk.help_status')
+                ->where('helpdesk.help_id', $parm_id)
+                ->first();
+        return view('helpdesk.show', ['list'=>$list]);
+    }
 }
