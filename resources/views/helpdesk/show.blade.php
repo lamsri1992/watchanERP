@@ -66,6 +66,19 @@
                                         <a href="#rateModal" data-toggle="modal" class="badge badge-info"><i class="fa fa-clipboard-check"></i> ทำแบบประเมิน</a>
                                     </td>
                                 </tr>
+                                @else
+                                <tr>
+                                    <th>ประเมินความพึงพอใจ</th>
+                                    <td>
+                                        @php 
+                                            $rate_all = ($list->rate_1 + $list->rate_2 + $list->rate_3);
+                                            $rate = $rate_all / 3;
+                                            $i = 1; while ($i <= $rate) { 
+                                                echo "<span class='fa fa-star text-yellow'></span>"; $i++; 
+                                            }
+                                        @endphp
+                                    </td>
+                                </tr>
                                 @endif
                             </table>
                         </div>
@@ -183,9 +196,9 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
+        @if (!isset($list->rate_id))
         <form id="rateFrm">
             <div class="modal-body">
-                @if (!isset($list->rate_id))
                 <table class="table table-sm table-bordered">
                     <tr class="text-center">
                         <th width="75%">รายการ / คะแนน <i class="far fa-smile"></i></th>
@@ -220,44 +233,46 @@
                         <td class="text-center"><input type="radio" id="rate_3" name="rate_3" value="1"></td>
                     </tr>
                 </table>
-                @else
-                    
-                @endif
-                <table class="table table-sm table-bordered">
-                    <tr class="">
-                        <th>รายการประเมิน</th>
-                        <th class="text-center">คะแนน <i class="far fa-smile"></i></th>
-                    </tr>
-                    <tr>
-                        <td>1. ความรวดเร็วในการให้บริการ</td>
-                        <td class="text-center">{{ $list->rate_1 }}</td>
-                    </tr>
-                    <tr>
-                        <td>2. การจัดลำดับขั้นตอนการให้บริการ</td>
-                        <td class="text-center">{{ $list->rate_2 }}</td>
-                    <tr>
-                        <td>3. ความเต็มใจและความพร้อมในการให้บริการ</td>
-                        <td class="text-center">{{ $list->rate_3 }}</td>
-                    </tr>
-                    <tr>
-                        @php $rate_all = ($list->rate_1 + $list->rate_2 + $list->rate_3)@endphp
-                        <td colspan="2" class="text-center" data-toggle="tooltip" data-placement="bottom" title="{{ $rate_all }} คะแนน">
-                            <p>{{ $list->rate_user }}</p>
-                            <p>{{ DateTimeThai($list->rate_date) }}</p>
-                            @php
-                                $rate = $rate_all / 3;
-                                $i = 1; while ($i <= $rate) { 
-                                    echo "<p class='fa fa-star text-yellow'></p>";$i++; 
-                                }
-                            @endphp
-                        </td>
-                    </tr>
-                </table>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-danger btn-sm" data-dismiss="modal">ปิดหน้าต่าง</button>
+                <button type="submit" class="btn btn-success btn-sm"><i class="fas fa-check-circle"></i> ส่งแบบประเมิน</button>
             </div>
         </form>
+        @else
+        <div class="modal-body">
+            <table class="table table-sm table-bordered">
+                <tr class="">
+                    <th>รายการประเมิน</th>
+                    <th class="text-center">คะแนน <i class="far fa-smile"></i></th>
+                </tr>
+                <tr>
+                    <td>1. ความรวดเร็วในการให้บริการ</td>
+                    <td class="text-center">{{ $list->rate_1 }}</td>
+                </tr>
+                <tr>
+                    <td>2. การจัดลำดับขั้นตอนการให้บริการ</td>
+                    <td class="text-center">{{ $list->rate_2 }}</td>
+                <tr>
+                    <td>3. ความเต็มใจและความพร้อมในการให้บริการ</td>
+                    <td class="text-center">{{ $list->rate_3 }}</td>
+                </tr>
+                <tr>
+                    @php $rate_all = ($list->rate_1 + $list->rate_2 + $list->rate_3)@endphp
+                    <td colspan="2" class="text-center" data-toggle="tooltip" data-placement="bottom" title="{{ $rate_all }} คะแนน">
+                        <p>{{ $list->rate_user }}</p>
+                        <p>{{ DateTimeThai($list->rate_date) }}</p>
+                        @php
+                            $rate = $rate_all / 3;
+                            $i = 1; while ($i <= $rate) { 
+                                echo "<p class='fa fa-star text-yellow'></p>";$i++; 
+                            }
+                        @endphp
+                    </td>
+                </tr>
+            </table>
+        </div>
+        @endif
     </div>
 </div>
 
