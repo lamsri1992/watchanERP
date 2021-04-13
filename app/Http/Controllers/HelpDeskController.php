@@ -58,6 +58,7 @@ class HelpDeskController extends Controller
                 ->leftJoin('places', 'places.place_id', '=', 'helpdesk.help_place')
                 ->leftJoin('helpdesk_type', 'helpdesk_type.ht_id', '=', 'helpdesk.help_type')
                 ->leftJoin('helpdesk_status', 'helpdesk_status.hs_id', '=', 'helpdesk.help_status')
+                ->leftJoin('helpdesk_rate', 'helpdesk_rate.help_id', '=', 'helpdesk.help_id')
                 ->where('helpdesk.help_id', $parm_id)
                 ->first();
         $type = DB::table('helpdesk_type')
@@ -79,6 +80,19 @@ class HelpDeskController extends Controller
                 'help_support' => Auth::User()->name,
                 'help_status' => $request->get('stat'),
                 'help_end' => $date,
+            ]
+        );
+    }
+
+    public function rateHelpdesk(Request $request, $id)
+    {
+        DB::table('helpdesk_rate')->insert(
+            [
+                'rate_1' => $request->get('rate_1'),
+                'rate_2' => $request->get('rate_2'),
+                'rate_3' => $request->get('rate_3'),
+                'rate_user' => Auth::User()->name,
+                'help_id' => $id
             ]
         );
     }
