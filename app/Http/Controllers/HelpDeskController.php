@@ -17,7 +17,11 @@ class HelpDeskController extends Controller
                 ->get();
         $place = DB::table('places')
                 ->get();
-        return view('helpdesk.index', ['list'=>$list,'place'=>$place]);
+        $count = DB::select(DB::raw("SELECT
+                (SELECT COUNT(help_id) FROM helpdesk WHERE help_status = '1') AS wait,
+                (SELECT COUNT(help_id) FROM helpdesk WHERE help_status = '2') AS repair,
+                (SELECT COUNT(help_id) FROM helpdesk WHERE help_status = '3') AS finish"));
+        return view('helpdesk.index', ['list'=>$list,'place'=>$place,'count'=>$count]);
     }
 
     public function addHelpdesk(Request $request)

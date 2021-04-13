@@ -27,6 +27,7 @@
                         </div>
                     </div>
                 </div>
+                @foreach ($count as $counts)                    
                 <div class="card-body">
                     <div class="header-body">
                         <div class="row">
@@ -36,7 +37,7 @@
                                         <div class="row">
                                             <div class="col">
                                                 <h5 class="card-title text-uppercase text-muted mb-0">ซ่อมสำเร็จ</h5>
-                                                <span class="h2 font-weight-bold mb-0">?? รายการ</span>
+                                                <span class="h2 font-weight-bold mb-0">{{ $counts->finish }} รายการ</span>
                                             </div>
                                             <div class="col-auto">
                                                 <div class="icon icon-shape bg-success text-white rounded-circle shadow">
@@ -53,7 +54,7 @@
                                         <div class="row">
                                             <div class="col">
                                                 <h5 class="card-title text-uppercase text-muted mb-0">รอดำเนินการ</h5>
-                                                <span class="h2 font-weight-bold mb-0">?? รายการ</span>
+                                                <span class="h2 font-weight-bold mb-0">{{ $counts->wait }} รายการ</span>
                                             </div>
                                             <div class="col-auto">
                                                 <div class="icon icon-shape bg-info text-white rounded-circle shadow">
@@ -70,7 +71,7 @@
                                         <div class="row">
                                             <div class="col">
                                                 <h5 class="card-title text-uppercase text-muted mb-0">ส่งซ่อม</h5>
-                                                <span class="h2 font-weight-bold mb-0">?? รายการ</span>
+                                                <span class="h2 font-weight-bold mb-0">{{ $counts->repair }} รายการ</span>
                                             </div>
                                             <div class="col-auto">
                                                 <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
@@ -87,7 +88,7 @@
                                         <div class="row">
                                             <div class="col">
                                                 <h5 class="card-title text-uppercase text-muted mb-0">ชำรุด</h5>
-                                                <span class="h2 font-weight-bold mb-0">?? รายการ</span>
+                                                <span class="h2 font-weight-bold mb-0">0 รายการ</span>
                                             </div>
                                             <div class="col-auto">
                                                 <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
@@ -101,6 +102,7 @@
                         </div>
                     </div>
                 </div>
+                @endforeach
                 <div class="card-body">
                     <div class="" style="margin-bottom: 1rem;">
                         <h6 class="ls-1 mb-1">
