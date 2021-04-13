@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 11, 2021 at 12:35 PM
+-- Generation Time: Apr 13, 2021 at 01:26 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.9
 
@@ -75,8 +75,31 @@ CREATE TABLE `helpdesk` (
 --
 
 INSERT INTO `helpdesk` (`help_id`, `help_date`, `help_title`, `help_fix`, `help_cause`, `help_create`, `help_dept`, `help_place`, `help_status`, `help_type`, `help_support`, `help_end`) VALUES
-(0001, '2021-04-10 15:29:20', 'ทดสอบระบบ', 'ทดสอบวิธีแก้ไข', 'ทดสอบสาเหตุ', '91', '8', '4', '3', '1', 'เกียรติศักดิ์ เด่นแสงจันทร์', '2021-04-11 12:46:49'),
-(0002, '2021-04-11 12:13:25', 'ทดสอบแจ้งบุคคลอื่น', 'ทดสอบ 2', 'ทดสอบ 1', '2', '11', '10', '3', '2', 'ศติญา เชียงแรง', '2021-04-11 17:34:42');
+(0001, '2021-04-13 16:43:15', 'เชื่อมต่ออินเทอร์เน็ตไม่ได้', 'Reset Internet Connection', 'ระบบไม่แจก IP Address', '122', '9', '4', '3', '3', 'ศติญา เชียงแรง', '2021-04-13 18:25:24'),
+(0002, '2021-04-13 16:43:57', 'เข้าระบบ HosOS ไม่ได้', 'Update Module', 'ไม่ได้ Update Module', '3', '11', '9', '3', '1', 'ศติญา เชียงแรง', '2021-04-13 18:25:50');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `helpdesk_rate`
+--
+
+CREATE TABLE `helpdesk_rate` (
+  `rate_id` int(5) NOT NULL,
+  `t_help_id` int(5) DEFAULT NULL,
+  `rate_1` int(5) DEFAULT NULL,
+  `rate_2` int(5) DEFAULT NULL,
+  `rate_3` int(5) DEFAULT NULL,
+  `rate_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `rate_user` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `helpdesk_rate`
+--
+
+INSERT INTO `helpdesk_rate` (`rate_id`, `t_help_id`, `rate_1`, `rate_2`, `rate_3`, `rate_date`, `rate_user`) VALUES
+(1, 1, 5, 3, 3, '2021-04-13 11:21:29', 'ชนานันท์ แดงกระจ่าง');
 
 -- --------------------------------------------------------
 
@@ -15870,6 +15893,12 @@ ALTER TABLE `helpdesk`
   ADD PRIMARY KEY (`help_id`);
 
 --
+-- Indexes for table `helpdesk_rate`
+--
+ALTER TABLE `helpdesk_rate`
+  ADD PRIMARY KEY (`rate_id`);
+
+--
 -- Indexes for table `helpdesk_status`
 --
 ALTER TABLE `helpdesk_status`
@@ -15963,6 +15992,12 @@ ALTER TABLE `departments`
 --
 ALTER TABLE `helpdesk`
   MODIFY `help_id` int(4) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `helpdesk_rate`
+--
+ALTER TABLE `helpdesk_rate`
+  MODIFY `rate_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `helpdesk_status`
