@@ -45,7 +45,7 @@ class HelpDeskController extends Controller
         );
         $Token = "w5QuztyBKpMk262OYuuQP6rV1v7bFO1ooX2JvHHJDzh";
         // $Token = $unit->line_token;
-        $message = "มีรายการแจ้งซ่อมคอมพิวเตอร์\nจาก : ".Auth::User()->name."\nอาการ : ".$request->get('title')."\nสถานที่/ห้อง : ".$place->place_name."\nกรุณาดำเนินที่ : https://erp.watchanhospital.com/";
+        $message = "มีรายการแจ้งซ่อมคอมพิวเตอร์\nจาก : ".Auth::User()->name."\nอาการ : ".$request->get('title')."\nสถานที่/ห้อง : ".$place->place_name."\nตรวจสอบได้ที่ : https://erp.watchanhospital.com/";
         line_notify($Token, $message);
     }
 
