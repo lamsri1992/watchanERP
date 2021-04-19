@@ -151,9 +151,6 @@
             [20, 50, 100, -1],
             [20, 50, 100, "All"]
         ],
-        oLanguage: {
-            sSearch: "<i class='fa fa-search'></i> ค้นหา : ",
-        },
         responsive: true,
         rowReorder: {
             selector: 'td:nth-child(2)'
@@ -168,6 +165,7 @@
                 },
                 sInfo: "<small>ทั้งหมด _TOTAL_ รายการ</small>",
                 sLengthMenu: "<small>แสดง _MENU_ รายการ</small>",
+                sSearch: "<i class='fa fa-search'></i> ค้นหา : ",
         },
          initComplete: function() {
             this.api().columns([2,3]).every(function() {
