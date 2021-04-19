@@ -124,7 +124,7 @@
                         </ul>
                     </div>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item {{ (request()->is('hr')) ? 'active' : '' }}">
                     <a class="nav-link" href="/hr">
                         <i class="fas fa-users text-warning"></i> ฐานข้อมูลบุคลากร
                     </a>
