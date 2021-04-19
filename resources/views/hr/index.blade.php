@@ -10,20 +10,8 @@
                     <div class="row align-items-center">
                         <div class="col">
                             <h6 class="text-uppercase ls-1 mb-1">
-                                <i class="fa fa-database"></i> HR DATABASE
+                                <i class="fa fa-database"></i> HR DATABASE : ฐานข้อมูลบุคลากร
                             </h6>
-                            <div class="mb-0">
-                                <nav aria-label="breadcrumb">
-                                    <ol class="breadcrumb">
-                                        <li class="breadcrumb-item">
-                                            <a href="#">
-                                                <i class="far fa-folder-open"></i> งานบริหารทั่วไป
-                                            </a>
-                                        </li>
-                                        <li class="breadcrumb-item active" aria-current="page">ฐานข้อมูลบุคลากร</li>
-                                    </ol>
-                                </nav>
-                            </div>
                         </div>
                     </div>
                 </div>

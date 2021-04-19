@@ -84,13 +84,13 @@
                     <div class="collapse hidden" id="navbar-office">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a class="nav-link" href="/hr">
-                                    {{ __('ฐานข้อมูลบุคลากร') }}
+                                <a class="nav-link" href="/leave">
+                                    {{ __('ระบบวันลาออนไลน์') }}
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/leave">
-                                    {{ __('ระบบวันลาออนไลน์') }}
+                                <a class="nav-link" href="/affair">
+                                    {{ __('ระบบขออนุมัติเดินทาง') }}
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -123,6 +123,11 @@
                             </li>
                         </ul>
                     </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/hr">
+                        <i class="fas fa-users text-warning"></i> ฐานข้อมูลบุคลากร
+                    </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">
