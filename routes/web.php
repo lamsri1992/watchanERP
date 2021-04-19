@@ -67,6 +67,11 @@ Route::group(['prefix' => 'worktime'], function () {
 	Route::get('/','TimeController@index')->name('worktime.index');
 });
 
+Route::group(['prefix' => 'note'], function () {
+	Route::get('/','noteController@index')->name('note.index');
+	Route::get('/print','noteController@print')->name('note.print');
+});
+
 Route::group(['prefix' => 'helpdesk'], function () {
 	Route::get('/','HelpDeskController@index')->name('helpdesk.index');
 	Route::get('/addHelpdesk','HelpDeskController@addHelpdesk')->name('helpdesk.addHelpdesk');

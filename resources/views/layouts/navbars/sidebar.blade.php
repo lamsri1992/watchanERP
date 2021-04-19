@@ -89,7 +89,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/affair">
+                                <a class="nav-link" href="/note">
                                     {{ __('ระบบขออนุมัติเดินทาง') }}
                                 </a>
                             </li>
