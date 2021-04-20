@@ -167,7 +167,7 @@
                 sInfo: "<small>ทั้งหมด _TOTAL_ รายการ</small>",
                 sLengthMenu: "<small>แสดง _MENU_ รายการ</small>",
         },
-        order: [[ 0, 'asc' ]],
+        order: [[ 0, 'desc' ]],
         scrollX: true,
     });
 });
