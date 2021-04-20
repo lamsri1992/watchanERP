@@ -37,6 +37,7 @@ class LeaveController extends Controller
     public function addLeave(Request $request)
     {
         $userID = Auth::User()->id;
+        $date = date("Y-m-d H:i:s");
         // Check Holiday
         $strStartDate = $request->get('leave_start');
         $strEndDate = $request->get('leave_end');
@@ -54,7 +55,11 @@ class LeaveController extends Controller
         }
         if (!isset(Auth::User()->line_token)){
             $statusID = '1';
-        }else{
+        }
+        if (Auth::User()->unit == 1){
+            $statusID = '2';
+        }
+        if (isset(Auth::User()->line_token)){
             $statusID = '2';
         }
         if($request->get('leave_type') == 1 ){ $t_name = 'ลากิจ'; }
@@ -64,6 +69,7 @@ class LeaveController extends Controller
         DB::table('leave_list')->insert(
             [
                 'leave_type' => $request->get('leave_type'),
+                'leave_create' => $date,
                 'leave_start' => $request->get('leave_start'),
                 'leave_end' => $request->get('leave_end'),
                 'leave_num' => $intWorkDay,
@@ -102,14 +108,14 @@ class LeaveController extends Controller
         return view('leave.list', ['list'=>$list]);
     }
 
-    public function cancleList(Request $request, $id)
+    public function cancelList(Request $request, $id)
     {
         $note = $request->get('formData');
         $date = date("Y-m-d H:i:s");
         DB::table('leave_list')->where('leave_id', $id)->update(
             [
                 'leave_status' => 5,
-                'leave_cancle' => Auth::User()->name,
+                'leave_cancel' => Auth::User()->name,
                 'leave_cancel_note' => $note,
                 'leave_cancel_date' => $date,
             ]

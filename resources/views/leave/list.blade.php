@@ -46,7 +46,7 @@
                     <div class="alert alert-danger" role="alert">
                         <h4 class="alert-heading"><i class="fa fa-times-circle"></i> รายการนี้ถูกยกเลิกไปแล้ว</h4>
                         <span><b>วันที่ยกเลิก</b> : {{ DateThai($list->leave_cancel_date) }}</span><br>
-                        <span><b>ผู้ยกเลิก</b> : {{ $list->leave_cancle }}</span><br>
+                        <span><b>ผู้ยกเลิก</b> : {{ $list->leave_cancel }}</span><br>
                         <span><b>หมายเหตุ</b> : {{ $list->leave_cancel_note }}</span>
                     </div>
                     @endif
@@ -95,7 +95,7 @@
                 </div>
                 <div class="card-body text-right">
                     @if ($list->status_id != 5 && $list->status_id != 3)
-                        <button id="btnCancle" class="btn btn-danger btn-sm" href="#"><i class="fa fa-times-circle"></i> ยกเลิกรายการ</button>
+                        <button id="btnCancel" class="btn btn-danger btn-sm" href="#"><i class="fa fa-times-circle"></i> ยกเลิกรายการ</button>
                     @endif
                 </div>
             </div>
@@ -107,7 +107,7 @@
 @endsection
 @section('script')
 <script type="text/javascript">
- $('#btnCancle').on("click", function (event) {
+ $('#btnCancel').on("click", function (event) {
         event.preventDefault();
         Swal.fire({
             title: 'ยกเลิกรายการ\n{{ "รหัสรายการ : HR-".$list->leave_id }}',
@@ -124,7 +124,7 @@
                 var token = "{{ csrf_token() }}";
                 console.log(formData);
                 $.ajax({
-                    url: "{{ route('leave.cancleList',$list->leave_id) }}",
+                    url: "{{ route('leave.cancelList',$list->leave_id) }}",
                     data:{formData: formData,_token: token},
                     success: function (data) {
                         Swal.fire({
