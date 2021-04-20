@@ -156,8 +156,8 @@
                 @endif
                 @if (Auth::user()->permission == 3 || Auth::user()->permission == 4)
                 <li class="nav-item">
-                    <a class="nav-link" href="/hrm/leave">
-                        <i class="far fa-calendar-alt"></i> ผู้ดูแลระบบวันลา
+                    <a class="nav-link" href="/hrm/dashboard">
+                        <i class="far fa-calendar-alt"></i> ผู้ดูแลระบบงานบุคลากร
                     </a>
                 </li>
                 @endif

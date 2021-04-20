@@ -16,11 +16,11 @@
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item">
-                                            <a href="#">
-                                                <i class="far fa-calendar-alt"></i> ระบบอนุมัติวันลา
+                                            <a href="/hrm/dashboard">
+                                                <i class="fa fa-user-cog"></i> ผู้ดูแลระบบงานบุคลากร
                                             </a>
                                         </li>
-                                        <li class="breadcrumb-item active" aria-current="page">สำหรับงานทรัพยากรบุคคล</li>
+                                        <li class="breadcrumb-item active" aria-current="page">รายการขออนุมัติวันลา</li>
                                     </ol>
                                 </nav>
                             </div>
