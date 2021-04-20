@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 13, 2021 at 01:26 PM
+-- Generation Time: Apr 20, 2021 at 09:32 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.9
 
@@ -75,8 +75,7 @@ CREATE TABLE `helpdesk` (
 --
 
 INSERT INTO `helpdesk` (`help_id`, `help_date`, `help_title`, `help_fix`, `help_cause`, `help_create`, `help_dept`, `help_place`, `help_status`, `help_type`, `help_support`, `help_end`) VALUES
-(0001, '2021-04-13 16:43:15', 'เชื่อมต่ออินเทอร์เน็ตไม่ได้', 'Reset Internet Connection', 'ระบบไม่แจก IP Address', '122', '9', '4', '3', '3', 'ศติญา เชียงแรง', '2021-04-13 18:25:24'),
-(0002, '2021-04-13 16:43:57', 'เข้าระบบ HosOS ไม่ได้', 'Update Module', 'ไม่ได้ Update Module', '3', '11', '9', '3', '1', 'ศติญา เชียงแรง', '2021-04-13 18:25:50');
+(0001, '2021-04-14 21:42:11', 'ทดสอบระบบแจ้งซ่อมคอมพิวเตอร์', 'ทดสอบแก้ไขแล้ว', 'ทดสอบสาเหตุ', '91', '8', '4', '3', '1', 'ศติญา เชียงแรง', '2021-04-14 21:42:50');
 
 -- --------------------------------------------------------
 
@@ -99,7 +98,7 @@ CREATE TABLE `helpdesk_rate` (
 --
 
 INSERT INTO `helpdesk_rate` (`rate_id`, `t_help_id`, `rate_1`, `rate_2`, `rate_3`, `rate_date`, `rate_user`) VALUES
-(1, 1, 5, 3, 3, '2021-04-13 11:21:29', 'ชนานันท์ แดงกระจ่าง');
+(1, 1, 5, 5, 5, '2021-04-16 02:08:18', 'ศติญา เชียงแรง');
 
 -- --------------------------------------------------------
 
@@ -1041,7 +1040,7 @@ INSERT INTO `leave_list` (`leave_id`, `leave_create`, `leave_type`, `leave_start
 (839, '2021-04-01 17:00:00', 3, '2021-04-19 00:00:00', '2021-04-20 00:00:00', '2.0', 1, '', 'พักผ่อน', '-', '-', 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '0000-00-00 00:00:00', 52),
 (840, '2021-04-01 17:00:00', 3, '2021-04-05 00:00:00', '2021-04-05 00:00:00', '1.0', 1, '', 'พักผ่อน', '-', '-', 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '0000-00-00 00:00:00', 14),
 (841, '2021-04-01 17:00:00', 3, '2021-04-16 00:00:00', '2021-04-16 00:00:00', '1.0', 1, '', 'กลับบ้าน', '-', '-', 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '0000-00-00 00:00:00', 59),
-(842, '2021-04-06 17:00:00', 3, '2021-04-16 00:00:00', '2021-04-16 00:00:00', '1.0', 1, '', 'ผักผ่อน', 'เห็นควรอนุมัติ', '-', 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '0000-00-00 00:00:00', 75),
+(842, '2021-04-06 17:00:00', 3, '2021-04-16 00:00:00', '2021-04-16 00:00:00', '1.0', 1, '', 'ผักผ่อน', 'เห็นควรอนุมัติ', 'อนุมัติรายการ', 3, '2021-04-14 21:39:05', '0000-00-00 00:00:00', '', '0000-00-00 00:00:00', 75),
 (843, '2021-04-07 17:00:00', 3, '2021-04-16 00:00:00', '2021-04-16 00:00:00', '1.0', 1, '', 'พักผ่อน', '', '-', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '0000-00-00 00:00:00', 72),
 (844, '2021-04-07 17:00:00', 3, '2021-04-19 00:00:00', '2021-04-19 00:00:00', '1.0', 1, '', 'ส่งพ่อ F/U ตามนัด รพ.มหาราช', '', '-', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '0000-00-00 00:00:00', 33),
 (845, '2021-04-07 17:00:00', 3, '2021-04-16 00:00:00', '2021-04-16 00:00:00', '1.0', 1, '', 'ลาพักผ่อน', '', '-', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '0000-00-00 00:00:00', 26);
@@ -1253,6 +1252,32 @@ INSERT INTO `leave_type` (`type_id`, `type_name`) VALUES
 (1, 'ลากิจ'),
 (2, 'ลาป่วย'),
 (3, 'ลาพักผ่อน');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notes`
+--
+
+CREATE TABLE `notes` (
+  `note_id` int(5) NOT NULL,
+  `note_no` varchar(255) DEFAULT 'ชม 0032.301/',
+  `note_emp` varchar(5) DEFAULT NULL,
+  `note_list` varchar(255) DEFAULT NULL,
+  `note_place` text DEFAULT NULL,
+  `note_title` text DEFAULT NULL,
+  `note_start` timestamp NULL DEFAULT NULL,
+  `note_end` timestamp NULL DEFAULT NULL,
+  `note_create` timestamp NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `notes`
+--
+
+INSERT INTO `notes` (`note_id`, `note_no`, `note_emp`, `note_list`, `note_place`, `note_title`, `note_start`, `note_end`, `note_create`) VALUES
+(1, 'ชม 0032.301/', '91', '3,14,59,71', 'ทดสอบสถานที่', 'ประชุมทดสอบระบบ จังหวัดเชียงใหม่', '2021-04-23 01:00:00', '2021-04-23 09:00:00', '2021-04-20 07:15:06'),
+(2, 'ชม 0032.301/', '2', '', 'test alone', 'title alone', '2021-04-26 01:00:00', '2021-04-26 09:00:00', '2021-04-20 07:28:59');
 
 -- --------------------------------------------------------
 
@@ -1472,7 +1497,7 @@ INSERT INTO `users` (`id`, `barcode`, `name`, `department`, `position`, `job`, `
 (88, 'D010-H009', 'วีพร  ลอพอ', 10, 'พนักงานทำความสะอาด', '5', '2018-10-01', NULL, 'work', NULL, '30', NULL, NULL, '$2y$10$maK.BiaZnxh.pC2CpG5.eu4pJPWHP7XbKu1vPb4ljJvLUxTukfU5G', NULL, NULL, NULL, NULL, NULL),
 (89, 'D010-H010', 'อริศา พิทักษ์ภูมิลำเนา', 10, 'พนักงานทำความสะอาด', '5', NULL, NULL, 'resign', NULL, '24', NULL, NULL, '$2y$10$maK.BiaZnxh.pC2CpG5.eu4pJPWHP7XbKu1vPb4ljJvLUxTukfU5G', NULL, NULL, NULL, NULL, NULL),
 (90, 'D010-H034', 'กมลวรรณ สืบแสน', 10, 'นักโภชนาการ', '2', '2562-02-01', NULL, 'resign', NULL, '24', NULL, NULL, '$2y$10$sx.AgQgoKsqQs0ffKwLosOagv6bVstvMYIFdPXX9IPp5WnTBwEu36', NULL, NULL, NULL, NULL, NULL),
-(91, 'D008-H003', 'ศติญา เชียงแรง', 8, 'นักวิชาการคอมพิวเตอร์', '1', '2019-08-24', NULL, 'work', NULL, '35', NULL, NULL, '$2y$10$6OxGfiLz1R2.9n.RpRFQ2ehpNCVgah7Yr76h3Cj3FZXLZ0lIn0PaS', 4, 'D008-H003.jpg', 'tQ6leMONkh4roDQBrsoIBUwL5jo576QGvP3hE4VSK9FhWwnoYlQuhHILXzEx', NULL, NULL),
+(91, 'D008-H003', 'ศติญา เชียงแรง', 8, 'นักวิชาการคอมพิวเตอร์', '1', '2019-08-24', NULL, 'work', NULL, '35', NULL, NULL, '$2y$10$6OxGfiLz1R2.9n.RpRFQ2ehpNCVgah7Yr76h3Cj3FZXLZ0lIn0PaS', 4, 'D008-H003.jpg', 'jRoYc5Fv6nuu9CL4x3Ft9xVxmoMJecMjH8fnbEwO219nEbnKEfZznPg6hcP8', NULL, NULL),
 (92, 'D007-H002', 'ภัทราภรณ์  คำสาร', 7, 'นักเทคนิคการแพทย์', '5', '2018-12-03', NULL, 'work', NULL, '15', NULL, NULL, '$2y$10$BRqt/i9pABkccFOrinQjJe8eNy.Hyx/rrNKIJ7XRM5h2rmi4qUuUu', NULL, NULL, NULL, NULL, NULL),
 (93, 'D010-H017', 'ธีรพงษ์ อินเนอละ', 10, 'พนักงานดูแลสวนและสนามหญ้า', '5', '2018-12-03', NULL, 'resign', NULL, '24', NULL, NULL, '$2y$10$maK.BiaZnxh.pC2CpG5.eu4pJPWHP7XbKu1vPb4ljJvLUxTukfU5G', NULL, NULL, NULL, NULL, NULL),
 (94, 'D010-H022', 'ณรงค์ฤทธิ์ เวนวล', 10, 'พนักงานบริการ (พนักงานขับรถยนต์)', '5', '2018-12-03', NULL, 'work', NULL, '24', NULL, NULL, '$2y$10$mGjLc/mfUr5/m/kbD9eap.I1hrbQ9fv2B1mqu6TFwB7XA3AJBF1NC', NULL, NULL, NULL, NULL, NULL),
@@ -15947,6 +15972,12 @@ ALTER TABLE `leave_type`
   ADD PRIMARY KEY (`type_id`);
 
 --
+-- Indexes for table `notes`
+--
+ALTER TABLE `notes`
+  ADD PRIMARY KEY (`note_id`);
+
+--
 -- Indexes for table `permissions`
 --
 ALTER TABLE `permissions`
@@ -15991,7 +16022,7 @@ ALTER TABLE `departments`
 -- AUTO_INCREMENT for table `helpdesk`
 --
 ALTER TABLE `helpdesk`
-  MODIFY `help_id` int(4) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `help_id` int(4) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `helpdesk_rate`
@@ -16046,6 +16077,12 @@ ALTER TABLE `leave_time`
 --
 ALTER TABLE `leave_type`
   MODIFY `type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `notes`
+--
+ALTER TABLE `notes`
+  MODIFY `note_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `permissions`
