@@ -69,7 +69,8 @@ Route::group(['prefix' => 'worktime'], function () {
 
 Route::group(['prefix' => 'note'], function () {
 	Route::get('/','noteController@index')->name('note.index');
-	Route::get('/print','noteController@print')->name('note.print');
+	Route::get('/print/{id}','noteController@print')->name('note.print');
+	Route::get('/addNote','noteController@addNote')->name('note.addNote');
 });
 
 Route::group(['prefix' => 'helpdesk'], function () {

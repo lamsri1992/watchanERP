@@ -31,7 +31,7 @@
                         </h6>
                         <div class="text-right">
                             <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
-                                data-target="#addNew">
+                                data-target="#addNewNote">
                                 <i class="fas fa-shuttle-van"></i> ขออนุมัติเดินทาง
                             </button>
                         </div>
@@ -51,7 +51,7 @@
                             @foreach ($list as $res)
                             <tr>
                                 <td class="text-center">
-                                    {{ $res->note_id }}
+                                    <strong>{{ $res->note_no.$res->note_id }}</strong>
                                 </td>
                                 <td class="text-center">
                                     @foreach ($emplist as $name)
@@ -66,7 +66,7 @@
                                 <td>{{ $res->note_title }}</td>
                                 <td>{{ $res->note_place }}</td>
                                 <td class="text-center">
-                                    <a href="{{ route('note.print') }}" target="_blank" class='badge badge-primary'>
+                                    <a href="{{ route('note.print',base64_encode($res->note_id)) }}" target="_blank" class='badge badge-success'>
                                         <i class='fa fa-print'></i> พิมพ์เอกสาร
                                     </a>
                                 </td>
@@ -79,6 +79,72 @@
         </div>
     </div>
     @include('layouts.footers.auth')
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="addNewNote" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    <i class="fa fa-plus-circle"></i> แบบฟอร์มขออนุมัติเดินทางไปราชการ
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="addNote">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <table class="table table-bordered text-center" style="font-size:13px;">
+                            <span style="font-size:14px;">ผู้ทำรายการ</span>
+                            <tr>
+                                <td>
+                                    <b>ชื่อ-สกุล :</b>
+                                    {{ Auth::user()->name }}
+                                </td>
+                                <td>
+                                    <b>ตำแหน่ง :</b>
+                                    {{ Auth::user()->position }}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="form-group">
+                        <span style="font-size:14px;">ระบุสถานที่</span>
+                        <input type="text" name="place" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <span style="font-size:14px;">ระบุชื่อเรื่อง</span>
+                        <input type="text" name="title" class="form-control" required>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                            <input id="dateStr" name="dstart" type="text" class="form-control input-md"
+                                placeholder="วันที่ไป" readonly required>
+                        </div>
+                        <div class="col-md-6">
+                            <input id="dateEnd" name="dend" type="text" class="form-control input-md"
+                                placeholder="วันที่กลับ" readonly required>
+                        </div>
+                    </div>
+                    <div class="form-group" style="font-size:14px;">
+                        <span>รายชื่อผู้เข้าร่วม</span>
+                        <select id="list" name="list[]" class="form-control" multiple="multiple" style="width:100%;">
+                            @foreach ($emplist as $emps)
+                            <option value="{{ $emps->id }}">{{ $emps->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" id="btnSave" class="btn btn-success btn-sm">
+                            <i class="fa fa-save"></i> บันทึกรายการ
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
 @endsection
@@ -106,6 +172,19 @@
     });
 });
 
+$('select').select2({
+    createTag: function(params) {
+        if (params.term.indexOf('@') === -1) {
+            return null;
+        }
+        return {
+            id: params.term,
+            text: params.term
+        }
+    },
+    placeholder: "ระบุผู้ร่วมเดินทาง",
+});
+
 $('#addNote').on("submit", function (event) {
         event.preventDefault();
         Swal.fire({
@@ -116,8 +195,8 @@ $('#addNote').on("submit", function (event) {
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: "{{ route('helpdesk.addHelpdesk') }}",
-                    data: $('#addFrm').serialize(),
+                    url: "{{ route('note.addNote') }}",
+                    data: $('#addNote').serialize(),
                     success: function (data) {
                         Swal.fire({
                             icon: 'success',
@@ -134,5 +213,37 @@ $('#addNote').on("submit", function (event) {
             }
         })
     });
+
+$(function() {
+    $.datetimepicker.setLocale('th');
+    var dt = new Date();
+    dt.setDate(dt.getDate());
+    $("#dateStr").datetimepicker({
+        lang: 'th',
+        minDate: dt,
+        onShow: function(ct) {
+            this.setOptions({
+                maxDate: jQuery('#dateEnd').val() ? jQuery('#dateEnd').val() : false
+            })
+        },
+        beforeShowDay: function(date) {
+            var day = date.getDay();
+            return [day == 1 || day == 2 || day == 3 || day == 4 || day == 5, ""];
+        }
+    });
+    $("#dateEnd").datetimepicker({
+        lang: 'th',
+        onShow: function(ct) {
+            this.setOptions({
+                minDate: jQuery('#dateStr').val() ? jQuery('#dateStr').val() : false
+            })
+        },
+        beforeShowDay: function(date) {
+            var day = date.getDay();
+            return [day == 1 || day == 2 || day == 3 || day == 4 || day == 5, ""];
+        }
+    });
+});
+
 </script>
 @endsection

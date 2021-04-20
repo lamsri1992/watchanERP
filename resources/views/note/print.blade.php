@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>เลขที่หนังสือ</title>
+    <title>เลขที่หนังสือ {{ $note->note_no.$note->note_id }}</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ asset('css') }}/font_sarabun.css">
     {{-- <style type="text/css">
@@ -29,19 +29,19 @@
                 <div style="margin-left:60px;margin-top: 3px;"><b>ที่</b>
                     <div class="div_edit" id="div_edit2"
                         style="width:300px;height:30px; solid #000000;margin-left: 50px;margin-top:-26px;">
-                        เลขที่หนังสือ
+                        {{ $note->note_no.$note->note_id }}
                     </div>
                     <div style="margin-left: 400px;margin-top: -28px;"><b>วันที่</b>
                         <div class="div_edit" id="div_edit3"
                             style="width:300px;height:30px; solid #000000;margin-left: 40px;margin-top:-26px;">
-                            วันที่แบบเต็ม
+                            {{ FullDateTimeThai($note->note_create) }}
                         </div>
                     </div>
                 </div>
                 <div style="margin-left:60px;"><b>เรื่อง</b>
                     <div class="div_edit" id="div_edit4"
                         style="width:630px;height:30px; solid #000000;margin-left: 50px;margin-top:-26px;">
-                        ขออนุมัติเดินทางไปราชการ
+                        {{ $note->note_title }}
                     </div>
                 </div>
                 <hr>
@@ -53,40 +53,44 @@
                 <div style="margin-left:60px;margin-top:20px;">
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     ข้าพเจ้า&nbsp;&nbsp;&nbsp;&nbsp;
-                    ชื่อผู้ทำรายการ
+                    {{ $note->name }}
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     ตำแหน่ง&nbsp;&nbsp;&nbsp;&nbsp;
-                    ชื่อตำแหน่ง
+                    {{ $note->position }}
                 </div>
                 <div style="margin-left:60px;margin-top:10px;">
                     ฝ่าย&nbsp;&nbsp;&nbsp;&nbsp;
-                    ชื่อฝ่าย
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    โรงพยาบาลวัดจันทร์เฉลิมพระเกียรติ ๘๐ พรรษา พร้อมด้วยผู้มีรายชื่อดังต่อไปนี้
+                    {{ $note->dept_name }}
+                    โรงพยาบาลวัดจันทร์เฉลิมพระเกียรติ ๘๐ พรรษา
                 </div>
+                @if ($note->note_list != "")
                 <div style="margin-left:110px;margin-top:10px;">
+                    พร้อมด้วยผู้มีรายชื่อดังต่อไปนี้
                     <table width="85%">
+                        @foreach ($emplist as $emp)
                         <tr>
                             <td class="b">
-                               ผู้ร่วมเดินทาง
+                               {{ $emp->name }}
                             </td>
                             <td class="b">
-                                ตำแหน่ง ผู้ร่วมเดินทาง
+                                ตำแหน่ง {{ $emp->position }}
                             </td>
                         </tr>
+                        @endforeach
                     </table>
                 </div>
+                @endif
                 <div style="margin-left:111px;margin-top:10px;">
                     มีความประสงค์ขออนุมัติไปราชการ
                 </div>
                 <div style="margin-left:60px;margin-top:10px;">
-                    ที่ <span class="b">สถานที่</span>
+                    ที่ <span class="b">{{ $note->note_place }}</span>
                 </div>
                 <div style="margin-left:60px;margin-top:10px;">
-                    เพื่อปฏิบัติราชการ <span class="b">เรื่อง</span>
+                    เพื่อปฏิบัติราชการ <span class="b">{{ $note->note_title }}</span>
                 </div>
                 <div class="b" style="margin-left:60px;margin-top:10px;">
-                    ใน วันที่เริ่ม - สิ้นสุด
+                    ในวันที่ {{ DateTimeThai($note->note_start)." ถึงวันที่ ".DateTimeThai($note->note_end) }}
                 </div>
                 <div style="margin-left:60px;margin-top:10px;">
                     จึงเรียนมาเพื่อโปรดพิจารณาอนุมัติ โดยขอเบิกค่าใช้จ่ายในเดินทางไปราชการครั้งนี้ตามระเบียบฯ ของทางราชการ
@@ -97,10 +101,10 @@
                             <td>(ลงชื่อ)</td>
                         </tr>
                         <tr class="text-center">
-                            <td>( ชื่อผู้ทำรายการ )</td>
+                            <td>( {{ $note->name }} )</td>
                         </tr>
                         <tr class="text-center">
-                            <td>ตำแหน่ง ชื่อตำแหน่ง</td>
+                            <td>ตำแหน่ง {{ $note->position }}</td>
                         </tr>
                     </table>
                 </div>
@@ -132,12 +136,12 @@
                         </tr>
                         <tr class="text-center">
                             <td>
-                                ชื่อหัวหน้า
+                                {{ $headlist->name }}
                             </td>
                             <td>( นายประจินต์ เหล่าเที่ยง )</td>
                         </tr>
                         <tr class="text-center">
-                            <td>ตำแหน่ง ชื่อตำแหน่งหัวหน้า</td>
+                            <td>ตำแหน่ง {{ $headlist->position }}</td>
                             <td>ผู้อำนวยการโรงพยาบาลวัดจันทร์เฉลิมพระเกียรติ ๘๐ พรรษา</td>
                         </tr>
                     </table>
