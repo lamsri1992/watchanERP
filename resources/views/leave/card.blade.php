@@ -6,7 +6,7 @@
                 @php
                     $busy = $num->busy - $res->busy;
                     $sick = $num->sick - $res->sick;
-                    $vacation = $num->vacation - $res->vacation;
+                    $vacation = $vac->balance_new - $res->vacation;
                 @endphp
                 <div class="col-xl-4 col-lg-6">
                     <div class="card card-stats mb-4 mb-xl-0">
@@ -70,7 +70,7 @@
                                         {{ $res->vacation == 0 ? 0 : $res->vacation }} / 
                                     </span>
                                     <span class="h1 font-weight-bold mb-0 text-primary" data-toggle="tooltip" data-placement="right" title="จำนวนสิทธิ์วันลา">
-                                        {{ $num->vacation }}
+                                        {{ $vac->balance_new }}
                                     </span>
                                 </div>
                                 <div class="col-auto">

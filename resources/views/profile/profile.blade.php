@@ -69,11 +69,7 @@
                     </tr>
                     <tr>
                         <th>ลาพักผ่อน</th>
-                        <td>{{ $data->vacation }}</td>
-                    </tr>
-                    <tr>
-                        <th>ลาคลอด</th>
-                        <td>{{ $data->mate }}</td>
+                        <td>{{ $data->balance_new }}</td>
                     </tr>
                 </table>
             </div>
