@@ -18,5 +18,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('hr_api', 'Api\HR_API');
-Route::apiResource('time_api', 'Api\TIME_API');
+Route::apiResource('hr_api', 'API\HR_API');
+Route::apiResource('time_api', 'API\TIME_API');
