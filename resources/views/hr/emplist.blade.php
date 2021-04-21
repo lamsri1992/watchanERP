@@ -14,6 +14,18 @@
                             </h6>
                         </div>
                     </div>
+                    <div class="mb-0">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="/hrm/dashboard">
+                                        <i class="fa fa-user-cog"></i> ผู้ดูแลระบบงานบุคลากร
+                                    </a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">ข้อมูลเจ้าหน้าที่</li>
+                            </ol>
+                        </nav>
+                    </div>
                 </div>
                 <div class="card-body">
                     <h4 style="margin-bottom:1rem;">
@@ -44,7 +56,8 @@
                                     </span>
                                 </td>
                                 <td class="text-center">
-                                    <a href="#" class="badge badge-info btn-block">
+                                    <a href="{{ route('hr.show',base64_encode($emps->id)) }}"
+                                        class="badge badge-info btn-block">
                                        <i class="fa fa-search"></i>&nbsp;
                                        เพิ่มเติม
                                     </a>
@@ -81,26 +94,6 @@
                 sLengthMenu: "<small>แสดง _MENU_ รายการ</small>",
                 sSearch: "<i class='fa fa-search'></i> ค้นหา : ",
         },
-         initComplete: function() {
-            this.api().columns([2, 3]).every(function() {
-                var column = this;
-                var select = $(
-                        '<select class=""><option value="">แสดงทั้งหมด</option></select>')
-                    .appendTo($(column.footer()).empty())
-                    .on('change', function() {
-                        var val = $.fn.dataTable.util.escapeRegex(
-                            $(this).val()
-                        );
-                        column
-                            .search(val ? '^' + val + '$' : '', true, false)
-                            .draw();
-                    });
-                column.cells('', column[0]).render('display').sort().unique().each(function(
-                    d, j) {
-                    select.append('<option value="' + d + '">- ' + d + '</option>')
-                });
-            });
-        }
     });
 });
 </script>
