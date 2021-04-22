@@ -35,7 +35,7 @@
                                                 </div>
                                             </div>
                                             <p class="mt-3 mb-0 text-muted text-sm">
-                                                <a href="/hrm/employee" class="btn btn-success btn-lg btn-block">
+                                                <a href="/hrm/employee" class="btn btn-success btn-sm btn-block">
                                                     <i class="fa fa-cog"></i> จัดการข้อมูลเจ้าหน้าที่
                                                 </a>
                                             </p>
@@ -57,7 +57,7 @@
                                                 </div>
                                             </div>
                                             <p class="mt-3 mb-0 text-muted text-sm">
-                                                <a href="/hrm/leave" class="btn btn-success btn-lg btn-block">
+                                                <a href="/hrm/leave" class="btn btn-success btn-sm btn-block">
                                                     <i class="fa fa-cog"></i> จัดการรายการขออนุมัติวันลา
                                                 </a>
                                             </p>
@@ -79,7 +79,7 @@
                                                 </div>
                                             </div>
                                             <p class="mt-3 mb-0 text-muted text-sm">
-                                                <a href="#" class="btn btn-success btn-lg btn-block">
+                                                <a href="#" class="btn btn-success btn-sm btn-block">
                                                     <i class="fa fa-cog"></i> จัดการรายการขออนุมัติเดินทาง
                                                 </a>
                                             </p>

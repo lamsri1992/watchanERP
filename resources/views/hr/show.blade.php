@@ -28,7 +28,7 @@
                                     </a>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    {{ $data->barcode." : ".$data->name }}
+                                    {{ $data->barcode." - ".$data->name }}
                                 </li>
                             </ol>
                         </nav>
@@ -103,24 +103,50 @@
                     <div class="row">
                         <div class="col-md-4">
                             @if ($data->img == NULL)
-                                <img class="img-fluid" src="{{ asset('img') }}/user-profile.png">
+                            <img class="img-fluid" src="{{ asset('img') }}/user-profile.png">
                             @else
-                                <img class="img-fluid" src="{{ asset('img') }}/employee/{{ $data->img }}">
+                            <img class="img-fluid" src="{{ asset('img') }}/employee/{{ $data->img }}.jpg">
                             @endif
+                            <div class="text-center">
+                                <span class="badge badge-{{ $data->ws_text }}">
+                                    <i class="fa fa-{{ $data->ws_icon }}"></i>&nbsp;
+                                    {{ $data->ws_name }}
+                                </span>
+                            </div>
                         </div>
                         <div class="col-md-8">
                             <form id="updateData">
                                 <table class="table table-striped table-sm">
                                     <tr>
-                                        <th class="text-center" width="30%">ชื่อ - สกุล</th>
+                                        <th class="text-center" width="30%"><i class="far fa-id-card"></i> BID</th>
                                         <td>
-                                            <input type="text" value="{{ $data->name }}" style="width: 100%;">
+                                            <input type="text" value="{{ $data->barcode }}" style="width: 100%;" disabled>
                                         </td>
                                     </tr>
                                     <tr>
+                                        <th class="text-center">ชื่อ - สกุล</th>
+                                        <td>
+                                            <input type="text" name="name" value="{{ $data->name }}" style="width: 100%;" required>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-center">วันที่เริ่มงาน</th>
+                                        <td>
+                                            <input type="text" name="work_start" class="jsDate" value="{{ $data->work_start }}" style="width: 100%;" required>
+                                        </td>
+                                    </tr>
+                                    @if ($data->work_status == 2)
+                                    <tr>
+                                        <th class="text-center">วันที่ย้าย/ลาออก</th>
+                                        <td>
+                                            <input type="text" value="{{ $data->work_end }}" style="width: 100%;">
+                                        </td>
+                                    </tr>
+                                    @endif
+                                    <tr>
                                         <th class="text-center">ประเภทบุคลากร</th>
                                         <td>
-                                            <select name="dept" class="js-single" required>
+                                            <select name="job" class="js-single" required>
                                                 <option></option>
                                                 @foreach ($jobs as $js)
                                                 <option value="{{ $js->job_id }}"
@@ -152,46 +178,56 @@
                                     <tr>
                                         <th class="text-center">ตำแหน่ง</th>
                                         <td>
-                                            <input type="text" value="{{ $data->position }}" style="width: 100%;">
+                                            <input type="text" name="position" value="{{ $data->position }}" style="width: 100%;" required>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-center">วันที่เกิด</th>
+                                        <td>
+                                            <input type="text" name="dob" class="jsDate" value="{{ $data->dob }}" style="width: 100%;">
                                         </td>
                                     </tr>
                                     <tr>
                                         <th class="text-center">ที่อยู่</th>
                                         <td>
-                                            <input type="text" value="{{ $data->address }}" style="width: 100%;">
+                                            <input type="text" name="address" value="{{ $data->address }}" style="width: 100%;" required>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th class="text-center">เบอร์โทร</th>
                                         <td>
-                                            <input type="text" value="{{ $data->tel }}" style="width: 100%;">
+                                            <input type="text" name="tel" value="{{ $data->tel }}" style="width: 100%;" required>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th class="text-center">ผู้ติดต่อยามฉุกเฉิน</th>
                                         <td>
-                                            <input type="text" value="{{ $data->person_name }}" style="width: 100%;">
+                                            <input type="text" name="person_name" value="{{ $data->person_name }}" style="width: 100%;" required>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th class="text-center">เบอร์โทรผู้ติดต่อ</th>
                                         <td>
-                                            <input type="text" value="{{ $data->person_tel }}" style="width: 100%;">
+                                            <input type="text" name="person_tel" value="{{ $data->person_tel }}" style="width: 100%;" required>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th class="text-center">ที่อยู่ผู้ติดต่อ</th>
                                         <td>
-                                            <input type="text" value="{{ $data->person_address }}" style="width: 100%;">
+                                            <input type="text" name="person_address" value="{{ $data->person_address }}" style="width: 100%;" required>
+                                        </td>
+                                    </tr>
+                                    <tr class="text-right">
+                                        <td colspan="2">
+                                            <a href="/hrm/employee" class="btn btn-danger btn-sm">
+                                                <i class="fa fa-times-circle"></i> ยกเลิกการแก้ไข
+                                            </a>
+                                            <button type="submit" class="btn btn-success btn-sm">
+                                                <i class="fa fa-save"></i> บันทึกการแก้ไข
+                                            </button>
                                         </td>
                                     </tr>
                                 </table>
-                                <br>
-                                <div class="text-right">
-                                    <button type="submit" class="btn btn-success btn-sm">
-                                        <i class="fa fa-save"></i> บันทึกการแก้ไข
-                                    </button>
-                                </div>
                             </form>
                         </div>
                     </div>
@@ -233,5 +269,44 @@ $(document).ready(function() {
         allowClear: true,
     });
 });
+
+$(function() {
+        $.datetimepicker.setLocale('th');
+        $(".jsDate").datetimepicker({
+            format: 'Y/m/d',
+            timepicker: false,
+            lang: 'th',
+        });
+    });
+
+$('#updateData').on("submit", function (event) {
+        event.preventDefault();
+        Swal.fire({
+            title: 'ยืนยันการแก้ไขข้อมูล ?',
+            text: '{{ $data->name }}',
+            showCancelButton: true,
+            confirmButtonText: `บันทึก`,
+            cancelButtonText: `ยกเลิก`,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "{{ route('hr.editEmp',$data->id) }}",
+                    data: $('#updateData').serialize(),
+                    success: function (data) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'บันทึกข้อมูลสำเร็จ',
+                            showConfirmButton: false,
+                            timer: 3000
+                        })
+                        window.setTimeout(function () {
+                            location.reload();
+                        }, 1500);
+                    }
+                });
+            }
+        })
+    });
+
 </script>
 @endsection

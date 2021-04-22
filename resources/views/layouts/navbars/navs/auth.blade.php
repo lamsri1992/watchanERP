@@ -12,7 +12,7 @@
                             @if (Auth::user()->img == NULL)
                             <img alt="Image placeholder" src="{{ asset('img') }}/user-profile.png">
                             @else
-                            <img alt="Image placeholder" src="{{ asset('img') }}/employee/{{ auth()->user()->img }}">
+                            <img alt="Image placeholder" src="{{ asset('img') }}/employee/{{ auth()->user()->img }}.jpg">
                             @endif
                         </span>
                         <div class="media-body ml-2 d-none d-lg-block">

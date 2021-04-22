@@ -62,6 +62,7 @@ Route::group(['prefix' => 'hrm'], function () {
 	Route::get('/dashboard', function () { return view('leave.hr_index'); });
 	Route::get('/employee','HrmController@employeeList')->name('hr.emplist');
 	Route::get('/employee/{id}','HrmController@employeeShow')->name('hr.show');
+	Route::get('/editEmp/{id}','HrmController@editEmp')->name('hr.editEmp');
 	Route::get('/leave','LeaveController@HrmLeaveList')->name('leave.hr');
 	Route::get('/leave/{id}','LeaveController@Hrshow')->name('leave.hr_show');
 });

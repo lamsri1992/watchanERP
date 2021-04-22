@@ -37,6 +37,49 @@ class HrmController extends Controller
                     ->get();
 
         return view('hr.show', ['data'=>$data,'dept'=>$dept,'jobs'=>$jobs]);
-        // return dd($data);
     }
+
+    public function editEmp(Request $request, $id)
+    {
+        DB::table('users')->where('id', $id)->update(
+            [
+                'name' => $request->get('name'),
+                'department' => $request->get('dept'),
+                'position' => $request->get('position'),
+                'job' => $request->get('job'),
+                'work_start' => $request->get('work_start')
+            ]
+        );
+        // Check Personal Data
+        $check = DB::table('personals')
+                ->where('user_id', $id)
+                ->first();
+        if(isset($check)){
+            DB::table('personals')->where('user_id', $id)->update(
+                [
+                    'dob' => $request->get('dob'),
+                    'email' => $request->get('email'),
+                    'address' => $request->get('address'),
+                    'tel' => $request->get('tel'),
+                    'person_name' => $request->get('person_name'),
+                    'person_tel' => $request->get('person_tel'),
+                    'person_address' => $request->get('person_address')
+                ]
+            );
+        }else{
+            DB::table('personals')->insert(
+                [
+                    'dob' => $request->get('dob'),
+                    'email' => $request->get('email'),
+                    'address' => $request->get('address'),
+                    'tel' => $request->get('tel'),
+                    'person_name' => $request->get('person_name'),
+                    'person_tel' => $request->get('person_tel'),
+                    'person_address' => $request->get('person_address'),
+                    'user_id' => $id
+                ]
+            );
+        }
+    }
+
 }
