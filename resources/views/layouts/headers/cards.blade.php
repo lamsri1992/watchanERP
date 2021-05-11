@@ -1,4 +1,6 @@
-<div class="header bg-gradient-primary pb-8 pt-5 pt-md-6">
+<div class="header pb-8 pt-5 pt-lg-6 d-flex align-items-center" style="background-image: url(https://new.watchanhospital.com/assets/img/hospital_front.jpg); 
+    background-size: cover; background-position: bottom;">
+    <span class="mask bg-gradient-default opacity-8"></span>
     <div class="container-fluid">
         <div class="header-body">
             <!-- Card stats -->
