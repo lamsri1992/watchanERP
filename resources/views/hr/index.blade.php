@@ -168,7 +168,7 @@
         if (data['img'] == null){
             img.src = "{{ asset('img') }}/user-profile.png";
         }else{
-            img.src = "{{ asset('img') }}/employee/"+(data['img'])+"";
+            img.src = "{{ asset('img') }}/employee/"+(data['img'])+".jpg";
         }
             img.className = 'rounded img-fluid img-thumbnail';
         var src = document.getElementById("x");

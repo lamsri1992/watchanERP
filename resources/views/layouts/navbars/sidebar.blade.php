@@ -74,26 +74,25 @@
             <!-- Navigation -->
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="#navbar-office" data-toggle="collapse" role="button" aria-expanded="false"
-                        aria-controls="navbar-office">
+                    <a class="nav-link" href="#navbar-office" data-toggle="collapse" role="button" aria-controls="navbar-office">
                         <i class="far fa-folder-open text-success"></i>
                         <span
                             class="nav-link-text">{{ __('งานบริหารทั่วไป') }}
                         </span>
                     </a>
-                    <div class="collapse hidden" id="navbar-office">
+                    <div class="collapse {{ (request()->is('leave','note','worktime')) ? 'show' : '' }}" id="navbar-office">
                         <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
+                            <li class="nav-item {{ (request()->is('leave')) ? 'active' : '' }}">
                                 <a class="nav-link" href="/leave">
                                     {{ __('ระบบวันลาออนไลน์') }}
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item {{ (request()->is('note')) ? 'active' : '' }}">
                                 <a class="nav-link" href="/note">
                                     {{ __('ระบบขออนุมัติเดินทาง') }}
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item {{ (request()->is('worktime')) ? 'active' : '' }}">
                                 <a class="nav-link" href="/worktime">
                                     {{ __('ระบบบันทึกเวลาเข้างาน') }}
                                 </a>
@@ -109,9 +108,9 @@
                             class="nav-link-text">{{ __('ระบบงานแจ้งซ่อม') }}
                         </span>
                     </a>
-                    <div class="collapse hidden" id="navbar-repair">
+                    <div class="collapse {{ (request()->is('helpdesk')) ? 'show' : '' }}" id="navbar-repair">
                         <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
+                            <li class="nav-item {{ (request()->is('helpdesk')) ? 'active' : '' }}">
                                 <a class="nav-link" href="/helpdesk">
                                     {{ __('แจ้งซ่อมคอมพิวเตอร์') }}
                                 </a>
@@ -155,7 +154,7 @@
                 </li>
                 @endif
                 @if (Auth::user()->permission == 3 || Auth::user()->permission == 4)
-                <li class="nav-item">
+                <li class="nav-item {{ (request()->is('hrm/*')) ? 'active' : '' }}">
                     <a class="nav-link" href="/hrm/dashboard">
                         <i class="far fa-calendar-alt"></i> ผู้ดูแลระบบงานบุคลากร
                     </a>

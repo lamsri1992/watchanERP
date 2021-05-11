@@ -44,7 +44,7 @@
                     </tr>
                     <tr>
                         <th>วันที่เริ่มงาน/บรรจุ</th>
-                        <td>{{ $data->work_start }}</td>
+                        <td>{{ DateThai($data->work_start) }}</td>
                     </tr>
                     <tr>
                         <th>สถานะการปฏิบัติงาน</th>
