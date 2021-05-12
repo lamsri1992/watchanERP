@@ -219,6 +219,11 @@
                                     </tr>
                                     <tr class="text-right">
                                         <td colspan="2">
+                                            @if ($data->work_status == 1)
+                                            <a href="#" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#resign">
+                                                <i class="fa fa-sign-out-alt"></i> บันทึกการย้าย/ลาออก
+                                            </a>
+                                            @endif
                                             <a href="/hrm/employee" class="btn btn-danger btn-sm">
                                                 <i class="fa fa-times-circle"></i> ยกเลิกการแก้ไข
                                             </a>
@@ -238,6 +243,25 @@
     @include('layouts.footers.auth')
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="resign" tabindex="-1" aria-labelledby="resignLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form id="resignFrm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="resignLabel"><i class="fa fa-sign-out-alt"></i> บันทึกการย้าย/ลาออก</h5>
+                </div>
+                <div class="modal-body">
+                    <input type="text" name="resign" class="form-control jsDate" placeholder="ระบุวันที่ย้าย/ลาออก" style="width: 100%;" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">ปิดหน้าต่าง</button>
+                    <button type="submit" class="btn btn-sm btn-success">บันทึกข้อมูล</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 
 @endsection
 @section('script')
@@ -292,6 +316,35 @@ $('#updateData').on("submit", function (event) {
                 $.ajax({
                     url: "{{ route('hr.editEmp',$data->id) }}",
                     data: $('#updateData').serialize(),
+                    success: function (data) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'บันทึกข้อมูลสำเร็จ',
+                            showConfirmButton: false,
+                            timer: 3000
+                        })
+                        window.setTimeout(function () {
+                            location.reload();
+                        }, 1500);
+                    }
+                });
+            }
+        })
+    });
+
+    $('#resignFrm').on("submit", function (event) {
+        event.preventDefault();
+        Swal.fire({
+            title: 'บันทึกการย้าย/ลาออก ?',
+            text: '{{ $data->name }}',
+            showCancelButton: true,
+            confirmButtonText: `บันทึก`,
+            cancelButtonText: `ยกเลิก`,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "{{ route('hr.resign',$data->id) }}",
+                    data: $('#resignFrm').serialize(),
                     success: function (data) {
                         Swal.fire({
                             icon: 'success',

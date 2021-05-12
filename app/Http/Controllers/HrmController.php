@@ -82,4 +82,14 @@ class HrmController extends Controller
         }
     }
 
+    public function resign(Request $request, $id)
+    {
+        DB::table('users')->where('id', $id)->update(
+            [
+                'work_end' => $request->get('resign'),
+                'work_status' => 2
+            ]
+        );
+    }
+
 }
