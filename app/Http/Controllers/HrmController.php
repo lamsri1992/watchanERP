@@ -23,7 +23,10 @@ class HrmController extends Controller
         $notes = DB::table('notes')
                 // ->where('work_status', 1)
                 ->count();
-        return view('hr.dashboard', ['users'=>$users,'leaves'=>$leaves,'notes'=>$notes,'resign'=>$resign]);
+        $times = DB::table('worktime')
+                // ->where('work_status', 1)
+                ->count();
+        return view('hr.dashboard', ['users'=>$users,'leaves'=>$leaves,'notes'=>$notes,'resign'=>$resign,'times'=>$times]);
     }
 
     public function employeeList()
