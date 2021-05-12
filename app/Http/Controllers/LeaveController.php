@@ -20,7 +20,7 @@ class LeaveController extends Controller
                     ->get();
         $uname = DB::table('users')
                     ->select('id', 'name', 'department')
-                    ->where('work_status', '=', 'work')
+                    ->where('work_status', 1)
                     ->where('users.department', $userDept)
                     ->orderBy('users.id', 'asc')
                     ->get();
