@@ -26,7 +26,8 @@
                                             <div class="row">
                                                 <div class="col">
                                                     <h5 class="card-title text-uppercase text-muted mb-0">จำนวนเจ้าหน้าที่</h5>
-                                                    <span class="h2 font-weight-bold mb-0">105 คน</span>
+                                                    <span class="h2 font-weight-bold mb-0">{{ $users }} คน :</span>
+                                                    <small class="text-muted">{{ $resign }} คน (ย้าย/ลาออก)</small>
                                                 </div>
                                                 <div class="col-auto">
                                                     <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
@@ -48,7 +49,7 @@
                                             <div class="row">
                                                 <div class="col">
                                                     <h5 class="card-title text-uppercase text-muted mb-0">รายการขออนุมัติวันลา</h5>
-                                                    <span class="h2 font-weight-bold mb-0">856 รายการ</span>
+                                                    <span class="h2 font-weight-bold mb-0">{{ $leaves }} รายการ</span>
                                                 </div>
                                                 <div class="col-auto">
                                                     <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
@@ -70,7 +71,7 @@
                                             <div class="row">
                                                 <div class="col">
                                                     <h5 class="card-title text-uppercase text-muted mb-0">รายการขออนุมัติเดินทาง</h5>
-                                                    <span class="h2 font-weight-bold mb-0">46 รายการ</span>
+                                                    <span class="h2 font-weight-bold mb-0">{{ $notes }} รายการ</span>
                                                 </div>
                                                 <div class="col-auto">
                                                     <div class="icon icon-shape bg-primary text-white rounded-circle shadow">

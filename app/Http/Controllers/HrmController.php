@@ -8,6 +8,24 @@ use Auth;
 
 class HrmController extends Controller
 {
+    public function dashboard()
+    {
+        $users = DB::table('users')
+                ->where('work_status', 1)
+                ->count();
+        $resign = DB::table('users')
+                ->where('work_status', 2)
+                ->count();
+        $leaves = DB::table('leave_list')
+                ->where('leave_status', 1)
+                ->orWhere('leave_status', 2)
+                ->count();
+        $notes = DB::table('notes')
+                // ->where('work_status', 1)
+                ->count();
+        return view('hr.dashboard', ['users'=>$users,'leaves'=>$leaves,'notes'=>$notes,'resign'=>$resign]);
+    }
+
     public function employeeList()
     {
         $data = DB::table('users')
@@ -16,7 +34,6 @@ class HrmController extends Controller
                     ->orderBy('users.id', 'asc')
                     ->get();
         return view('hr.emplist', ['data'=>$data]);
-        // return dd($data);
     }
 
     public function employeeShow($id)
