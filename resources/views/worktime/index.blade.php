@@ -104,23 +104,25 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <table id="time_table" class="table display responsive nowrap" style="width:100%">
+                    <table id="time_table" class="table table-sm table-striped" style="width:100%">
                         <thead class="thead-dark">
                             <tr>
                                 <th>WID</th>
+                                <th><i class="far fa-clock"></i> เวลาเข้างาน</th>
                                 <th>ชื่อ - สกุล</th>
                                 <th>ตำแหน่ง</th>
                                 <th>ฝ่าย/งาน</th>
-                                <th><i class="far fa-clock"></i> เวลาเข้างาน</th>
+                                <th>สถานะ</th>
                             </tr>
                         </thead>
                         <tfoot class="thead-dark">
                             <tr>
                                 <th>WID</th>
+                                <th><i class="far fa-clock"></i> เวลาเข้างาน</th>
                                 <th>ชื่อ - สกุล</th>
                                 <th>ตำแหน่ง</th>
                                 <th>ฝ่าย/งาน</th>
-                                <th><i class="far fa-clock"></i> เวลาเข้างาน</th>
+                                <th>สถานะ</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -142,20 +144,23 @@
         },
         columns: [
             { 'data': 'work_id', className: "text-center" },
+            { 'data': 'work_time', className: "text-center" },
             { 'data': 'name' },
             { 'data': 'position' },
             { 'data': 'dept_name' },
-            { 'data': 'work_time', className: "text-center"  },
+            { 'data': 'time_name', className: "text-center" },
         ],
         lengthMenu: [
             [20, 50, 100, -1],
             [20, 50, 100, "All"]
         ],
-        responsive: true,
+        // responsive: true,
+        scrollX: true,
+        autoWidth: true,
         rowReorder: {
             selector: 'td:nth-child(2)'
         },
-        order: [[ 4, 'desc' ]],
+        order: [[ 0, 'desc' ]],
         oLanguage: {
                  oPaginate: {
                     sFirst: '<small>หน้าแรก</small>',

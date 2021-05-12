@@ -11,9 +11,10 @@ class TIME_API extends Controller
     public function index()
     {
         $result = DB::table('worktime')
-                    ->select('work_id', 'work_time', 'emp_barcode', 'name', 'position','dept_name')
+                    ->select('work_id', 'work_time', 'emp_barcode', 'name', 'position','dept_name','time_name')
                     ->leftJoin('users', 'users.barcode', '=', 'worktime.emp_barcode')
                     ->leftJoin('departments', 'departments.dept_id', '=', 'users.department')
+                    ->leftJoin('worktime_status', 'worktime_status.time_id', '=', 'worktime.work_status')
                     ->where('work_time', '>=', DB::raw('curdate()'))
                     ->get();
         return response()->json($result);
