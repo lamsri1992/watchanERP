@@ -173,7 +173,7 @@
                 sSearch: "<i class='fa fa-search'></i> ค้นหา : ",
         },
          initComplete: function() {
-            this.api().columns([2,3]).every(function() {
+            this.api().columns([3,4,5]).every(function() {
                 var column = this;
                 var select = $(
                         '<select class=""><option value="">แสดงทั้งหมด</option></select>')
@@ -188,7 +188,7 @@
                     });
                 column.cells('', column[0]).render('display').sort().unique().each(function(
                     d, j) {
-                    select.append('<option value="' + d + '">- ' + d + '</option>')
+                    select.append('<option value="' + d + '">' + d + '</option>')
                 });
             });
         }
