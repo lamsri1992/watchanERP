@@ -59,7 +59,7 @@ Route::group(['prefix' => 'authorize'], function () {
 });
 
 Route::group(['prefix' => 'hrm'], function () {
-	Route::get('/dashboard', function () { return view('leave.hr_index'); });
+	Route::get('/dashboard', function () { return view('hr.dashboard'); });
 	Route::get('/employee','HrmController@employeeList')->name('hr.emplist');
 	Route::get('/employee/{id}','HrmController@employeeShow')->name('hr.show');
 	Route::get('/editEmp/{id}','HrmController@editEmp')->name('hr.editEmp');
