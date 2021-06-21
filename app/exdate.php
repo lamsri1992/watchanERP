@@ -44,3 +44,9 @@ function DateTimeThai($strDate)
     $strMonthThai=$strMonthCut[$strMonth];
     return "$strDay $strMonthThai $strYear $strHour:$strMinute"."น";
 }
+
+function GetAge($birthday) {
+    if ($birthday == "0000-00-00") return "";
+    $then = strtotime($birthday);
+    return(floor((time()-$then)/31556926));
+}

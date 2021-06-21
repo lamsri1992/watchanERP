@@ -55,8 +55,10 @@ class HrmController extends Controller
                     ->get();
         $jobs = DB::table('jobs')
                     ->get();
+        $unit = DB::table('users')
+                    ->get();
 
-        return view('hr.show', ['data'=>$data,'dept'=>$dept,'jobs'=>$jobs]);
+        return view('hr.show', ['data'=>$data,'dept'=>$dept,'jobs'=>$jobs,'unit'=>$unit]);
     }
 
     public function editEmp(Request $request, $id)
@@ -67,7 +69,8 @@ class HrmController extends Controller
                 'department' => $request->get('dept'),
                 'position' => $request->get('position'),
                 'job' => $request->get('job'),
-                'work_start' => $request->get('work_start')
+                'work_start' => $request->get('work_start'),
+                'line_token' => $request->get('line_token')
             ]
         );
         // Check Personal Data

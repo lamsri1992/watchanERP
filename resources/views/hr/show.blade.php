@@ -1,6 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+    .inputX{
+        width: 100%;
+        padding: 4px;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+</style>
 <div class="header bg-gradient-primary pb-6 pt-5 pt-md-8"></div>
 <div class="container-fluid mt--7">
     <div class="row">
@@ -103,12 +113,12 @@
                     <div class="row">
                         <div class="col-md-4">
                             @if ($data->img == NULL)
-                            <img class="img-fluid" src="{{ asset('img') }}/user-profile.png">
+                            <img class="img-fluid rounded" src="{{ asset('img') }}/user-profile.png">
                             @else
-                            <img class="img-fluid" src="{{ asset('img') }}/employee/{{ $data->img }}.jpg">
+                            <img class="img-fluid rounded" src="{{ asset('img') }}/employee/{{ $data->img }}.jpg">
                             @endif
                             <div class="text-center">
-                                <span class="badge badge-{{ $data->ws_text }}">
+                                <span class="badge badge-{{ $data->ws_text }} btn-block">
                                     <i class="fa fa-{{ $data->ws_icon }}"></i>&nbsp;
                                     {{ $data->ws_name }}
                                 </span>
@@ -120,26 +130,26 @@
                                     <tr>
                                         <th class="text-center" width="30%"><i class="far fa-id-card"></i> BID</th>
                                         <td>
-                                            <input type="text" value="{{ $data->barcode }}" style="width: 100%;" disabled>
+                                            <input type="text" class="inputX text-primary" value="{{ $data->barcode }}" disabled>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th class="text-center">ชื่อ - สกุล</th>
                                         <td>
-                                            <input type="text" name="name" value="{{ $data->name }}" style="width: 100%;" required>
+                                            <input type="text" class="inputX" name="name" value="{{ $data->name }}" required>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th class="text-center">วันที่เริ่มงาน</th>
                                         <td>
-                                            <input type="text" name="work_start" class="jsDate" value="{{ $data->work_start }}" style="width: 100%;" required>
+                                            <input type="text" class="inputX" name="work_start" class="jsDate" value="{{ $data->work_start }}" required>
                                         </td>
                                     </tr>
                                     @if ($data->work_status == 2)
                                     <tr>
                                         <th class="text-center">วันที่ย้าย/ลาออก</th>
                                         <td>
-                                            <input type="text" value="{{ $data->work_end }}" style="width: 100%;">
+                                            <input type="text" class="inputX" value="{{ $data->work_end }}">
                                         </td>
                                     </tr>
                                     @endif
@@ -178,43 +188,65 @@
                                     <tr>
                                         <th class="text-center">ตำแหน่ง</th>
                                         <td>
-                                            <input type="text" name="position" value="{{ $data->position }}" style="width: 100%;" required>
+                                            <input type="text" class="inputX" name="position" value="{{ $data->position }}" required>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th class="text-center">วันที่เกิด</th>
                                         <td>
-                                            <input type="text" name="dob" class="jsDate" value="{{ $data->dob }}" style="width: 100%;">
+                                            <input type="text" class="inputX" name="dob" class="jsDate" value="{{ $data->dob }}">
                                         </td>
                                     </tr>
                                     <tr>
                                         <th class="text-center">ที่อยู่</th>
                                         <td>
-                                            <input type="text" name="address" value="{{ $data->address }}" style="width: 100%;" required>
+                                            <input type="text" class="inputX" name="address" value="{{ $data->address }}" required>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th class="text-center">เบอร์โทร</th>
                                         <td>
-                                            <input type="text" name="tel" value="{{ $data->tel }}" style="width: 100%;" required>
+                                            <input type="text" class="inputX" name="tel" value="{{ $data->tel }}" required>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th class="text-center">ผู้ติดต่อยามฉุกเฉิน</th>
                                         <td>
-                                            <input type="text" name="person_name" value="{{ $data->person_name }}" style="width: 100%;" required>
+                                            <input type="text" class="inputX" name="person_name" value="{{ $data->person_name }}" required>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th class="text-center">เบอร์โทรผู้ติดต่อ</th>
                                         <td>
-                                            <input type="text" name="person_tel" value="{{ $data->person_tel }}" style="width: 100%;" required>
+                                            <input type="text" class="inputX" name="person_tel" value="{{ $data->person_tel }}" required>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th class="text-center">ที่อยู่ผู้ติดต่อ</th>
                                         <td>
-                                            <input type="text" name="person_address" value="{{ $data->person_address }}" style="width: 100%;" required>
+                                            <input type="text" class="inputX" name="person_address" value="{{ $data->person_address }}" required>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-center"><i class="fab fa-line text-success"></i> Line Token</th>
+                                        <td>
+                                            <input type="text" class="inputX" name="line_token" value="{{ $data->line_token }}" style="">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-center">ผู้บังคับบัญชา</th>
+                                        <td>
+                                            <select name="unit" class="js-single" required>
+                                                <option></option>
+                                                @foreach ($unit as $uns)
+                                                <option value="{{ $uns->id }}"
+                                                    @if ($data->unit == $uns->id)
+                                                        {{ 'SELECTED' }}
+                                                    @endif>
+                                                    {{ $uns->name }}
+                                                </option>
+                                                @endforeach
+                                            </select>
                                         </td>
                                     </tr>
                                     <tr class="text-right">
@@ -252,7 +284,7 @@
                     <h5 class="modal-title" id="resignLabel"><i class="fa fa-sign-out-alt"></i> บันทึกการย้าย/ลาออก</h5>
                 </div>
                 <div class="modal-body">
-                    <input type="text" name="resign" class="form-control jsDate" placeholder="ระบุวันที่ย้าย/ลาออก" style="width: 100%;" required>
+                    <input type="text" name="resign" class="form-control jsDate" placeholder="ระบุวันที่ย้าย/ลาออก" required>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">ปิดหน้าต่าง</button>
