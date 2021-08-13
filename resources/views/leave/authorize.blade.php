@@ -31,7 +31,7 @@
                     <h4 class="ls-1 mb-1">
                         <i class="far fa-clock"></i> รายการรอดำเนินการ
                         <div class="text-right">
-                            <button id="btnAll" class="btn btn-sm btn-success">
+                            <button id="btnAll" class="btn btn-sm btn-success" {{ count($list) <= 0 ? 'disabled' : '' }}>
                                 <i class="fa fa-tasks"></i> อนุมัติทั้งหมด
                             </button>
                         </div>
