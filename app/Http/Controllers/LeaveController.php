@@ -22,6 +22,7 @@ class LeaveController extends Controller
                     ->select('id', 'name', 'department')
                     ->where('work_status', 1)
                     ->where('users.department', $userDept)
+                    ->where('users.id', '!=' ,$userID)
                     ->orderBy('users.id', 'asc')
                     ->get();
         $num = DB::table('leave_num')
@@ -91,9 +92,12 @@ class LeaveController extends Controller
         $unit = DB::table('users')
                 ->where('users.id', $data->unit)
                 ->first();
-        $Token = "w5QuztyBKpMk262OYuuQP6rV1v7bFO1ooX2JvHHJDzh";
+        $Token = "al9wgTb0rZZq40Vf1gPdyz0XNuYsCdcBZL5hbLHagsz";
         // $Token = $unit->line_token;
-        $message = "มีรายการขออนุมัติวันลา\nจาก : ".Auth::User()->name."\nประเภท : ".$t_name."\nวันที่ลา : ".DateThai($request->get('leave_start'))."\nถึงวันที่ : ".DateThai($request->get('leave_end'))."\nจำนวน : ".$intWorkDay." วัน\nกรุณาดำเนินการก่อน ".DateThai($request->get('leave_start'))."\nที่ https://erp.watchanhospital.com/";
+        $message = "มีรายการขออนุมัติวันลา\nจาก : ".Auth::User()->name."\nประเภท : ".$t_name."\nวันที่ลา : "
+                    .DateThai($request->get('leave_start'))."\nถึงวันที่ : ".DateThai($request->get('leave_end')).
+                    "\nจำนวน : ".$intWorkDay." วัน\nกรุณาดำเนินการก่อน ".DateThai($request->get('leave_start')).
+                    "\nURL : https://erp.wc-hospital.go.th/";
         line_notify($Token, $message);
     }
 
@@ -162,8 +166,8 @@ class LeaveController extends Controller
             ]
         );
         // Send Line To PJ
-        $Token = "w5QuztyBKpMk262OYuuQP6rV1v7bFO1ooX2JvHHJDzh";
-        $message = "มีรายการขออนุมัติวันลารอดำเนินการ\nกรุณาดำเนินการที่ : https://erp.watchanhospital.com/";
+        $Token = "al9wgTb0rZZq40Vf1gPdyz0XNuYsCdcBZL5hbLHagsz";
+        $message = "มีรายการขออนุมัติวันลารอดำเนินการ\nกรุณาดำเนินการที่ : https://erp.wc-hospital.go.th/";
         line_notify($Token, $message);
     }
 
@@ -203,7 +207,7 @@ class LeaveController extends Controller
             $text .= "ได้รับการอนุมัติแล้ว\n\n";
         }
         // Send Line To Watchan Family
-        $Token = "w5QuztyBKpMk262OYuuQP6rV1v7bFO1ooX2JvHHJDzh";
+        $Token = "al9wgTb0rZZq40Vf1gPdyz0XNuYsCdcBZL5hbLHagsz";
         $message = $text;
         line_notify($Token, $message);
 

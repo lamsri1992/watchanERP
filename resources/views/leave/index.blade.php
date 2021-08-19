@@ -245,6 +245,7 @@
             cancelButtonText: `ยกเลิก`,
         }).then((result) => {
             if (result.isConfirmed) {
+                document.getElementById("btnSave").disabled = true;
                 $.ajax({
                     url: "{{ route('leave.addLeave') }}",
                     data: $('#addLeave').serialize(),
