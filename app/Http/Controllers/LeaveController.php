@@ -57,15 +57,17 @@ class LeaveController extends Controller
         if ($request->get('leave_time')== '2' || $request->get('leave_time') == '3'){
             $intWorkDay = $intWorkDay - 0.5;
         }
-        if (!isset(Auth::User()->line_token)){
-            $statusID = '1';
-        }
+        // if (!isset(Auth::User()->line_token)){
+        //     $statusID = '1';
+        // }
         if (Auth::User()->unit == 1){
             $statusID = '2';
+        }else{
+            $statusID = '1';
         }
-        if (isset(Auth::User()->line_token)){
-            $statusID = '2';
-        }
+        // if (isset(Auth::User()->line_token)){
+        //     $statusID = '2';
+        // }
         if($request->get('leave_type') == 1 ){ $t_name = 'ลากิจ'; }
         if($request->get('leave_type') == 2 ){ $t_name = 'ลาป่วย'; }
         if($request->get('leave_type') == 3 ){ $t_name = 'ลาพักผ่อน'; }
@@ -92,8 +94,8 @@ class LeaveController extends Controller
         $unit = DB::table('users')
                 ->where('users.id', $data->unit)
                 ->first();
-        $Token = "al9wgTb0rZZq40Vf1gPdyz0XNuYsCdcBZL5hbLHagsz";
-        // $Token = $unit->line_token;
+        // $Token = "al9wgTb0rZZq40Vf1gPdyz0XNuYsCdcBZL5hbLHagsz";
+        $Token = $unit->line_token;
         $message = "มีรายการขออนุมัติวันลา\nจาก : ".Auth::User()->name."\nประเภท : ".$t_name."\nวันที่ลา : "
                     .DateThai($request->get('leave_start'))."\nถึงวันที่ : ".DateThai($request->get('leave_end')).
                     "\nจำนวน : ".$intWorkDay." วัน\nกรุณาดำเนินการก่อน ".DateThai($request->get('leave_start')).
@@ -159,16 +161,35 @@ class LeaveController extends Controller
 
     public function allowList(Request $request, $id)
     {
-        DB::table('leave_list')->where('leave_id', $id)->update(
-            [
-                'leave_hnote' => $request->get('hnote'),
-                'leave_status' => 2
-            ]
-        );
-        // Send Line To PJ
-        $Token = "al9wgTb0rZZq40Vf1gPdyz0XNuYsCdcBZL5hbLHagsz";
-        $message = "มีรายการขออนุมัติวันลารอดำเนินการ\nกรุณาดำเนินการที่ : https://erp.wc-hospital.go.th/";
-        line_notify($Token, $message);
+        $date = date("Y-m-d H:i:s");
+        $list = DB::table('leave_list')
+                ->leftJoin('users', 'leave_list.user_id', '=', 'users.id')
+                ->where('leave_list.leave_id', $id)
+                ->first();
+        if($list->leave_status == 1){
+            // echo "Send To PJ";
+            DB::table('leave_list')->where('leave_id', $id)->update(
+                [
+                    'leave_hnote' => $request->get('hnote'),
+                    'leave_status' => 2
+                ]
+            );
+            $Token = "al9wgTb0rZZq40Vf1gPdyz0XNuYsCdcBZL5hbLHagsz";
+            $message = "มีรายการขออนุมัติวันลารอดำเนินการ\nกรุณาดำเนินการที่ : https://erp.wc-hospital.go.th/";
+            line_notify($Token, $message);
+        }else{
+            // echo "Send To Watchan Family";
+            DB::table('leave_list')->where('leave_id', $id)->update(
+                [
+                    'leave_dnote' => 'เห็นควรอนุมัติ',
+                    'leave_approve' => $date,
+                    'leave_status' => 3,
+                ]
+            );
+            $Token = "al9wgTb0rZZq40Vf1gPdyz0XNuYsCdcBZL5hbLHagsz";
+            $message = "รายการ : รหัส HR-".$list->leave_id."\nผู้ขออนุมัติ : ".$list->name."\nวันที่ลา : ".DateThai($list->leave_start)."\nได้รับการอนุมัติแล้ว";;
+            line_notify($Token, $message);
+        }
     }
 
     public function disallowList(Request $request, $id)

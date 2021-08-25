@@ -31,7 +31,7 @@
                     <h4 class="ls-1 mb-1">
                         <i class="far fa-clock"></i> รายการรอดำเนินการ
                         <div class="text-right">
-                            <button id="btnAll" class="btn btn-sm btn-success" {{ count($list) <= 0 ? 'disabled' : '' }}>
+                            <button id="btnAll" class="btn btn-sm btn-warning" {{ count($list) <= 0 ? 'disabled' : '' }}>
                                 <i class="fa fa-tasks"></i> อนุมัติทั้งหมด
                             </button>
                         </div>
@@ -73,17 +73,9 @@
                                     <small class="text-danger">{{ $res->time_name }}</small>
                                 </td>
                                 <td class="text-center">
-                                    <div class="dropdown">
-                                        <a class="btn btn-outline-primary btn-sm dropdown-toggle" href="#" role="button" id="dropdownApprove" 
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                          <i class="fa fa-cog"></i> รายการอนุมัติ
-                                        </a>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownApprove">
-                                          <a class="dropdown-item text-success" href="#"><i class="far fa-check-circle"></i>อนุมัติรายการ</a>
-                                          <a class="dropdown-item text-danger" href="#"><i class="far fa-times-circle"></i>ไม่อนุมัติรายการ</a>
-                                          <a class="dropdown-item text-primary" href="#"><i class="far fa-question-circle"></i>ดูรายละเอียด</a>
-                                        </div>
-                                    </div>
+                                    <a href="{{ route('leave.approve_show',base64_encode($res->leave_id)) }}" class="badge badge-success">
+                                        <i class="fa fa-edit"></i> ดำเนินการ
+                                    </a>
                                 </td>
                             </tr>
                             @endforeach
@@ -131,9 +123,9 @@
         var id = $(this).attr('data-id');
         event.preventDefault();
         Swal.fire({
-            title: 'อนุมัติรายการทั้งหมด ?',
+            title: 'อนุมัติทั้งหมด {{ count($list) }} รายการ ?',
             showCancelButton: true,
-            confirmButtonText: `ยืนยัน`,
+            confirmButtonText: `อนุมัติทั้งหมด`,
             cancelButtonText: `ยกเลิก`,
             icon: `warning`,
         }).then((result) => {

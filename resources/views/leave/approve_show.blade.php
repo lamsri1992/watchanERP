@@ -50,7 +50,7 @@
                             <tbody>
                                 <tr>
                                     <td><b>วันที่ทำรายการ</b></td>
-                                    <td class="text-left">{{ $list->leave_create }}</td>
+                                    <td class="text-left">{{ DateTimeThai($list->leave_create) }}</td>
                                     <td><b>เบอร์โทรติดต่อ</b></td>
                                     <td>{{ $list->tel }}</td>
                                 </tr>
@@ -108,12 +108,38 @@
                     </form>
                 </div>
                 @endif
+                @if ($list->status_id == 2)
+                <div class="card-body">
+                    <form id="approveFinal">
+                        <div class="container-fluid form-row">
+                            <div class="form-group col-md-12">
+                                <label>ความเห็นผู้อำนวยการ</label>
+                                <textarea name="hnote" class="form-control" cols="30" rows="3" required>เห็นควรอนุมัติ (ข้อความอัตโนมัติ)</textarea>
+                            </div>
+                            <div class="col-md-6">
+                                <button id="btnApprove" class="btn btn-block btn-lg btn-success"><i class="fa fa-check-circle"></i> อนุมัติรายการ</button>
+                            </div>
+                            <div class="col-md-6">
+                                <button id="btnDisapprove" class="btn btn-block btn-lg btn-danger"><i class="fa fa-times-circle"></i> ไม่อนุมัติรายการ</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                @endif
             </div>
         </div>
     </div>
     @include('layouts.footers.auth')
 </div>
-
+@if (Auth::User()->permission == 1)
+    @php
+        $redirect = 'approve';
+    @endphp
+@else
+    @php
+        $redirect = 'authorize';
+    @endphp
+@endif
 @endsection
 @section('script')
 <script type="text/javascript">
@@ -138,7 +164,7 @@
                             timer: 3000
                         })
                         window.setTimeout(function () {
-                            location.replace('/approve')
+                            location.replace('/{{ $redirect }}')
                         }, 1500);
                     }
                 });
@@ -167,7 +193,7 @@
                             timer: 3000
                         })
                         window.setTimeout(function () {
-                            location.replace('/approve')
+                            location.replace('/{{ $redirect }}')
                         }, 1500);
                     }
                 });

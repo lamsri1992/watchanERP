@@ -67,15 +67,16 @@
                                     {{ $res->leave_num }}&nbsp;
                                     <small class="text-danger">{{ $res->time_name }}</small>
                                 </td>
-                                @if ($res->status_id == 1)
-                                    @php $btnShow = ''; @endphp
-                                @else 
-                                    @php $btnShow = 'disabled'; @endphp
-                                @endif
                                 <td class="text-center">
-                                    <a href="{{ route('leave.approve_show',base64_encode($res->leave_id)) }}" class="btn btn-sm btn-success {{ $btnShow }}">
+                                @if ($res->status_id == 1)
+                                    <a href="{{ route('leave.approve_show',base64_encode($res->leave_id)) }}" class="badge badge-success">
                                         <i class="fa fa-edit"></i> ดำเนินการ
                                     </a>
+                                @else 
+                                   <span class="text-muted">
+                                       <i class="fa fa-check-circle text-success"></i> ดำเนินการแล้ว
+                                    </span>
+                                @endif
                                 </td>
                             </tr>
                             @endforeach
