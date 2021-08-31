@@ -51,7 +51,7 @@
                             <tbody>
                                 <tr>
                                     <td><b>วันที่ทำรายการ</b></td>
-                                    <td class="text-left">{{ $list->leave_create }}</td>
+                                    <td class="text-left">{{ DateThai($list->leave_create) }}</td>
                                     <td><b>เบอร์โทรติดต่อ</b></td>
                                     <td>{{ $list->tel }}</td>
                                 </tr>

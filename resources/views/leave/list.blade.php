@@ -54,7 +54,7 @@
                         <tbody>
                             <tr>
                                 <td><b>วันที่ทำรายการ</b></td>
-                                <td class="text-left">{{ DateTimeThai($list->leave_create) }}</td>
+                                <td class="text-left">{{ DateThai($list->leave_create) }}</td>
                                 <td><b>เบอร์โทรติดต่อ</b></td>
                                 <td>{{ $list->tel }}</td>
                             </tr>
@@ -134,7 +134,7 @@
                             timer: 3000
                         })
                         window.setTimeout(function () {
-                            location.replace('/hrm/leave')
+                            location.reload()
                         }, 1500);
                     }
                 });
