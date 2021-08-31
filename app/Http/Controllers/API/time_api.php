@@ -15,7 +15,8 @@ class TIME_API extends Controller
                     ->leftJoin('users', 'users.barcode', '=', 'worktime.emp_barcode')
                     ->leftJoin('departments', 'departments.dept_id', '=', 'users.department')
                     ->leftJoin('worktime_status', 'worktime_status.time_id', '=', 'worktime.work_status')
-                    ->where('work_time', '>=', DB::raw('curdate()'))
+                    // ->where('work_time', '>=', DB::raw('curdate()'))
+                    ->whereRaw('date_format(work_time, "%Y-%m-%d") >= curdate()')
                     ->get();
         return response()->json($result);
     }
