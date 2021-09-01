@@ -86,6 +86,7 @@
             [20, 50, 100, -1],
             [20, 50, 100, "All"]
         ],
+        order: [[5, "asc"],[0, "asc"]],
         scrollX: true,
         oLanguage: {
                  oPaginate: {
