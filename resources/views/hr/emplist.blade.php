@@ -34,10 +34,12 @@
                     <table id="emplist_table" class="table display nowrap" style="width:100%">
                         <thead class="thead-dark">
                             <tr>
-                                <th class="text-center">BID</th>
-                                <th>ชื่อ/สกุล</th>
-                                <th>ฝ่าย/กลุ่มงาน</th>
-                                <th>ตำแหน่ง</th>
+                                <th class="text-center"><i class="fa fa-barcode"></i> BID</th>
+                                <th><i class="far fa-address-card"></i> ชื่อ/สกุล</th>
+                                <th><i class="fas fa-sitemap"></i> ฝ่าย/กลุ่มงาน</th>
+                                {{-- <th>ตำแหน่ง</th> --}}
+                                <th class="text-center"><i class="fa fa-calendar-day"></i> วันที่เริ่มงาน</th>
+                                <th class="text-center">อายุงาน (ปี)</th>
                                 <th class="text-center">สถานะ</th>
                                 <th class="text-center"><i class="fa fa-cog"></i></th>
                             </tr>
@@ -48,7 +50,9 @@
                                 <td class="text-center">{{ $emps->barcode }}</td>
                                 <td>{{ $emps->name }}</td>
                                 <td>{{ $emps->dept_name }}</td>
-                                <td>{{ $emps->position }}</td>
+                                {{-- <td>{{ $emps->position }}</td> --}}
+                                <td class="text-center">{{ DateThai($emps->work_start) }}</td>
+                                <td class="text-center">{{ GetAge($emps->work_start) }}</td>
                                 <td class="text-center">
                                     <span class="badge badge-{{ $emps->ws_text }} btn-block">
                                         <i class="fa fa-{{ $emps->ws_icon }}"></i>&nbsp;
