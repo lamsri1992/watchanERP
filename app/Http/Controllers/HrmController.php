@@ -17,16 +17,10 @@ class HrmController extends Controller
                 ->where('work_status', 2)
                 ->count();
         $leaves = DB::table('leave_list')
-                ->where('leave_status', 1)
-                ->orWhere('leave_status', 2)
-                ->count();
-        $notes = DB::table('notes')
-                // ->where('work_status', 1)
                 ->count();
         $times = DB::table('worktime')
-                // ->where('work_status', 1)
                 ->count();
-        return view('hr.dashboard', ['users'=>$users,'leaves'=>$leaves,'notes'=>$notes,'resign'=>$resign,'times'=>$times]);
+        return view('hr.dashboard', ['users'=>$users,'leaves'=>$leaves,'resign'=>$resign,'times'=>$times]);
     }
 
     public function employeeList()
