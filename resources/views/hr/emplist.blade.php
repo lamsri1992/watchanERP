@@ -39,7 +39,7 @@
                                 <th><i class="fas fa-sitemap"></i> ฝ่าย/กลุ่มงาน</th>
                                 {{-- <th>ตำแหน่ง</th> --}}
                                 <th class="text-center"><i class="fa fa-calendar-day"></i> วันที่เริ่มงาน</th>
-                                <th class="text-center">อายุงาน (ปี)</th>
+                                <th class="text-center">อายุงาน</th>
                                 <th class="text-center">สถานะ</th>
                                 <th class="text-center"><i class="fa fa-cog"></i></th>
                             </tr>
@@ -52,7 +52,7 @@
                                 <td>{{ $emps->dept_name }}</td>
                                 {{-- <td>{{ $emps->position }}</td> --}}
                                 <td class="text-center">{{ DateThai($emps->work_start) }}</td>
-                                <td class="text-center">{{ GetAge($emps->work_start) }}</td>
+                                <td class="text-center">{{ GetAge($emps->work_start)." ปี" }}</td>
                                 <td class="text-center">
                                     <span class="badge badge-{{ $emps->ws_text }} btn-block">
                                         <i class="fa fa-{{ $emps->ws_icon }}"></i>&nbsp;

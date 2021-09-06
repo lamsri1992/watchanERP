@@ -142,7 +142,7 @@
                                     <tr>
                                         <th class="text-center">วันที่เริ่มงาน</th>
                                         <td>
-                                            <input type="text" class="inputX" name="work_start" class="jsDate" value="{{ $data->work_start }}" required>
+                                            <input type="text" class="inputX jsDate" name="work_start" value="{{ $data->work_start }}" required>
                                         </td>
                                     </tr>
                                     @if ($data->work_status == 2)
@@ -194,7 +194,7 @@
                                     <tr>
                                         <th class="text-center">วันที่เกิด</th>
                                         <td>
-                                            <input type="text" class="inputX" name="dob" class="jsDate" value="{{ $data->dob }}">
+                                            <input type="text" class="inputX jsDate" name="dob" value="{{ $data->dob }}">
                                         </td>
                                     </tr>
                                     <tr>
@@ -249,11 +249,14 @@
                                             </select>
                                         </td>
                                     </tr>
-                                    <tr class="text-right">
+                                    <tr class="text-center">
                                         <td colspan="2">
+                                            <a href="#" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#leaveModal">
+                                                <i class="fa fa-history"></i> ประวัติการลา
+                                            </a>
                                             @if ($data->work_status == 1)
                                             <a href="#" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#resign">
-                                                <i class="fa fa-sign-out-alt"></i> บันทึกการย้าย/ลาออก
+                                                <i class="fa fa-sign-out-alt"></i> บันทึกการย้าย
                                             </a>
                                             @endif
                                             <a href="/hrm/employee" class="btn btn-danger btn-sm">
@@ -295,6 +298,72 @@
     </div>
 </div>
 
+<!-- Leave History Modal -->
+<div class="modal fade" id="leaveModal" tabindex="-1" aria-labelledby="leaveModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="leaveModalLabel"><i class="fa fa-history"></i> ประวัติการลางาน</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table id="leave_list" class="table table-bordered display compact" style="width:100%;">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th class="text-center">No.</th>
+                            <th class="text-center">สถานะ</th>
+                            <th class="text-center">ประเภทการลา</th>
+                            <th class="text-center">วันที่ลา</th>
+                            <th class="text-center">วันที่สิ้นสุด</th>
+                            <th class="text-center">จำนวน (วัน)</th>
+                            <th class="text-center">ผู้รับผิดชอบงาน</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($leaves as $res)                                
+                        <tr>
+                            <td class="text-center">
+                                <a href="{{ route('leave.list_show',base64_encode($res->leave_id)) }}">
+                                    {{ "HR-".$res->leave_id }}
+                                </a>
+                            </td>
+                            <td class="text-center">
+                                <div class="text-center">
+                                    <span class="{{ $res->status_style }}">
+                                          <i class="{{ $res->status_icon }}"></i> {{ $res->status_name }}
+                                    </span>
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                {{ $res->type_name }}
+                            </td>
+                            <td class="text-center">
+                                {{ DateThai($res->leave_start) }}
+                            </td>
+                            <td class="text-center">
+                                {{ DateThai($res->leave_end) }}
+                            </td>
+                            <td class="text-center">
+                                {{ $res->leave_num }}&nbsp;
+                                <small class="text-danger">{{ $res->time_name }}</small>
+                            </td>
+                            <td class="text-center">
+                                {{ $res->leave_stead }}
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">ปิดหน้าต่าง</button>
+            </div>
+        </div>
+    </div>
+</div>
+  
 @endsection
 @section('script')
 <script type="text/javascript">
@@ -393,5 +462,29 @@ $('#updateData').on("submit", function (event) {
         })
     });
 
+    $(document).ready(function () {
+        $('#leave_list').dataTable({
+            lengthMenu: [
+                [10, 25, 50, -1],
+                [10, 25, 50, "All"]
+            ],
+            searching: false,
+            responsive: true,
+            rowReorder: {
+                selector: 'td:nth-child(2)'
+            },
+            order: [[ 0, 'desc' ]],
+            oLanguage: {
+                 oPaginate: {
+                    sFirst: '<small>หน้าแรก</small>',
+                    sLast: '<small>หน้าสุดท้าย</small>',
+                    sNext: '<small>ถัดไป</small>',
+                    sPrevious: '<small>กลับ</small>'
+                },
+                sInfo: "<small>ทั้งหมด _TOTAL_ รายการ</small>",
+                sLengthMenu: "<small>แสดง _MENU_ รายการ</small>",
+            }
+        });
+    });
 </script>
 @endsection
