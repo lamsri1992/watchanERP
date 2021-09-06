@@ -80,19 +80,19 @@
                             class="nav-link-text">{{ __('งานบริหารทั่วไป') }}
                         </span>
                     </a>
-                    <div class="collapse {{ (request()->is('leave','note','worktime')) ? 'show' : '' }}" id="navbar-office">
+                    <div class="collapse {{ (request()->is('leave*','note*','worktime*')) ? 'show' : '' }}" id="navbar-office">
                         <ul class="nav nav-sm flex-column">
-                            <li class="nav-item {{ (request()->is('leave')) ? 'active' : '' }}">
+                            <li class="nav-item {{ (request()->is('leave*')) ? 'active' : '' }}">
                                 <a class="nav-link" href="/leave">
                                     {{ __('ระบบวันลาออนไลน์') }}
                                 </a>
                             </li>
-                            <li class="nav-item {{ (request()->is('note')) ? 'active' : '' }}">
+                            <li class="nav-item {{ (request()->is('note*')) ? 'active' : '' }}">
                                 <a class="nav-link" href="/note">
                                     {{ __('ระบบขออนุมัติเดินทาง') }}
                                 </a>
                             </li>
-                            <li class="nav-item {{ (request()->is('worktime')) ? 'active' : '' }}">
+                            <li class="nav-item {{ (request()->is('worktime*')) ? 'active' : '' }}">
                                 <a class="nav-link" href="/worktime">
                                     {{ __('ระบบบันทึกเวลาเข้างาน') }}
                                 </a>
@@ -123,7 +123,7 @@
                         </ul>
                     </div>
                 </li>
-                <li class="nav-item {{ (request()->is('hr')) ? 'active' : '' }}">
+                <li class="nav-item {{ (request()->is('hr*')) ? 'active' : '' }}">
                     <a class="nav-link" href="/hr">
                         <i class="fas fa-users text-warning"></i> ฐานข้อมูลบุคลากร
                     </a>
@@ -140,21 +140,21 @@
             <h6 class="navbar-heading text-muted">ระบบอนุมัติวันลา</h6>
             <ul class="navbar-nav mb-md-3">
                 @if (Auth::user()->permission == 1 || Auth::user()->permission == 4)
-                <li class="nav-item {{ (request()->is('approve')) ? 'active' : '' }}">
+                <li class="nav-item {{ (request()->is('approve*')) ? 'active' : '' }}">
                     <a class="nav-link" href="/approve">
                         <i class="far fa-calendar"></i> สำหรับหัวหน้าฝ่าย
                     </a>
                 </li>
                 @endif
                 @if (Auth::user()->permission == 2 || Auth::user()->permission == 4)
-                <li class="nav-item {{ (request()->is('authorize')) ? 'active' : '' }}">
+                <li class="nav-item {{ (request()->is('authorize*')) ? 'active' : '' }}">
                     <a class="nav-link" href="/authorize">
                         <i class="far fa-calendar-check"></i> สำหรับผู้อำนวยการ
                     </a>
                 </li>
                 @endif
                 @if (Auth::user()->permission == 3 || Auth::user()->permission == 4)
-                <li class="nav-item {{ (request()->is('hrm/*')) ? 'active' : '' }}">
+                <li class="nav-item {{ (request()->is('hrm*')) ? 'active' : '' }}">
                     <a class="nav-link" href="/hrm/dashboard">
                         <i class="far fa-calendar-alt"></i> ผู้ดูแลระบบงานบุคลากร
                     </a>

@@ -7,6 +7,12 @@
     <div class="container-fluid">
         <div class="header-body">
             <!-- Card stats -->
+            @foreach ($data as $res)
+            @php
+                $busy = $res->busy;
+                $sick = $res->sick;
+                $vacation = $res->vacation;
+            @endphp
             <div class="row">
                 <div class="col-xl-3 col-lg-6">
                     <div class="card card-stats mb-4 mb-xl-0">
@@ -14,7 +20,8 @@
                             <div class="row">
                                 <div class="col">
                                     <h5 class="card-title text-uppercase text-muted mb-0">ลากิจ</h5>
-                                    <span class="h2 font-weight-bold mb-0">350,897</span>
+                                    <span class="h2 font-weight-bold mb-0">{{ $busy }}</span>
+                                    <small class="text-muted">ราย</small>
                                 </div>
                                 <div class="col-auto">
                                     <div class="icon icon-shape bg-info text-white rounded-circle shadow">
@@ -31,7 +38,8 @@
                             <div class="row">
                                 <div class="col">
                                     <h5 class="card-title text-uppercase text-muted mb-0">ลาป่วย</h5>
-                                    <span class="h2 font-weight-bold mb-0">2,356</span>
+                                    <span class="h2 font-weight-bold mb-0">{{ $sick }}</span>
+                                    <small class="text-muted">ราย</small>
                                 </div>
                                 <div class="col-auto">
                                     <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
@@ -48,7 +56,8 @@
                             <div class="row">
                                 <div class="col">
                                     <h5 class="card-title text-uppercase text-muted mb-0">ลาพักผ่อน</h5>
-                                    <span class="h2 font-weight-bold mb-0">924</span>
+                                    <span class="h2 font-weight-bold mb-0">{{ $vacation }}</span>
+                                    <small class="text-muted">ราย</small>
                                 </div>
                                 <div class="col-auto">
                                     <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
@@ -65,7 +74,8 @@
                             <div class="row">
                                 <div class="col">
                                     <h5 class="card-title text-uppercase text-muted mb-0">สถิติการเข้างาน</h5>
-                                    <span class="h2 font-weight-bold mb-0">49,65%</span>
+                                    <span class="h2 font-weight-bold mb-0">0/0</span>
+                                    <small class="text-muted">ราย</small>
                                 </div>
                                 <div class="col-auto">
                                     <div class="icon icon-shape bg-success text-white rounded-circle shadow">
@@ -77,6 +87,7 @@
                     </div>
                 </div>
             </div>
+            @endforeach
         </div>
     </div>
 </div>
