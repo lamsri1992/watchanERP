@@ -123,6 +123,7 @@
                                 <th>สถานที่/ห้อง</th>
                                 <th>รายละเอียด</th>
                                 <th class="text-center">สถานะ</th>
+                                <th class="text-center">ความพึงพอใจ</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -145,6 +146,13 @@
                                         <i class="{{ $res->hs_icon }}"></i>&nbsp;
                                         {{ $res->hs_name }}
                                     </span>
+                                </td>
+                                <style>.checked { color: orange; }</style>
+                                <td class="text-center">
+                                    @php
+                                        $rate = ($res->rate_1+$res->rate_2+$res->rate_3)/3;
+                                        $i = 1; while ($i <= $rate) { echo "<span class='fa fa-star checked'></span>"; $i++; }
+                                    @endphp
                                 </td>
                             </tr>
                             @endforeach
@@ -233,7 +241,7 @@
                 sInfo: "<small>ทั้งหมด _TOTAL_ รายการ</small>",
                 sLengthMenu: "<small>แสดง _MENU_ รายการ</small>",
         },
-        order: [[ 4, 'asc' ]],
+        order: [[ 0, 'desc' ],[ 4, 'asc' ]],
         scrollX: true,
         initComplete: function() {
             this.api().columns([2, 3]).every(function() {

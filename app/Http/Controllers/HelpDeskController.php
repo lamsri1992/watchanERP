@@ -12,6 +12,7 @@ class HelpDeskController extends Controller
     {
         $list = DB::table('helpdesk')
                 ->leftJoin('helpdesk_status', 'helpdesk_status.hs_id', '=', 'helpdesk.help_status')
+                ->leftJoin('helpdesk_rate', 'helpdesk_rate.t_help_id', '=', 'helpdesk.help_id')
                 ->leftJoin('places', 'places.place_id', '=', 'helpdesk.help_place')
                 ->leftJoin('departments', 'departments.dept_id', '=', 'helpdesk.help_dept')
                 ->get();
