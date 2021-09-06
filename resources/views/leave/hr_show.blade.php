@@ -20,7 +20,9 @@
                                                 <i class="fa fa-user-cog"></i> ผู้ดูแลระบบงานบุคลากร
                                             </a>
                                         </li>
-                                        <li class="breadcrumb-item active" aria-current="page">รายการขออนุมัติวันลา</li>
+                                        <li class="breadcrumb-item">
+                                            <a href="/hrm/leave">รายการขออนุมัติวันลา</a>
+                                        </li>
                                         <li class="breadcrumb-item active" aria-current="page">
                                             {{ "รหัสรายการ : HR-".$list->leave_id }}
                                         </li>
@@ -91,10 +93,18 @@
                         </table>
                     </div>
                 </div>
+                @php
+                    $cdate = date('Y-m-d');
+                @endphp
+                @if ($list->leave_start <= $cdate)
+                @php
+                    $btn = 'disabled';
+                @endphp
+                @endif
                 @if ($list->status_id != 5)
                 <div class="card-body">
                     <div class="text-right">
-                        <button id="btnCancel" class="btn btn-sm btn-danger"><i class="fa fa-times-circle"></i> ยกเลิกรายการ</button>
+                        <button id="btnCancel" class="btn btn-sm btn-danger" {{ $btn }}><i class="fa fa-times-circle"></i> ยกเลิกรายการ</button>
                     </div>
                 </div>
                 @endif

@@ -68,7 +68,7 @@
                                     <small class="text-danger">{{ $res->time_name }}</small>
                                 </td>
                                 <td class="text-center">
-                                    <a href="{{ route('leave.hr_show',base64_encode($res->leave_id)) }}" class="badge badge-success">
+                                    <a href="{{ route('leave.hr_show',base64_encode($res->leave_id)) }}" class="badge badge-info">
                                         <i class="fa fa-search"></i> รายละเอียด
                                     </a>
                                 </td>
@@ -97,7 +97,7 @@
                 selector: 'td:nth-child(2)'
             },
             order: [
-                [1, 'desc']
+                [0, 'desc']
             ],
             oLanguage: {
                 oPaginate: {
