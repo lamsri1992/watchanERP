@@ -43,9 +43,8 @@ class HelpDeskController extends Controller
                 'help_place' => $request->get('place')
             ]
         );
-        $Token = "w5QuztyBKpMk262OYuuQP6rV1v7bFO1ooX2JvHHJDzh";
-        // $Token = $unit->line_token;
-        $message = "มีรายการแจ้งซ่อมคอมพิวเตอร์\nจาก : ".Auth::User()->name."\nอาการ : ".$request->get('title')."\nสถานที่/ห้อง : ".$place->place_name."\nตรวจสอบได้ที่ : https://erp.watchanhospital.com/";
+        $Token = "al9wgTb0rZZq40Vf1gPdyz0XNuYsCdcBZL5hbLHagsz";
+        $message = "มีรายการแจ้งซ่อมคอมพิวเตอร์\nจาก : ".Auth::User()->name."\nอาการ : ".$request->get('title')."\nสถานที่/ห้อง : ".$place->place_name."\nตรวจสอบได้ที่ : https://erp.wc-hospital.go.th/";
         line_notify($Token, $message);
     }
 
@@ -71,6 +70,13 @@ class HelpDeskController extends Controller
     public function fixHelpdesk(Request $request, $id)
     {
         $date = date("Y-m-d H:i:s");
+        $mess = DB::table('helpdesk')
+                ->where('help_id', $id)
+                ->leftJoin('users', 'users.id', '=', 'helpdesk.help_create')
+                ->leftJoin('departments', 'departments.dept_id', '=', 'helpdesk.help_dept')
+                ->leftJoin('places', 'places.place_id', '=', 'helpdesk.help_place')
+                ->leftJoin('helpdesk_type', 'helpdesk_type.ht_id', '=', 'helpdesk.help_type')
+                ->first();
         DB::table('helpdesk')->where('help_id', $id)->update(
             [
                 'help_fix' => $request->get('fix'),
@@ -81,6 +87,17 @@ class HelpDeskController extends Controller
                 'help_end' => $date,
             ]
         );
+        if($request->get('stat') == 3){
+            $Token = "al9wgTb0rZZq40Vf1gPdyz0XNuYsCdcBZL5hbLHagsz";
+            $message = "รายการแจ้งซ่อมคอมพิวเตอร์ดำเนินการสำเร็จแล้ว
+            \nผู้แจ้ง : ".$mess->name."
+            \nอาการ : ".$mess->help_title."
+            \nสาเหตุ : ".$request->get('cause')."
+            \nวิธีแก้ไข : ".$request->get('fix')."
+            \nสถานที่/ห้อง : ".$mess->place_name."
+            \nกรุณาประเมินความพึงพอใจที่ : https://erp.wc-hospital.go.th/ (ระบบงานแจ้งซ่อม -> แจ้งซ่อมคอมพิวเตอร์)";
+            line_notify($Token, $message);
+        }
     }
 
     public function rateHelpdesk(Request $request, $id)

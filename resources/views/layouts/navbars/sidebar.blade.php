@@ -108,9 +108,9 @@
                             class="nav-link-text">{{ __('ระบบงานแจ้งซ่อม') }}
                         </span>
                     </a>
-                    <div class="collapse {{ (request()->is('helpdesk')) ? 'show' : '' }}" id="navbar-repair">
+                    <div class="collapse {{ (request()->is('helpdesk*')) ? 'show' : '' }}" id="navbar-repair">
                         <ul class="nav nav-sm flex-column">
-                            <li class="nav-item {{ (request()->is('helpdesk')) ? 'active' : '' }}">
+                            <li class="nav-item {{ (request()->is('helpdesk*')) ? 'active' : '' }}">
                                 <a class="nav-link" href="/helpdesk">
                                     {{ __('แจ้งซ่อมคอมพิวเตอร์') }}
                                 </a>

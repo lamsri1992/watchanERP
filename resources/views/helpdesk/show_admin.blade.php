@@ -51,10 +51,12 @@
                 </select>
             </td>
         </tr>
+        @if ($list->help_status != 3)
         <tr>
             <td colspan="2" class="text-right">
                 <button class="btn btn-sm btn-primary"><i class="fa fa-save"></i> บันทึกการซ่อม</button>
             </td>
         </tr>
+        @endif
     </table>
 </form>
