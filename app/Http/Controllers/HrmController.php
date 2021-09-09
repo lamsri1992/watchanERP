@@ -56,6 +56,7 @@ class HrmController extends Controller
                     ->leftJoin('leave_status', 'leave_list.leave_status', '=', 'leave_status.status_id')
                     ->leftJoin('leave_type', 'leave_list.leave_type', '=', 'leave_type.type_id')
                     ->leftJoin('leave_time', 'leave_list.leave_time', '=', 'leave_time.time_id')
+                    ->orderBy('leave_list.leave_id', 'asc')
                     ->where('leave_list.user_id', $parm_id)
                     ->get();
         return view('hr.show', ['data'=>$data,'dept'=>$dept,'jobs'=>$jobs,'unit'=>$unit,'leaves'=>$leaves]);

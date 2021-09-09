@@ -121,6 +121,7 @@
                                 <span class="badge badge-{{ $data->ws_text }} btn-block">
                                     <i class="fa fa-{{ $data->ws_icon }}"></i>&nbsp;
                                     {{ $data->ws_name }}
+                                    {{ " : อายุงาน ".GetAge($data->work_start)." ปี" }}
                                 </span>
                             </div>
                         </div>
@@ -309,32 +310,25 @@
                 </button>
             </div>
             <div class="modal-body">
-                <table id="leave_list" class="table table-bordered display compact" style="width:100%;">
+                <table id="leave_list" class="table table-borderless table-striped compact" style="width:100%;">
                     <thead class="thead-dark">
                         <tr>
                             <th class="text-center">No.</th>
-                            <th class="text-center">สถานะ</th>
                             <th class="text-center">ประเภทการลา</th>
                             <th class="text-center">วันที่ลา</th>
                             <th class="text-center">วันที่สิ้นสุด</th>
                             <th class="text-center">จำนวน (วัน)</th>
                             <th class="text-center">ผู้รับผิดชอบงาน</th>
+                            <th class="text-center">สถานะ</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($leaves as $res)                                
                         <tr>
                             <td class="text-center">
-                                <a href="{{ route('leave.list_show',base64_encode($res->leave_id)) }}">
+                                <a class="badge badge-warning btn-block" href="{{ route('leave.hr_show',base64_encode($res->leave_id)) }}">
                                     {{ "HR-".$res->leave_id }}
                                 </a>
-                            </td>
-                            <td class="text-center">
-                                <div class="text-center">
-                                    <span class="{{ $res->status_style }}">
-                                          <i class="{{ $res->status_icon }}"></i> {{ $res->status_name }}
-                                    </span>
-                                </div>
                             </td>
                             <td class="text-center">
                                 {{ $res->type_name }}
@@ -352,6 +346,13 @@
                             <td class="text-center">
                                 {{ $res->leave_stead }}
                             </td>
+                            <td class="text-center">
+                                <div class="text-center">
+                                    <span class="{{ $res->status_style }}">
+                                          <i class="{{ $res->status_icon }}"></i> {{ $res->status_name }}
+                                    </span>
+                                </div>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -367,26 +368,6 @@
 @endsection
 @section('script')
 <script type="text/javascript">
-    $(document).ready(function () {
-        $('#list_table').dataTable( {
-        lengthMenu: [
-            [20, 50, 100, -1],
-            [20, 50, 100, "All"]
-        ],
-        oLanguage: {
-                 oPaginate: {
-                    sFirst: '<small>หน้าแรก</small>',
-                    sLast: '<small>หน้าสุดท้าย</small>',
-                    sNext: '<small>ถัดไป</small>',
-                    sPrevious: '<small>กลับ</small>'
-                },
-                sInfo: "<small>ทั้งหมด _TOTAL_ รายการ</small>",
-                sLengthMenu: "<small>แสดง _MENU_ รายการ</small>",
-                sSearch: "<i class='fa fa-search'></i> ค้นหา : ",
-        },
-    });
-});
-
 $(document).ready(function() {
     $('.js-single').select2({
         width: '100%',
@@ -464,12 +445,11 @@ $('#updateData').on("submit", function (event) {
 
     $(document).ready(function () {
         $('#leave_list').dataTable({
-            lengthMenu: [
-                [10, 25, 50, -1],
-                [10, 25, 50, "All"]
-            ],
+            bLengthChange: false,
+            bPaginate: false,
             searching: false,
             responsive: true,
+            ordering: false,
             rowReorder: {
                 selector: 'td:nth-child(2)'
             },
