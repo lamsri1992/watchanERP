@@ -30,8 +30,24 @@ class HomeController extends Controller
                     (SELECT COUNT(leave_num) FROM leave_list WHERE leave_type = '1' AND leave_status ='3') AS busy,
                     (SELECT COUNT(leave_num) FROM leave_list WHERE leave_type = '2' AND leave_status ='3') AS sick,
                     (SELECT COUNT(leave_num) FROM leave_list WHERE leave_type = '3' AND leave_status ='3') AS vacation"));
-        return view('dashboard', ['data'=>$data,'count'=>$count]);
-        // return dd($data);
+        $events = [];
+        $list = DB::table('leave_list')
+                ->leftJoin('users', 'users.id', '=', 'leave_list.user_id')
+                ->where('leave_status', 3)
+                ->get();
+        //     if($list->count()){
+        //         foreach ($list as $key => $value) {
+        //             $events[] = Calendar::event(
+        //             $value->title,
+        //                 true,
+        //                 new \DateTime($value->start),
+        //                 new \DateTime($value->end.' +1 day')
+        //             );
+        //         }
+        //     }
+        // $calendar = Calendar::addEvents($events); 
+        return view('dashboard', ['data'=>$data,'count'=>$count,'events'=>$events]);
+        // return dd($events);
     }
 }
 

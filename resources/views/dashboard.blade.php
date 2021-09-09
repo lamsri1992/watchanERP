@@ -73,13 +73,13 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col">
-                                        <h5 class="card-title text-uppercase text-muted mb-0">สถิติการเข้างาน</h5>
-                                        <span class="h2 font-weight-bold mb-0">0/0</span>
+                                        <h5 class="card-title text-uppercase text-muted mb-0">ไปราชการ/ออกหน่วย</h5>
+                                        <span class="h2 font-weight-bold mb-0">0</span>
                                         <small class="text-muted">ราย</small>
                                     </div>
                                     <div class="col-auto">
                                         <div class="icon icon-shape bg-success text-white rounded-circle shadow">
-                                            <i class="fas fa-user-clock"></i>
+                                            <i class="fas fa-shuttle-van"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -100,7 +100,7 @@
                     <div class="row align-items-center">
                         <div class="col">
                             <h6 class="text-uppercase text-muted ls-1 mb-1">ปีงบประมาณ 2564</h6>
-                            <h2 class="mb-0">สถิติการลาแยกตามประเภท</h2>
+                            <h2 class="mb-0"><i class="fas fa-chart-bar"></i> สถิติการลาแยกตามประเภท</h2>
                         </div>
                     </div>
                 </div>
@@ -118,14 +118,38 @@
                     <div class="row align-items-center">
                         <div class="col">
                             <h6 class="text-uppercase text-muted ls-1 mb-1">ประจำวันที่ <?=DateThai(date('Y-m-d'))?></h6>
-                            <h2 class="mb-0">สถิติการบันทึกเวลาเข้างาน</h2>
+                            <h2 class="mb-0"><i class="fas fa-user-clock"></i> การบันทึกเวลาเข้างาน</h2>
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
-                    <!-- Chart -->
+                    <!-- Worktimes -->
                     <div class="chart">
-                        <canvas id="timeChart" class="chart-canvas"></canvas>
+                        <table id="time_table" class="table table-sm table-striped compact" style="width:100%">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th><i class="far fa-clock"></i> เวลาเข้างาน</th>
+                                    <th>ชื่อ - สกุล</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-12 mb-5 mb-xl-0" style="margin-top: 1rem;">
+            <div class="card shadow">
+                <div class="card-header bg-transparent">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h2 class="mb-0"><i class="far fa-calendar"></i> ปฏิทินกิจกรรม/วันลา</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <!-- Calendar -->
+                    <div class="chart">
+                        <div id="calendar"></div>
                     </div>
                 </div>
             </div>
@@ -148,8 +172,9 @@
     <script src="{{ asset('argon') }}/vendor/chart.js/dist/Chart.extension.js"></script>
 @endpush
 @section('script')
-<script>
 
+<script>
+// Leave Chart
 Chart.defaults.global.defaultFontFamily = '"Kanit"';
 Chart.defaults.global.defaultFontColor = '#292b2c';
 var ctx = document.getElementById('leaveChart');
@@ -176,5 +201,40 @@ var leaveChart = new Chart(ctx, {
     }
 });
 
+// Worktime Table
+$(document).ready(function () {
+    $('#time_table').dataTable( {
+        ajax: {
+            url: "api/time_api",
+            dataSrc: ""
+        },
+        columns: [
+            { 'data': 'work_time', className: "text-center" },
+            { 'data': 'name' },
+        ],
+        lengthMenu: [
+            [7, 50, 100, -1],
+            [7, 50, 100, "All"]
+        ],
+        // responsive: true,
+        scrollX: true,
+        autoWidth: true,
+        rowReorder: {
+            selector: 'td:nth-child(2)'
+        },
+        order: [[ 0, 'desc' ]],
+        oLanguage: {
+            oPaginate: {
+                sFirst: '<small>หน้าแรก</small>',
+                sLast: '<small>หน้าสุดท้าย</small>',
+                sNext: '<small>ถัดไป</small>',
+                sPrevious: '<small>กลับ</small>'
+            },
+                sInfo: "<small>ทั้งหมด _TOTAL_ รายการ</small>",
+                sLengthMenu: "<small>แสดง _MENU_ รายการ</small>",
+                sSearch: "<i class='fa fa-search'></i> ค้นหา : ",
+        }
+    });
+});
 </script>
 @endsection
