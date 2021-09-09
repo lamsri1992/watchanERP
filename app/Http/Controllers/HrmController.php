@@ -27,6 +27,7 @@ class HrmController extends Controller
     {
         $data = DB::table('users')
                     ->leftJoin('departments', 'users.department', '=', 'departments.dept_id')
+                    ->leftJoin('jobs', 'users.job', '=', 'jobs.job_id')
                     ->leftJoin('work_status', 'users.work_status', '=', 'work_status.ws_id')
                     ->orderBy('users.id', 'asc')
                     ->get();

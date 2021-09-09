@@ -31,13 +31,13 @@
                     <h4 style="margin-bottom:1rem;">
                         <i class="fa fa-database"></i> ข้อมูลเจ้าหน้าที่ทั้งหมด
                     </h4>
-                    <table id="emplist_table" class="table display nowrap" style="width:100%">
+                    <table id="emplist_table" class="table table-striped" style="width:100%">
                         <thead class="thead-dark">
                             <tr>
                                 <th class="text-center"><i class="fa fa-barcode"></i> BID</th>
                                 <th><i class="far fa-address-card"></i> ชื่อ/สกุล</th>
                                 <th><i class="fas fa-sitemap"></i> ฝ่าย/กลุ่มงาน</th>
-                                {{-- <th>ตำแหน่ง</th> --}}
+                                <th>ประเภท</th>
                                 <th class="text-center"><i class="fa fa-calendar-day"></i> วันที่เริ่มงาน</th>
                                 <th class="text-center">อายุงาน</th>
                                 <th class="text-center">สถานะ</th>
@@ -50,7 +50,7 @@
                                 <td class="text-center">{{ $emps->barcode }}</td>
                                 <td>{{ $emps->name }}</td>
                                 <td>{{ $emps->dept_name }}</td>
-                                {{-- <td>{{ $emps->position }}</td> --}}
+                                <td>{{ $emps->job_name }}</td>
                                 <td class="text-center">{{ DateThai($emps->work_start) }}</td>
                                 <td class="text-center">{{ GetAge($emps->work_start)." ปี" }}</td>
                                 <td class="text-center">
@@ -86,7 +86,7 @@
             [20, 50, 100, -1],
             [20, 50, 100, "All"]
         ],
-        order: [[5, "asc"],[0, "asc"]],
+        order: [[6, "asc"],[0, "asc"]],
         scrollX: true,
         oLanguage: {
                  oPaginate: {
