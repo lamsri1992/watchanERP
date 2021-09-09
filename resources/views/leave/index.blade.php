@@ -37,7 +37,7 @@
                             <i class="far fa-edit"></i> ทำรายการขออนุมัติวันลา
                         </button>
                     </div>
-                    <table id="leave_list" class="table table-bordered display" style="width:100%;">
+                    <table id="leave_list" class="table table-borderless table-striped compact" style="width:100%;">
                         <thead class="thead-dark">
                             <tr>
                                 <th class="text-center">No.</th>

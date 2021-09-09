@@ -104,7 +104,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <table id="time_table" class="table table-sm table-striped" style="width:100%">
+                    <table id="time_table" class="table table-sm table-striped compact" style="width:100%">
                         <thead class="thead-dark">
                             <tr>
                                 <th>WID</th>
