@@ -142,13 +142,13 @@
                 <div class="card-header bg-transparent">
                     <div class="row align-items-center">
                         <div class="col">
-                            <h2 class="mb-0"><i class="far fa-calendar"></i> ปฏิทินกิจกรรม/วันลา</h2>
+                            <h2 class="mb-0"><i class="far fa-calendar"></i> ปฏิทินวันลา</h2>
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
                     <!-- Calendar -->
-                    <div class="chart">
+                    <div class="container">
                         <div id="calendar"></div>
                     </div>
                 </div>
@@ -236,5 +236,30 @@ $(document).ready(function () {
         }
     });
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        hiddenDays: [ 0, 6 ],
+        dayMaxEventRows: true,
+        views: {
+            timeGrid: {
+                dayMaxEventRows: 6
+            }
+        },
+        displayEventTime: false,
+        initialView: 'dayGridMonth',
+        eventSources: [
+            {
+                url: '/api/calendar_api',
+                color: 'purple',
+                textColor: 'white'
+            }
+        ]
+    });
+    calendar.setOption('locale', 'th');
+    calendar.render();
+});
+
 </script>
 @endsection

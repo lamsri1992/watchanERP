@@ -20,3 +20,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::apiResource('hr_api', 'API\hr_api');
 Route::apiResource('time_api', 'API\time_api');
+Route::apiResource('calendar_api', 'API\calendar_api');
