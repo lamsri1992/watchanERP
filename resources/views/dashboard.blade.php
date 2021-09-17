@@ -20,7 +20,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <h5 class="card-title text-uppercase text-muted mb-0">ลากิจ</h5>
-                                        <span class="h2 font-weight-bold mb-0">{{ $busy }}</span>
+                                        <span class="h2 font-weight-bold mb-0">{{ $busy == 0 ? 0 : $busy }}</span>
                                         <small class="text-muted">ราย</small>
                                     </div>
                                     <div class="col-auto">
@@ -38,7 +38,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <h5 class="card-title text-uppercase text-muted mb-0">ลาป่วย</h5>
-                                        <span class="h2 font-weight-bold mb-0">{{ $sick }}</span>
+                                        <span class="h2 font-weight-bold mb-0">{{ $sick == 0 ? 0 : $sick }}</span>
                                         <small class="text-muted">ราย</small>
                                     </div>
                                     <div class="col-auto">
@@ -56,7 +56,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <h5 class="card-title text-uppercase text-muted mb-0">ลาพักผ่อน</h5>
-                                        <span class="h2 font-weight-bold mb-0">{{ $vacation }}</span>
+                                        <span class="h2 font-weight-bold mb-0">{{ $vacation == 0 ? 0 : $vacation }}</span>
                                         <small class="text-muted">ราย</small>
                                     </div>
                                     <div class="col-auto">
@@ -73,7 +73,7 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col">
-                                        <h5 class="card-title text-uppercase text-muted mb-0">ไปราชการ/ออกหน่วย</h5>
+                                        <h5 class="card-title text-uppercase text-muted mb-0">ไปราชการ</h5>
                                         <span class="h2 font-weight-bold mb-0">0</span>
                                         <small class="text-muted">ราย</small>
                                     </div>
