@@ -250,6 +250,22 @@
                                             </select>
                                         </td>
                                     </tr>
+                                    <tr>
+                                        <th class="text-center">สิทธิ์การเข้าถึง</th>
+                                        <td>
+                                            <select name="perm" class="js-single">
+                                                <option></option>
+                                                @foreach ($perm as $perms)
+                                                <option value="{{ $perms->p_id }}"
+                                                    @if ($data->permission == $perms->p_id)
+                                                        {{ 'SELECTED' }}
+                                                    @endif>
+                                                    {{ $perms->permission_name }}
+                                                </option>
+                                                @endforeach
+                                            </select>
+                                        </td>
+                                    </tr>
                                     <tr class="text-center">
                                         <td colspan="2">
                                             <a href="#" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#leaveModal">

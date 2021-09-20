@@ -52,6 +52,8 @@ class HrmController extends Controller
                     ->get();
         $unit = DB::table('users')
                     ->get();
+        $perm = DB::table('permissions')
+                    ->get();
         $leaves = DB::table('leave_list')
                     ->leftJoin('leave_status', 'leave_list.leave_status', '=', 'leave_status.status_id')
                     ->leftJoin('leave_type', 'leave_list.leave_type', '=', 'leave_type.type_id')
@@ -59,7 +61,7 @@ class HrmController extends Controller
                     ->orderBy('leave_list.leave_id', 'asc')
                     ->where('leave_list.user_id', $parm_id)
                     ->get();
-        return view('hr.show', ['data'=>$data,'dept'=>$dept,'jobs'=>$jobs,'unit'=>$unit,'leaves'=>$leaves]);
+        return view('hr.show', ['data'=>$data,'dept'=>$dept,'jobs'=>$jobs,'unit'=>$unit,'leaves'=>$leaves,'perm'=>$perm]);
     }
 
     public function editEmp(Request $request, $id)
@@ -70,6 +72,7 @@ class HrmController extends Controller
                 'department' => $request->get('dept'),
                 'position' => $request->get('position'),
                 'job' => $request->get('job'),
+                'permission' => $request->get('perm'),
                 'work_start' => $request->get('work_start'),
                 'line_token' => $request->get('line_token')
             ]
