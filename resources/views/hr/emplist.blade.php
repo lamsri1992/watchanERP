@@ -38,8 +38,6 @@
                                 <th><i class="far fa-address-card"></i> ชื่อ/สกุล</th>
                                 <th><i class="fas fa-sitemap"></i> ฝ่าย/กลุ่มงาน</th>
                                 <th>ประเภท</th>
-                                <th class="text-center"><i class="fa fa-calendar-day"></i> วันที่เริ่มงาน</th>
-                                <th class="text-center">อายุงาน</th>
                                 <th class="text-center">สถานะ</th>
                                 <th class="text-center"><i class="fa fa-cog"></i></th>
                             </tr>
@@ -49,10 +47,13 @@
                             <tr>
                                 <td class="text-center">{{ $emps->barcode }}</td>
                                 <td>{{ $emps->name }}</td>
-                                <td>{{ $emps->dept_name }}</td>
+                                <td>
+                                    {{ $emps->dept_name }}
+                                    @if ($emps->permission == 1)
+                                    <span class="badge badge-danger"><i class="fas fa-star"></i> หัวหน้าฝ่าย</span>
+                                    @endif
+                                </td>
                                 <td>{{ $emps->job_name }}</td>
-                                <td class="text-center">{{ DateThai($emps->work_start) }}</td>
-                                <td class="text-center">{{ GetAge($emps->work_start)." ปี" }}</td>
                                 <td class="text-center">
                                     <span class="badge badge-{{ $emps->ws_text }} btn-block">
                                         <i class="fa fa-{{ $emps->ws_icon }}"></i>&nbsp;
@@ -83,10 +84,10 @@
     $(document).ready(function () {
         $('#emplist_table').dataTable({
         lengthMenu: [
-            [20, 50, 100, -1],
-            [20, 50, 100, "All"]
+            [10, 50, 100, -1],
+            [10, 50, 100, "All"]
         ],
-        order: [[6, "asc"],[0, "asc"]],
+        order: [[4, "asc"],[0, "asc"]],
         scrollX: true,
         oLanguage: {
                  oPaginate: {

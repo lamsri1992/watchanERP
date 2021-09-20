@@ -260,7 +260,7 @@
                                                     @if ($data->permission == $perms->p_id)
                                                         {{ 'SELECTED' }}
                                                     @endif>
-                                                    {{ $perms->permission_name }}
+                                                    {{ $perms->permission_th }}
                                                 </option>
                                                 @endforeach
                                             </select>
