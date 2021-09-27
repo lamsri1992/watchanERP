@@ -52,6 +52,9 @@
                                     @if ($emps->permission == 1)
                                     <span class="badge badge-danger"><i class="fas fa-star"></i> หัวหน้าฝ่าย</span>
                                     @endif
+                                    @if ($emps->permission == 2)
+                                    <span class="badge badge-warning"><i class="fas fa-star"></i> ผู้อำนวยการ</span>
+                                    @endif
                                 </td>
                                 <td>{{ $emps->job_name }}</td>
                                 <td class="text-center">
