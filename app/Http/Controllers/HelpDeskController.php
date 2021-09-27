@@ -44,7 +44,8 @@ class HelpDeskController extends Controller
                 'help_place' => $request->get('place')
             ]
         );
-        $Token = "al9wgTb0rZZq40Vf1gPdyz0XNuYsCdcBZL5hbLHagsz";
+        // $Token = "al9wgTb0rZZq40Vf1gPdyz0XNuYsCdcBZL5hbLHagsz";
+        $Token = "l4nlyOCAb9Tf8ZR69I4LC3EWB2GyeNCuI04d2YbdEb0";
         $message = "มีรายการแจ้งซ่อมคอมพิวเตอร์\nจาก : ".Auth::User()->name."\nอาการ : ".$request->get('title')."\nสถานที่/ห้อง : ".$place->place_name."\nตรวจสอบได้ที่ : https://erp.wc-hospital.go.th/";
         line_notify($Token, $message);
     }
@@ -89,7 +90,8 @@ class HelpDeskController extends Controller
             ]
         );
         if($request->get('stat') == 3){
-            $Token = "al9wgTb0rZZq40Vf1gPdyz0XNuYsCdcBZL5hbLHagsz";
+            // $Token = "al9wgTb0rZZq40Vf1gPdyz0XNuYsCdcBZL5hbLHagsz";
+            $Token = "o1c1RWlrNWcDuKg0J2q7rV3N6xpXLoFHkW8va0qUM2X";
             $message = "รายการแจ้งซ่อมคอมพิวเตอร์ดำเนินการสำเร็จแล้ว
             \nผู้แจ้ง : ".$mess->name."
             \nอาการ : ".$mess->help_title."

@@ -174,7 +174,8 @@ class LeaveController extends Controller
                     'leave_status' => 2
                 ]
             );
-            $Token = "al9wgTb0rZZq40Vf1gPdyz0XNuYsCdcBZL5hbLHagsz";
+            // $Token = "al9wgTb0rZZq40Vf1gPdyz0XNuYsCdcBZL5hbLHagsz";
+            $Token = "rJeUj5NcPslNXbv6sE8x2KMKXdbkyyfba2kNebCcyub";
             $message = "มีรายการขออนุมัติวันลารอดำเนินการ\nกรุณาดำเนินการที่ : https://erp.wc-hospital.go.th/";
             line_notify($Token, $message);
         }else{
@@ -186,7 +187,8 @@ class LeaveController extends Controller
                     'leave_status' => 3,
                 ]
             );
-            $Token = "al9wgTb0rZZq40Vf1gPdyz0XNuYsCdcBZL5hbLHagsz";
+            // $Token = "al9wgTb0rZZq40Vf1gPdyz0XNuYsCdcBZL5hbLHagsz";
+            $Token = "o1c1RWlrNWcDuKg0J2q7rV3N6xpXLoFHkW8va0qUM2X";
             $message = "รายการ : รหัส HR-".$list->leave_id."\nผู้ขออนุมัติ : ".$list->name."\nวันที่ลา : ".DateThai($list->leave_start)."\nได้รับการอนุมัติแล้ว";;
             line_notify($Token, $message);
         }
