@@ -50,15 +50,33 @@ class PersonalController extends Controller
     public function update(Request $request)
     {
         $userID = Auth::user()->id;
-        DB::table('personals')->where('user_id', $userID)->update(
-            [
-                'address' => $request->get('address'),
-                'tel' => $request->get('tel'),
-                'person_name' => $request->get('person_name'),
-                'person_tel' => $request->get('person_tel'),
-                'person_address' => $request->get('person_address')
-            ]
-        );
+         // Check Personal Data
+         $check = DB::table('personals')
+         ->where('user_id', $userID)
+         ->first();
+         
+        if(isset($check)){
+            DB::table('personals')->where('user_id', $userID)->update(
+                [
+                    'address' => $request->get('address'),
+                    'tel' => $request->get('tel'),
+                    'person_name' => $request->get('person_name'),
+                    'person_tel' => $request->get('person_tel'),
+                    'person_address' => $request->get('person_address')
+                ]
+            );
+        }else{
+            DB::table('personals')->insert(
+                [
+                    'address' => $request->get('address'),
+                    'tel' => $request->get('tel'),
+                    'person_name' => $request->get('person_name'),
+                    'person_tel' => $request->get('person_tel'),
+                    'person_address' => $request->get('person_address'),
+                    'user_id' => $userID
+                ]
+            );
+        }
     }
 
     /**
