@@ -97,9 +97,9 @@
                     $cdate = date('Y-m-d');
                 @endphp
                 @if ($list->leave_start <= $cdate)
-                @php
-                    $btn = 'disabled';
-                @endphp
+                @php $btn = 'disabled'; @endphp
+                @else
+                @php $btn = ''; @endphp
                 @endif
                 @if ($list->status_id != 5)
                 <div class="card-body">
