@@ -140,7 +140,7 @@
             {{-- Unit Head --}}
             @if (Auth::user()->permission == '1' || Auth::user()->permission == '2' || Auth::user()->permission == '3' || Auth::user()->permission == '4')
             <hr class="my-3">
-            <h6 class="navbar-heading text-muted">ระบบอนุมัติวันลา</h6>
+            <h6 class="navbar-heading text-muted">เมนูระบบพิเศษ</h6>
             <ul class="navbar-nav mb-md-3">
                 @if (Auth::user()->permission == 1 || Auth::user()->permission == 4)
                 <li class="nav-item {{ (request()->is('approve*')) ? 'active' : '' }}">
