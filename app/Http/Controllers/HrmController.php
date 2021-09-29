@@ -119,4 +119,14 @@ class HrmController extends Controller
         );
     }
 
+    public function addVacation(Request $request, $id)
+    {
+        DB::table('leave_vacation')->insert(
+            [
+                'balance_new' => $request->get('vacNum'),
+                'user_id' => $id
+            ]
+        );
+    }
+
 }

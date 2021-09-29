@@ -95,7 +95,15 @@
                                         <div class="row">
                                             <div class="col">
                                                 <h5 class="card-title text-uppercase text-muted mb-0">สิทธิ์วันลาพักผ่อน</h5>
-                                                <span class="h2 font-weight-bold mb-0">{{ $data->balance_new }} วัน</span>
+                                                @if (!isset($data->balance_new))
+                                                <div class="text-center">
+                                                    <a href="#" data-target="#addVac" data-toggle="modal" class="badge badge-success">
+                                                        <i class="fa fa-plus-circle"></i> เพิ่มวันลาพักผ่อน
+                                                    </a>
+                                                </div>
+                                                @else
+                                                    <span class="h2 font-weight-bold mb-0">{{ $data->balance_new }} วัน</span>    
+                                                @endif
                                             </div>
                                             <div class="col-auto">
                                                 <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
@@ -380,6 +388,53 @@
         </div>
     </div>
 </div>
+
+<!-- Leave History Modal -->
+<div class="modal fade" id="addVac" tabindex="-1" aria-labelledby="addVacLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addVacLabel"><i class="fa fa-plus-circle"></i> เพิ่มวันลาพักผ่อน</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="addVacation">
+                <div class="modal-body">
+                    <table class="text-center table table-striped table-sm">
+                        <tr>
+                            <th>ข้าราชการ</th>
+                            <th>พนักงานราชการ</th>
+                            <th>พนักงานกระทรวง</th>
+                            <th>ลูกจ้างเหมา/ชั่วคราว</th>
+                        </tr>
+                        <tr>
+                            <td>10 วัน</td>
+                            <td>10 วัน</td>
+                            <td>10 วัน</td>
+                            <td>12 วัน (สะสมไม่ได้)</td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                <select name="vacNum" class="js-single" required>
+                                    <option></option>
+                                    <option value="10">ข้าราชการ</option>
+                                    <option value="10">พนักงานราชการ</option>
+                                    <option value="10">พนักงานกระทรวง</option>
+                                    <option value="12">ลูกจ้างเหมา/ชั่วคราว</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-sm btn-success">บันทึกข้อมูล</button>
+                    <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">ปิดหน้าต่าง</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
   
 @endsection
 @section('script')
@@ -443,6 +498,35 @@ $('#updateData').on("submit", function (event) {
                 $.ajax({
                     url: "{{ route('hr.resign',$data->id) }}",
                     data: $('#resignFrm').serialize(),
+                    success: function (data) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'บันทึกข้อมูลสำเร็จ',
+                            showConfirmButton: false,
+                            timer: 3000
+                        })
+                        window.setTimeout(function () {
+                            location.reload();
+                        }, 1500);
+                    }
+                });
+            }
+        })
+    });
+
+    $('#addVacation').on("submit", function (event) {
+        event.preventDefault();
+        Swal.fire({
+            title: 'ยืนยันการบันทึกวันลา ?',
+            text: '{{ $data->name }}',
+            showCancelButton: true,
+            confirmButtonText: `บันทึก`,
+            cancelButtonText: `ยกเลิก`,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "{{ route('hr.addVacation',$data->id) }}",
+                    data: $('#addVacation').serialize(),
                     success: function (data) {
                         Swal.fire({
                             icon: 'success',
