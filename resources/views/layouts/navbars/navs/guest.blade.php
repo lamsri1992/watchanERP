@@ -26,7 +26,7 @@
             <!-- Navbar items -->
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link nav-link-icon" href="https://www.watchanhospital.com">
+                    <a class="nav-link nav-link-icon" href="https://www.wc-hospital.go.th">
                         <i class="ni ni-planet"></i>
                         <span class="nav-link-inner--text">{{ __('เว็บไซต์โรงพยาบาล') }}</span>
                     </a>

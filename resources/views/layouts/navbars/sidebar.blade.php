@@ -17,8 +17,11 @@
                     aria-expanded="false">
                     <div class="media align-items-center">
                         <span class="avatar avatar-sm rounded-circle">
-                            <img alt="Image placeholder"
-                                src="{{ asset('argon') }}/img/theme/team-1-800x800.jpg">
+                            @if (Auth::user()->img == NULL)
+                            <img alt="Image placeholder" src="{{ asset('img') }}/user-profile.png">
+                            @else
+                            <img alt="Image placeholder" src="{{ asset('img') }}/employee/{{ auth()->user()->img }}.jpg">
+                            @endif
                         </span>
                     </div>
                 </a>
