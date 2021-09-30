@@ -1,6 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+    .inputX{
+        width: 100%;
+        padding: 4px;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+</style>
 <div class="header bg-gradient-primary pb-6 pt-5 pt-md-7"></div>
 <div class="container-fluid mt--7">
     <div class="row">
@@ -56,12 +66,14 @@
                                     <td>
                                         {{ $emps->dept_name }}
                                         @if($emps->permission == 1)
-                                            <span class="badge badge-danger"><i class="fas fa-star"></i>
-                                                หัวหน้าฝ่าย</span>
+                                        <span class="badge badge-danger">
+                                            <i class="fas fa-star"></i> หัวหน้าฝ่าย
+                                        </span>
                                         @endif
                                         @if($emps->permission == 2)
-                                            <span class="badge badge-warning"><i class="fas fa-star"></i>
-                                                ผู้อำนวยการ</span>
+                                        <span class="badge badge-warning">
+                                            <i class="fas fa-star"></i> ผู้อำนวยการ
+                                        </span>
                                         @endif
                                     </td>
                                     <td>{{ $emps->job_name }}</td>
@@ -90,7 +102,7 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="addEmpModal" tabindex="-1" aria-labelledby="addEmpLabel" aria-hidden="true">
+<div class="modal fade" id="addEmpModal" aria-labelledby="addEmpLabel" aria-hidden="true">
     <form id="addEmp">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -99,24 +111,56 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
-                            else.</small>
+                        <label for="">ชื่อ-สกุล</label>
+                        <input type="text" name="name" class="inputX" placeholder="ไม่ต้องใส่คำนำหน้า">
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword1">Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1">
+                        <label for="">วันที่เริ่มงาน</label>
+                        <input type="text" class="inputX jsDate" name="work_start">
+
                     </div>
-                    <div class="form-group form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                    <div class="form-group">
+                        <label for="">ประเภทบุคลากร</label>
+                        <select name="job" class="inputX js-single">
+                            <option></option>
+                            @foreach ($jobs as $js)
+                            <option value="{{ $js->job_id }}">
+                                {{ $js->job_name }}
+                            </option>
+                            @endforeach
+                        </select>
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <div class="form-group">
+                        <label for="">กลุ่มงาน/หน่วยบริการ</label>
+                        <select name="dept" class="inputX js-single">
+                            <option></option>
+                            @foreach ($dept as $ds)
+                            <option value="{{ $ds->dept_id }}">
+                                {{ $ds->dept_name }}
+                            </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">ตำแหน่ง</label>
+                        <input type="text" name="position" class="inputX">
+                    </div>
+                    <div class="form-group">
+                        <label for="">ผู้บังคับบัญชา</label>
+                        <select name="unit" class="inputX js-single">
+                            <option></option>
+                            @foreach ($unit as $uns)
+                            <option value="{{ $uns->id }}">
+                                {{ $uns->name }}
+                            </option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-plus-circle"></i>
-                        บันทึกข้อมูล</button>
+                    <button type="submit" class="btn btn-sm btn-success">
+                        <i class="fa fa-plus-circle"></i> บันทึกข้อมูล
+                    </button>
                     <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">ปิดหน้าต่าง</button>
                 </div>
             </div>
@@ -150,6 +194,51 @@
                 sSearch: "<i class='fa fa-search'></i> ค้นหา : ",
             },
         });
+    });
+
+    $(function() {
+        $.datetimepicker.setLocale('th');
+        $(".jsDate").datetimepicker({
+            format: 'Y/m/d',
+            timepicker: false,
+            lang: 'th',
+        });
+    });
+
+    $(document).ready(function() {
+        $('.js-single').select2({
+            width: '100%',
+            placeholder: "กรุณาเลือก",
+            allowClear: true,
+        });
+    });
+
+    $('#addEmp').on("submit", function (event) {
+        event.preventDefault();
+        Swal.fire({
+            title: 'ยืนยันการบันทึกข้อมูล ?',
+            showCancelButton: true,
+            confirmButtonText: `บันทึก`,
+            cancelButtonText: `ยกเลิก`,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "{{ route('hr.addEmp') }}",
+                    data: $('#addEmp').serialize(),
+                    success: function (data) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'บันทึกข้อมูลสำเร็จ',
+                            showConfirmButton: false,
+                            timer: 3000
+                        })
+                        window.setTimeout(function () {
+                            location.reload()
+                        }, 2900);
+                    }
+                });
+            }
+        })
     });
 
 </script>

@@ -31,7 +31,13 @@ class HrmController extends Controller
                     ->leftJoin('work_status', 'users.work_status', '=', 'work_status.ws_id')
                     ->orderBy('users.id', 'asc')
                     ->get();
-        return view('hr.emplist', ['data'=>$data]);
+        $dept = DB::table('departments')
+                    ->get();
+        $jobs = DB::table('jobs')
+                    ->get();
+        $unit = DB::table('users')
+                    ->get();
+        return view('hr.emplist', ['data'=>$data,'dept'=>$dept,'jobs'=>$jobs,'unit'=>$unit]);
     }
 
     public function employeeShow($id)
@@ -125,6 +131,31 @@ class HrmController extends Controller
             [
                 'balance_new' => $request->get('vacNum'),
                 'user_id' => $id
+            ]
+        );
+    }
+
+    public function addEmp(Request $request)
+    {
+        // Generate Barcode_ID
+        $dept = DB::table('departments')
+                    ->where('dept_id', $request->get('dept'))
+                    ->first();
+        $e_dept = DB::table('users')
+                    ->where('department', $request->get('dept'))
+                    ->count();
+        $new_id = $e_dept + 1;
+        $barcode = "D00".$dept->dept_id."-H00".$new_id;
+
+        DB::table('users')->insert(
+            [
+                'barcode' => $barcode,
+                'name' => $request->get('name'),
+                'department' => $request->get('dept'),
+                'position' => $request->get('position'),
+                'job' => $request->get('job'),
+                'work_start' => $request->get('work_start'),
+                'unit' => $request->get('unit')
             ]
         );
     }
