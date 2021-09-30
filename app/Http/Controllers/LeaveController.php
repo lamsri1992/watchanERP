@@ -29,7 +29,7 @@ class LeaveController extends Controller
                     ->where('leave_num.job_type',  Auth::User()->job)
                     ->first();
         $vac = DB::table('leave_vacation')
-                    ->where('leave_vacation.leave_vacation_id',  Auth::User()->id)
+                    ->where('leave_vacation.user_id',  Auth::User()->id)
                     ->first();
         $count = DB::select(DB::raw("SELECT
                     (SELECT SUM(leave_num) FROM leave_list WHERE leave_type = '1' AND user_id = '{$userID}' AND leave_status ='3' GROUP BY user_id) AS busy,
