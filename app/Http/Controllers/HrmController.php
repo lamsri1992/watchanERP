@@ -80,7 +80,8 @@ class HrmController extends Controller
                 'job' => $request->get('job'),
                 'permission' => $request->get('perm'),
                 'work_start' => $request->get('work_start'),
-                'line_token' => $request->get('line_token')
+                'line_token' => $request->get('line_token'),
+                'unit' => $request->get('unit')
             ]
         );
         // Check Personal Data
