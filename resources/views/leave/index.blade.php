@@ -203,7 +203,7 @@
     $(function() {
         $.datetimepicker.setLocale('th');
         var dt = new Date();
-        dt.setDate(dt.getDate() + 3);
+        dt.setDate(dt.getDate());
         $("#dateStr").datetimepicker({
             format: 'Y/m/d',
             timepicker: false,
