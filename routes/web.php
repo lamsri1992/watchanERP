@@ -73,6 +73,7 @@ Route::group(['prefix' => 'hrm'], function () {
 
 Route::group(['prefix' => 'worktime'], function () {
 	Route::get('/','TimeController@index')->name('worktime.index');
+	Route::get('/','TimeController@addTime')->name('worktime.addTime');
 });
 
 Route::group(['prefix' => 'note'], function () {

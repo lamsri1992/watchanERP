@@ -50,3 +50,17 @@ function GetAge($birthday) {
     $then = strtotime($birthday);
     return(floor((time()-$then)/31556926));
 }
+
+function getMonth($strDate)
+{
+    if (!$strDate) return "";
+    if ($strDate == "0000-00-00 00:00:00") return "00-00-0000 00:00:00";
+    $strYear = date("Y",strtotime($strDate))+543;
+    $strMonth= date("n",strtotime($strDate));
+    $strDay= date("j",strtotime($strDate));
+    $strHour= date("H",strtotime($strDate));
+    $strMinute= date("i",strtotime($strDate));
+    $strMonthCut = Array("","มกราคม.","กุมภาพันธ์","มีนาคม","เมษายน","พฤษภาคม","มิถุนายน","กรกฏาคม","สิงหาคม","กันยายน","ตุลาคม","พฤศจิกายน","ธันวาคม");
+    $strMonthThai=$strMonthCut[$strMonth];
+    return "เดือน $strMonthThai พ.ศ.$strYear";
+}

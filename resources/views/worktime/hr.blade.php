@@ -35,6 +35,9 @@
                         <li class="nav-item" role="presentation">
                             <a class="nav-link" id="table-tab" data-toggle="pill" href="#table" role="tab" aria-controls="table" aria-selected="false">รายงานรูปแบบตาราง</a>
                         </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" id="time-tab" data-toggle="pill" href="#time" role="tab" aria-controls="time" aria-selected="false">ลงเวลาทำงานพิเศษ</a>
+                        </li>
                     </ul>
                     <div class="tab-content" id="pills-tabContent">
                         <div class="tab-pane fade show active" id="daily" role="tabpanel" aria-labelledby="daily-tab">
@@ -81,6 +84,8 @@
                                     }
                                 }
                             ?>
+                            @php $curdate = date('Y-m-d'); @endphp
+                            <h1><i class="fa fa-calendar-day"></i> {{ getMonth($curdate) }}</h1>
                              <table id="reportTable" class="compact table table-borderless nowrap table-striped"
                              style="width: 100%; font-size: 14px; position: relative;">
                              <thead class="thead-dark">
@@ -125,6 +130,31 @@
                              </tr>
                              <?php } } ?>
                          </table>
+                        </div>
+                        <div class="tab-pane fade" id="time" role="tabpanel" aria-labelledby="time-tab">
+                            @php $curdate = date('Y-m-d'); @endphp
+                            <h1><i class="fa fa-calendar-day"></i> {{ FullDateTimeThai($curdate) }}</h1>
+                            <form id="addTime">
+                                <div class="form-group">
+                                    <label for="">ระบุเจ้าหกน้าที่</label>
+                                    <select class="js-single" name="emp" required>
+                                        <option></option>
+                                        @php
+                                            foreach ($data as $arr){ echo "<option value='".$arr->barcode."'>".$arr->barcode." : ".$arr->name."</option>"; }
+                                        @endphp
+                                    </select>
+                                    <small class="form-text text-muted">เลือกชื่อเจ้าหน้าที่ ที่ต้องการบันทึกเวลาทำงาน</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">วันที่</label>
+                                    <input type="text" id="dateAdd" name="idate" class="form-control" required readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">หมายเหตุ</label>
+                                    <input type="text" class="form-control" name="note" required>
+                                </div>
+                                <button id="btnSave" type="submit" class="btn btn-success"><i class="fa fa-save"></i> บันทึกเวลาทำงาน</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -218,5 +248,58 @@ $(document).ready(function() {
         }],
     });
 });
+
+$(document).ready(function() {
+    $('.js-single').select2({
+        width: '100%',
+        placeholder: "เลือกเจ้าหน้าที่",
+        allowClear: true
+    });
+});
+
+$.datetimepicker.setLocale('th');
+        var dt = new Date();
+        dt.setDate(dt.getDate());
+        $("#dateAdd").datetimepicker({
+            // format: 'Y/m/d',
+            timepicker: false,
+            lang: 'th',
+            minDate: dt,
+            allowTimes: ['08:45'],
+            timepicker: true,
+            beforeShowDay: function(date) {
+                var day = date.getDay();
+                return [day == 1 || day == 2 || day == 3 || day == 4 || day == 5, ""];
+            }
+        });
+        
+$('#addTime').on("submit", function (event) {
+        event.preventDefault();
+        Swal.fire({
+            title: 'ยืนยันการขออนุมัติวันลา ?',
+            showCancelButton: true,
+            confirmButtonText: `บันทึก`,
+            cancelButtonText: `ยกเลิก`,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById("btnSave").disabled = true;
+                $.ajax({
+                    url: "{{ route('worktime.addTime') }}",
+                    data: $('#addTime').serialize(),
+                    success: function (data) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'บันทึกเวลาเข้างานสำเร็จ',
+                            showConfirmButton: false,
+                            timer: 3000
+                        })
+                        window.setTimeout(function () {
+                            location.reload()
+                        }, 1500);
+                    }
+                });
+            }
+        })
+    });
 </script>
 @endsection

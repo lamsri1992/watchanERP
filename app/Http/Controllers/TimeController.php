@@ -22,8 +22,22 @@ class TimeController extends Controller
                 AND YEAR(worktime.work_time) = YEAR(CURDATE())
                 ORDER BY users.barcode ASC"));
         // return dd($result);
-        $data = DB::table('users')->get();
+        $data = DB::table('users')
+                ->where('users.work_status', 1)
+                ->get();
         return view('worktime.hr', ['data'=>$data,'result'=>$result]);
+    }
+    
+    public function addTime(Request $request)
+    {
+        DB::table('worktime')->insert(
+            [
+                'work_time' => $request->get('idate'),
+                'emp_barcode' => $request->get('emp'),
+                'work_note' => $request->get('note'),
+                'work_status' => 1,
+            ]
+        );
     }
     
 }
