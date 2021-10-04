@@ -230,7 +230,8 @@ class LeaveController extends Controller
             $text .= "ได้รับการอนุมัติแล้ว\n\n";
         }
         // Send Line To Watchan Family
-        $Token = "al9wgTb0rZZq40Vf1gPdyz0XNuYsCdcBZL5hbLHagsz";
+        // $Token = "al9wgTb0rZZq40Vf1gPdyz0XNuYsCdcBZL5hbLHagsz";
+        $Token = "o1c1RWlrNWcDuKg0J2q7rV3N6xpXLoFHkW8va0qUM2X";
         $message = $text;
         line_notify($Token, $message);
 
