@@ -84,7 +84,7 @@
                         </div>
                         <div class="col-md-6">
                             <h4><i class="fa fa-tools"></i> วิธีดำเนินการ</h4>
-                            @if (Auth::user()->permission == 4)
+                            @if (Auth::user()->permission == 4 || Auth::user()->permission == 5)
                                 @include('helpdesk.show_admin')
                             @else
                                 @include('helpdesk.show_user')

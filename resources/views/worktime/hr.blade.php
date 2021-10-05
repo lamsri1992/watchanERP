@@ -38,6 +38,9 @@
                         <li class="nav-item" role="presentation">
                             <a class="nav-link" id="time-tab" data-toggle="pill" href="#time" role="tab" aria-controls="time" aria-selected="false">ลงเวลาทำงานพิเศษ</a>
                         </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" data-toggle="modal" data-target="#modalFilter" href="#" aria-selected="false">รายงานบันทึกเข้างาน</a>
+                        </li>
                     </ul>
                     <div class="tab-content" id="pills-tabContent">
                         <div class="tab-pane fade show active" id="daily" role="tabpanel" aria-labelledby="daily-tab">
@@ -164,6 +167,55 @@
     @include('layouts.footers.auth')
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="modalFilter" aria-labelledby="filterModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="filterModalLabel">รายงานบันทึกเข้างาน</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="reportTime" action="{{ url('worktime/reportTime') }}">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="">เลือกเดือน</label>
+                        <select class="js-single" name="month" required>
+                            <option></option>
+                            <option value="01">มกราคม</option>
+                            <option value="02">กุมภาพันธ์</option>
+                            <option value="03">มีนาคม</option>
+                            <option value="04">เมษายน</option>
+                            <option value="05">พฤษภาคม</option>
+                            <option value="06">มิถุนายน</option>
+                            <option value="07">กรกฏาคม</option>
+                            <option value="08">สิงหาคม</option>
+                            <option value="09">กันยายน</option>
+                            <option value="10">ตุลาคม</option>
+                            <option value="11">พฤศจิกายน</option>
+                            <option value="12">ธันวาคม</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">เลือกฝ่ายงาน</label>
+                        <select class="js-single" name="dept" required>
+                            <option></option>
+                            <option value="0">เลือกฝ่ายงานทั้งหมด</option>
+                            @php
+                                foreach ($dept as $arr){ echo "<option value='".$arr->dept_id."'>• ".$arr->dept_name."</option>"; }
+                            @endphp
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" id="btnReport" class="btn btn-success">รายงาน</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 @endsection
 @section('script')
 <script type="text/javascript">
@@ -252,7 +304,7 @@ $(document).ready(function() {
 $(document).ready(function() {
     $('.js-single').select2({
         width: '100%',
-        placeholder: "เลือกเจ้าหน้าที่",
+        placeholder: "กรุณาเลือก",
         allowClear: true
     });
 });
