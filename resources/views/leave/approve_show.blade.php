@@ -30,6 +30,24 @@
                     </div>
                 </div>
                 <div class="card-body">
+                    @if (isset($check))
+                    <div class="alert alert-warning" role="alert">
+                        <h4 class="alert-heading"><i class="fas fa-exclamation-circle"></i> มีรายการลาตรงกัน</h4>
+                        @foreach ($check as $res)
+                        <table class="table table-borderless">
+                            <thead>
+                                <tr>
+                                    <td>{{ $res->name }}</td>
+                                    <td>{{ "วันที่ทำรายการ ".DateThai($res->leave_create) }}</td>
+                                    <td>{{ "วันที่ลา ".DateThai($res->leave_start) }}</td>
+                                    <td>{{ $res->type_name }}</td>
+                                    <td>{{ "ผู้รับผิดชอบงาน ".$res->leave_stead }}</td>
+                                </tr>
+                            </thead>
+                        </table>
+                        @endforeach
+                    </div>
+                    @endif
                     @if ($list->status_id == 3)
                     <div class="alert alert-success" role="alert">
                         <h4 class="alert-heading"><i class="fas fa-check-circle"></i> รายการนี้ถูกอนุมัติแล้ว</h4>

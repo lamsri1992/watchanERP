@@ -156,7 +156,17 @@ class LeaveController extends Controller
                 ->leftJoin('personals', 'users.id', '=', 'personals.user_id')
                 ->where('leave_list.leave_id', $parm_id)
                 ->first();
-        return view('leave.approve_show', ['list'=>$list]);
+        $check = DB::table('leave_list')
+                ->leftJoin('users', 'leave_list.user_id', '=', 'users.id')
+                ->leftJoin('leave_type', 'leave_list.leave_type', '=', 'leave_type.type_id')
+                ->leftJoin('leave_time', 'leave_list.leave_time', '=', 'leave_time.time_id')
+                ->leftJoin('leave_status', 'leave_list.leave_status', '=', 'leave_status.status_id')
+                ->whereBetween('leave_start', [$list->leave_start,$list->leave_end])
+                ->where('leave_list.user_id','!=',$list->user_id)
+                ->where('users.department','=',$list->department)
+                ->get();
+        // return dd($check);
+        return view('leave.approve_show', ['list'=>$list,'check'=>$check]);
     }
 
     public function allowList(Request $request, $id)
