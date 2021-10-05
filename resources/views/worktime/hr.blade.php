@@ -179,7 +179,7 @@
             { 'data': 'name' },
             { 'data': 'position' },
             { 'data': 'dept_name' },
-            { 'data': 'time_name', className: "text-center" },
+            { 'data': 'work_note', className: "text-center" },
         ],
         lengthMenu: [
             [20, 50, 100, -1],
