@@ -33,19 +33,28 @@
                     @if (isset($check))
                     <div class="alert alert-warning" role="alert">
                         <h4 class="alert-heading"><i class="fas fa-exclamation-circle"></i> มีรายการลาตรงกัน :: {{ count($check) }} รายการ</h4>
-                        @foreach ($check as $res)
-                        <table class="table table-borderless">
+                        <table class="table table-sm table-borderless">
                             <thead>
                                 <tr>
-                                    <td>{{ $res->name }}</td>
-                                    <td>{{ "วันที่ทำรายการ ".DateThai($res->leave_create) }}</td>
-                                    <td>{{ "วันที่ลา ".DateThai($res->leave_start) }}</td>
-                                    <td>{{ $res->type_name }}</td>
-                                    <td>{{ "ผู้รับผิดชอบงาน ".$res->leave_stead }}</td>
+                                    <th>ผู้ขออนุมัติ</th>
+                                    <th>วันที่ทำรายการ</th>
+                                    <th>วันที่ลา</th>
+                                    <th>ประเภทการลา</th>
+                                    <th>ผู้รับผิดชอบงาน</th>
                                 </tr>
                             </thead>
+                            <tbody>
+                                @foreach ($check as $res)
+                                <tr>
+                                    <td>{{ $res->name }}</td>
+                                    <td>{{ DateThai($res->leave_create) }}</td>
+                                    <td>{{ DateThai($res->leave_start) }}</td>
+                                    <td>{{ $res->type_name }}</td>
+                                    <td>{{ $res->leave_stead }}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
                         </table>
-                        @endforeach
                     </div>
                     @endif
                     @if ($list->status_id == 3)
