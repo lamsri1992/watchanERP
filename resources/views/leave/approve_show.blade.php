@@ -32,7 +32,7 @@
                 <div class="card-body">
                     @if (isset($check))
                     <div class="alert alert-warning" role="alert">
-                        <h4 class="alert-heading"><i class="fas fa-exclamation-circle"></i> มีรายการลาตรงกัน</h4>
+                        <h4 class="alert-heading"><i class="fas fa-exclamation-circle"></i> มีรายการลาตรงกัน :: {{ count($check) }} รายการ</h4>
                         @foreach ($check as $res)
                         <table class="table table-borderless">
                             <thead>
