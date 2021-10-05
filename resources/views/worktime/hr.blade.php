@@ -111,9 +111,9 @@
                              </thead>
                              <?php
                                  if($data_arr){
-                                     $num = 0;
-                                     $total_data = count($data_arr);
-                                         foreach($data_arr as $k_item=>$v_data){ $num++; ?>
+                                    $num = 0;
+                                    $total_data = count($data_arr);
+                                    foreach($data_arr as $k_item=>$v_data){ $num++; ?> 
                                  <tr>
                                      <td class="text-center"><?=$num;?></td>
                                      <td><?=$k_item?></td>
