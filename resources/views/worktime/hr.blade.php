@@ -139,7 +139,7 @@
                             <h1><i class="fa fa-calendar-day"></i> {{ FullDateTimeThai($curdate) }}</h1>
                             <form id="addTime">
                                 <div class="form-group">
-                                    <label for="">ระบุเจ้าหกน้าที่</label>
+                                    <label for="">ระบุเจ้าหน้าที่</label>
                                     <select class="js-single" name="emp" required>
                                         <option></option>
                                         @php
@@ -310,13 +310,13 @@ $(document).ready(function() {
 });
 
 $.datetimepicker.setLocale('th');
-        var dt = new Date();
-        dt.setDate(dt.getDate());
+        // var dt = new Date();
+        // dt.setDate(dt.getDate());
         $("#dateAdd").datetimepicker({
             // format: 'Y/m/d',
             timepicker: false,
             lang: 'th',
-            minDate: dt,
+            // minDate: dt,
             allowTimes: ['08:45'],
             timepicker: true,
             beforeShowDay: function(date) {
