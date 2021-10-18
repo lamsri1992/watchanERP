@@ -58,5 +58,29 @@ class TimeController extends Controller
                 ORDER BY users.barcode ASC"));
         return view('worktime.hr_report', ['result'=>$result]);
     }
+
+    public function reportWork(Request $request)
+    {
+        $dept_report = $request->get('dept');
+        $month_report = $request->get('month');
+        if($request->get('dept')==0){ $finddept=""; }else{ $finddept = "AND users.department = $dept_report";}
+        $report = DB::select(DB::raw("SELECT users.name,users.barcode,departments.dept_name,users.position,jobs.job_name,COUNT(worktime.work_id) AS works,
+                (SELECT SUM(leave_list.leave_num) FROM leave_list WHERE leave_list.leave_type = '1' AND leave_list.user_id = users.id 
+                AND leave_list.leave_status ='3' AND (leave_list.leave_start >= '2021-{$month_report}-01' AND leave_list.leave_end <= '2021-{$month_report}-31') GROUP BY users.id) AS busy,
+                (SELECT SUM(leave_list.leave_num) FROM leave_list WHERE leave_list.leave_type = '2' AND leave_list.user_id = users.id 
+                AND leave_list.leave_status ='3' AND (leave_list.leave_start >= '2021-{$month_report}-01' AND leave_list.leave_end <= '2021-{$month_report}-31') GROUP BY users.id) AS sick,
+                (SELECT SUM(leave_list.leave_num) FROM leave_list WHERE leave_list.leave_type = '3' AND leave_list.user_id = users.id 
+                AND leave_list.leave_status ='3' AND (leave_list.leave_start >= '2021-{$month_report}-01' AND leave_list.leave_end <= '2021-{$month_report}-31') GROUP BY users.id) AS vacation
+                FROM users
+                LEFT JOIN worktime ON worktime.emp_barcode = users.barcode
+                LEFT JOIN departments ON departments.dept_id = users.department
+                LEFT JOIN jobs ON jobs.job_id  = users.job
+                WHERE worktime.work_time BETWEEN '2021-{$month_report}-01' AND '2021-{$month_report}-31'
+                $finddept
+                GROUP BY users.id,users.name,users.barcode,departments.dept_name,users.position,jobs.job_name
+                ORDER BY departments.dept_id,users.barcode ASC"));
+        return view('worktime.hr_summary', ['report'=>$report]);
+        // return dd($report);
+    }
     
 }
