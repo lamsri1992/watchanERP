@@ -93,7 +93,7 @@
                         </table>
                     </div>
                 </div>
-                @php
+                {{-- @php
                     $cdate = date('Y-m-d');
                 @endphp
                 @if ($list->leave_start <= $cdate)
@@ -101,13 +101,13 @@
                 @else
                 @php $btn = ''; @endphp
                 @endif
-                @if ($list->status_id != 5)
+                @if ($list->status_id != 5) --}}
                 <div class="card-body">
                     <div class="text-right">
-                        <button id="btnCancel" class="btn btn-sm btn-danger" {{ $btn }}><i class="fa fa-times-circle"></i> ยกเลิกรายการ</button>
+                        <button id="btnCancel" class="btn btn-sm btn-danger"><i class="fa fa-times-circle"></i> ยกเลิกรายการ</button>
                     </div>
                 </div>
-                @endif
+                {{-- @endif --}}
             </div>
         </div>
     </div>
