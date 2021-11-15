@@ -82,5 +82,28 @@ class TimeController extends Controller
         return view('worktime.hr_summary', ['report'=>$report]);
         // return dd($report);
     }
+
+    public function reportPerson(Request $request)
+    {
+        $user = DB::table('users')
+                ->where('users.id', $request->get('empID'))
+                ->first();
+
+        $data = DB::table('leave_list')
+                ->leftJoin('leave_status', 'leave_list.leave_status', '=', 'leave_status.status_id')
+                ->leftJoin('leave_type', 'leave_list.leave_type', '=', 'leave_type.type_id')
+                ->leftJoin('leave_time', 'leave_list.leave_time', '=', 'leave_time.time_id')
+                ->leftJoin('users', 'leave_list.user_id', '=', 'users.id')
+                ->leftJoin('departments', 'users.department', '=', 'departments.dept_id')
+                ->leftJoin('jobs', 'users.job', '=', 'jobs.job_id')
+                ->where('leave_list.user_id', $request->get('empID'))
+                ->whereDate('leave_start','>=', $request->get('dateStr'))
+                ->whereDate('leave_end','<=', $request->get('dateEnd'))
+                ->where('leave_status', 3)
+                ->get();
+        // return dd($data);
+        return view('worktime.hr_person', ['data'=>$data,'user'=>$user]);
+
+    }
     
 }

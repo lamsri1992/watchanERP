@@ -44,6 +44,9 @@
                         <li class="nav-item" role="presentation">
                             <a class="nav-link" data-toggle="modal" data-target="#modalReport" href="#" aria-selected="false">รายงานสรุปการทำงาน</a>
                         </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" data-toggle="modal" data-target="#modalPerson" href="#" aria-selected="false">รายงานสรุปวันลารายบุคคล</a>
+                        </li>
                     </ul>
                     <div class="tab-content" id="pills-tabContent">
                         <div class="tab-pane fade show active" id="daily" role="tabpanel" aria-labelledby="daily-tab">
@@ -116,7 +119,7 @@
                                  </tr>
                              </thead>
                              <?php
-                                 if($data_arr){
+                                 if(isset($data_arr)){
                                     $num = 0;
                                     $total_data = count($data_arr);
                                     foreach($data_arr as $k_item=>$v_data){ $num++; ?> 
@@ -258,6 +261,46 @@
                                 foreach ($dept as $arr){ echo "<option value='".$arr->dept_id."'>• ".$arr->dept_name."</option>"; }
                             @endphp
                         </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" id="btnReport" class="btn btn-success">รายงาน</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalPerson" aria-labelledby="personModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="personModalLabel"><i class="far fa-file-alt"></i> รายงานสรุปการทำงาน</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="personReport" action="{{ url('worktime/reportPerson') }}">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="">เลือกชื่อเจ้าหน้าที่</label>
+                        <select class="js-single" name="empID" required>
+                            <option></option>
+                            @php
+                                foreach ($data as $arr){ echo "<option value='".$arr->id."'>".$arr->barcode." : ".$arr->name."</option>"; }
+                            @endphp
+                        </select>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                            <label for="">วันที่เริ่มต้น</label>
+                            <input type="text" name="dateStr" class="form-control basicDate" required readonly>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="">วันที่สิ้นสุด</label>
+                            <input type="text" name="dateEnd" class="form-control basicDate" required readonly>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">

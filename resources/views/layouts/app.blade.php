@@ -51,6 +51,17 @@
 <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.js'></script>
+<script>
+// DATATIME_PICKER 
+$(function() {
+    $.datetimepicker.setLocale('th');
+        $(".basicDate").datetimepicker({
+            format: 'Y-m-d',
+            timepicker: false,
+            lang: 'th',
+        });
+    });
+</script>
 @section('script')
 @show
 
