@@ -61,6 +61,14 @@ $(function() {
             lang: 'th',
         });
     });
+
+$(document).ready(function() {
+    $('.selectBasic').select2({
+        width: '100%',
+        placeholder: "เลือกข้อมูล",
+        allowClear: true
+    });
+});
 </script>
 @section('script')
 @show

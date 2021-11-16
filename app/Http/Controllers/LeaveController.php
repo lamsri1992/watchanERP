@@ -262,7 +262,10 @@ class LeaveController extends Controller
                 ->leftJoin('leave_time', 'leave_list.leave_time', '=', 'leave_time.time_id')
                 ->leftJoin('leave_status', 'leave_list.leave_status', '=', 'leave_status.status_id')
                 ->get();
-        return view('leave.hr', ['list'=>$list]);
+        $uname = DB::table('users')->select('id', 'barcode', 'name')
+                ->where('work_status', 1)
+                ->get();
+        return view('leave.hr', ['list'=>$list,'uname'=>$uname]);
     }
 
     public function Hrshow($id)
@@ -277,6 +280,45 @@ class LeaveController extends Controller
                 ->where('leave_list.leave_id', $parm_id)
                 ->first();
         return view('leave.hr_show', ['list'=>$list]);
+    }
+
+    public function addLeaveHR(Request $request)
+    {
+        $userID = $request->get('empID');
+        $date = date("Y-m-d H:i:s");
+        // Check Holiday
+        $strStartDate = $request->get('leave_start');
+        $strEndDate = $request->get('leave_end');
+        $intWorkDay = 0;
+        $intHoliday = 0;
+        $intTotalDay = ((strtotime($strEndDate) - strtotime($strStartDate))/  ( 60 * 60 * 24 )) + 1;
+        while (strtotime($strStartDate) <= strtotime($strEndDate)) {
+            $DayOfWeek = date("w", strtotime($strStartDate));
+            if($DayOfWeek == 0 or $DayOfWeek ==6){ $intHoliday++; }
+            else{ $intWorkDay++; }
+            $strStartDate = date ("Y-m-d", strtotime("+1 day", strtotime($strStartDate)));
+        }
+        if ($request->get('leave_time')== '2' || $request->get('leave_time') == '3'){
+            $intWorkDay = $intWorkDay - 0.5;
+        }
+        // Insert Leave Request
+        DB::table('leave_list')->insert(
+            [
+                'leave_type' => $request->get('leave_type'),
+                'leave_create' => $date,
+                'leave_start' => $request->get('leave_start'),
+                'leave_end' => $request->get('leave_end'),
+                'leave_num' => $intWorkDay,
+                'leave_time' => $request->get('leave_time'),
+                'leave_stead' => $request->get('leave_stead'),
+                'leave_note' => $request->get('leave_note'),
+                'leave_status' => 3,
+                'user_id' => $userID,
+                'leave_hnote' => 'ลงวันลาฉุกเฉิน บันทึกโดย : '.Auth::User()->name,
+                'leave_dnote' => 'ลงวันลาฉุกเฉิน บันทึกโดย : '.Auth::User()->name,
+                'leave_approve' => $date,
+            ]
+        );
     }
 
 }

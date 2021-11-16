@@ -40,6 +40,7 @@ Route::get('/hr', function () {
 Route::group(['prefix' => 'leave'], function () {
 	Route::get('/','LeaveController@index')->name('leave.index');
 	Route::get('/addLeave','LeaveController@addLeave')->name('leave.addLeave');
+	Route::get('/addLeaveHR','LeaveController@addLeaveHR')->name('leave.addLeaveHR');
 	Route::get('/approve','LeaveController@approve')->name('leave.approve');
 	Route::get('/{id}','LeaveController@list')->name('leave.list_show');
     Route::get('/cancelList/{id}','LeaveController@cancelList')->name('leave.cancelList');
