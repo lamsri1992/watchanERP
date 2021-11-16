@@ -9,15 +9,21 @@
             <div class="card bg-secondary shadow border-0">
                 <div class="card-body px-lg-5 py-lg-5">
                     @if($message = Session::get('valid'))
-                        <div class="alert alert-danger alert-block">
-                            <button type="button" class="close" data-dismiss="alert">×</button>
-                            <span>{{ $message }}</span>
-                        </div>
+                    <div class="alert alert-danger alert-block">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        <span>{{ $message }}</span>
+                    </div>
                     @endif
                     <form role="form" method="POST" action="{{ route('login') }}">
                         @csrf
                         <div class="text-center">
-                            <h3>กรุณาลงชื่อเข้าใช้งาน</h3>
+                            <div class="col-lg-12">
+                                <img src="{{ asset('argon') }}/img/brand/logo.png" width="50%">
+                                <h3 class="text-bold">
+                                    {{ __('ระบบ ERP :: โรงพยาบาลวัดจันทร์เฉลิมพระเกียรติ ๘๐ พรรษา') }}
+                                </h3>
+                            </div>
+                            <h4 class="text-muted">กรุณาลงชื่อเข้าใช้งาน</h4>
                         </div>
                         <div class="form-group{{ $errors->has('barcode') ? ' has-danger' : '' }} mb-3">
                             <div class="input-group input-group-alternative">
