@@ -185,7 +185,7 @@ class LeaveController extends Controller
                 ]
             );
             // $Token = "al9wgTb0rZZq40Vf1gPdyz0XNuYsCdcBZL5hbLHagsz";
-            $Token = "rJeUj5NcPslNXbv6sE8x2KMKXdbkyyfba2kNebCcyub";
+            $Token = "";
             $message = "มีรายการขออนุมัติวันลารอดำเนินการ\nกรุณาดำเนินการที่ : https://erp.wc-hospital.go.th/";
             line_notify($Token, $message);
         }else{
