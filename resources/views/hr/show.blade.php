@@ -120,11 +120,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-4">
-                            @if ($data->img == NULL)
-                            <img class="img-fluid rounded" src="{{ asset('img') }}/user-profile.png">
-                            @else
-                            <img class="img-fluid rounded" src="{{ asset('img') }}/employee/{{ $data->img }}.jpg">
-                            @endif
+                            <img class="img-fluid rounded" src="{{ asset('img') }}/employee/{{ $data->barcode }}.jpg">
                             <div class="text-center">
                                 <span class="badge badge-{{ $data->ws_text }} btn-block">
                                     <i class="fa fa-{{ $data->ws_icon }}"></i>&nbsp;
