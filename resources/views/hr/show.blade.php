@@ -237,6 +237,12 @@
                                         </td>
                                     </tr>
                                     <tr>
+                                        <th class="text-center">เลขบัญชีธนาคาร</th>
+                                        <td>
+                                            <input type="text" class="inputX" name="acc_no" value="{{ $data->acc_no }}" required>
+                                        </td>
+                                    </tr>
+                                    <tr>
                                         <th class="text-center"><i class="fab fa-line text-success"></i> Line Token</th>
                                         <td>
                                             <input type="text" class="inputX" name="line_token" value="{{ $data->line_token }}" style="">

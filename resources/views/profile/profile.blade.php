@@ -31,6 +31,9 @@
                     <div class="h5 font-weight-300">
                         {{ $data->dept_name }}
                     </div>
+                    <div class="h5 font-weight-300">
+                        <span style="font-weight: bold;">เลขบัญชีธนาคาร</span> {{ $data->acc_no }}
+                    </div>
                 </div>
             </div>
             <div style="margin-top: 10%;">

@@ -81,6 +81,7 @@ class HrmController extends Controller
                 'permission' => $request->get('perm'),
                 'work_start' => $request->get('work_start'),
                 'line_token' => $request->get('line_token'),
+                'acc_no' => $request->get('acc_no'),
                 'unit' => $request->get('unit')
             ]
         );
