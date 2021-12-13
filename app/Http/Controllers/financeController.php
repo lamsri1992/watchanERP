@@ -32,8 +32,10 @@ class financeController extends Controller
             'select-file' => 'required|mimes:xls,xlsx'
         ]);
         
-        $path = $request->file('select-file')->getRealPath();
-        $data = Excel::import(new salaryImport, $path);
+        // $path1 = $request->file('select-file')->getRealPath();
+        $path1 = $request->file('select-file')->store('temp'); 
+        $path = storage_path('app').'/'.$path1;  
+        $data = \Excel::import(new salaryImport, $path);
 
         // Upload Files
         $file  = $request->file('select-file');
