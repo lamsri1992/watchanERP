@@ -51,9 +51,12 @@ class PersonalController extends Controller
     {
         $userID = Auth::user()->id;
          // Check Personal Data
-         $check = DB::table('personals')
-         ->where('user_id', $userID)
-         ->first();
+         $check = DB::table('personals')->where('user_id', $userID)->first();
+         DB::table('users')->where('id', $userID)->update(
+            [
+                'acc_no' => $request->get('acc_no')
+            ]
+        );
          
         if(isset($check)){
             DB::table('personals')->where('user_id', $userID)->update(

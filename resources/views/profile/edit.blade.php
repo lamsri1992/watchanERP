@@ -52,7 +52,12 @@
                         <textarea name="person_address" class="form-control" rows="3"
                             required>{{ $data->person_address }}</textarea>
                     </div>
-
+                    <div class="form-group">
+                        <label class="form-control-label" for="input-name">
+                            {{ __('เลขบัญชีธนาคาร') }}
+                        </label>
+                        <input type="text" name="acc_no" class="form-control" value="{{ $data->acc_no }}" required>
+                    </div>
                     <div class="text-left">
                         <button type="submit" class="btn btn-success">
                             {{ __('บันทึกการแก้ไข') }}
