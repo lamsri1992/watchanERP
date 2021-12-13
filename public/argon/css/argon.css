@@ -6368,8 +6368,8 @@ input[type='button'].btn-block
 
 .jumbotron
 {
-    margin-bottom: 2rem;
-    padding: 2rem 1rem;
+    /* margin-bottom: 2rem; */
+    /* padding: 2rem 1rem; */
 
     border-radius: .4375rem; 
     background-color: #e9ecef;

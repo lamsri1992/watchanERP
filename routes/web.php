@@ -93,3 +93,9 @@ Route::group(['prefix' => 'helpdesk'], function () {
 	Route::get('/rateHelpdesk/{id}','HelpDeskController@rateHelpdesk')->name('helpdesk.rateHelpdesk');
 	Route::get('/{id}','HelpDeskController@show')->name('helpdesk.show');
 });
+
+
+Route::group(['prefix' => 'finance'], function () {
+	Route::get('/dashboard','financeController@index')->name('fin.index');
+	Route::post('/import','financeController@import');
+});

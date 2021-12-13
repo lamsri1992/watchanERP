@@ -163,6 +163,13 @@
                     </a>
                 </li>
                 @endif
+                @if (Auth::user()->permission == 5 || Auth::user()->permission == 4)
+                <li class="nav-item {{ (request()->is('finance*')) ? 'active' : '' }}">
+                    <a class="nav-link" href="/finance/dashboard">
+                        <i class="fas fa-comments-dollar"></i> สำหรับงานการเงิน
+                    </a>
+                </li>
+                @endif
             </ul>
             @endif
             {{-- End --}}
