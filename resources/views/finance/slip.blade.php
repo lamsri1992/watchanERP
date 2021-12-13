@@ -60,18 +60,36 @@
                                         <table class="table table-borderless table-sm">
                                             <tr>
                                                 <td style="font-weight: bold;">รวมรายรับ</td>
-                                                <td style="font-weight: bold;" class="text-right text-primary">{{ number_format($income,2) }} ฿</td>
+                                                <td style="font-weight: bold;" class="text-right text-success">
+                                                    + {{ number_format($income,2) }} ฿
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td style="font-weight: bold;">รวมรายจ่าย</td>
-                                                <td style="font-weight: bold;" class="text-right text-danger">{{ number_format($outcome,2) }} ฿</td>
+                                                <td style="font-weight: bold;" class="text-right text-danger">
+                                                    - {{ number_format($outcome,2) }} ฿
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td style="font-weight: bold;">คงเหลือ</td>
-                                                <td style="font-weight: bold;" class="text-right text-success">{{ number_format($total,2) }} ฿</td>
+                                                <td style="font-weight: bold;" class="text-right text-primary">
+                                                   <span style="border-bottom: 4px double;">{{ number_format($total,2) }} ฿</span>
+                                                </td>
                                             </tr>
                                         </table>
-                                        <a href="#" class="btn btn-sm btn-light btn-block"><i class="fa fa-print"></i> พิมพ์สลิปเงินเดือน</a>
+                                        @php
+                                            $id = $sals->salary_id;
+                                            for ($i = 0; $i < 10; $i++)
+                                            {
+                                                $id = base64_encode($id);
+                                            }
+                                        @endphp
+                                        <div class="text-center">
+                                            <a href="{{ route('salary.slip', $id) }}"
+                                                class="btn btn-sm btn-light">
+                                                <i class="fa fa-search"></i> VIEW
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

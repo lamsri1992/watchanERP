@@ -66,4 +66,17 @@ class financeController extends Controller
         // return dd($sal);
         return view('finance.slip',['sal'=>$sal]);
     }
+
+    public function slip($id)
+    {
+        for ($i = 0; $i < 10; $i++)
+        {
+            $id = base64_decode($id);
+        }
+        $slip = DB::table('salary')
+                ->where('salary_id', $id)
+                ->first();
+
+        return view('finance.view',['slip'=>$slip]);
+    }
 }

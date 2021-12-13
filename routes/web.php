@@ -100,5 +100,8 @@ Route::group(['prefix' => 'finance'], function () {
 	Route::post('/import','financeController@import');
 });
 
-Route::get('/salary','financeController@salary');
+Route::group(['prefix' => 'salary'], function () {
+	Route::get('/','financeController@salary');
+	Route::get('/{id}','financeController@slip')->name('salary.slip');
+});
 
