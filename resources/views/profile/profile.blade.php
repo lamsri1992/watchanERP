@@ -4,11 +4,7 @@
             <div class="col-lg-3 order-lg-2">
                 <div class="card-profile-image">
                     <a href="#">
-                        @if ($data->img == NULL)
-                            <img class="img-fluid" src="{{ asset('img') }}/user-profile.png">
-                        @else
-                            <img class="img-fluid" src="{{ asset('img') }}/employee/{{ $data->img }}.jpg">
-                        @endif
+                        <img class="img-fluid" src="{{ asset('img') }}/employee/{{ $data->barcode }}.jpg">
                     </a>
                 </div>
             </div>
