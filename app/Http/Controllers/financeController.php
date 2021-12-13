@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use DB;
 use Excel;
 use File;
+use Auth;
 
 class financeController extends Controller
 {
@@ -48,5 +49,19 @@ class financeController extends Controller
         );
        
         return back()->with('success', 'นำเข้าข้อมูลเงินเดือนสำเร็จ');
+    }
+
+    public function salary(Request $request)
+    {
+        $year = date('Y')+543;
+        $accno = Auth::User()->acc_no;
+        $sal = DB::table('salary')
+                ->join('users', 'users.acc_no', '=', 'salary.acc_no')
+                ->where('users.acc_no', $accno)
+                ->where('salary.year',$year)
+                ->orderby('salary_id','desc')
+                ->get();
+        // return dd($sal);
+        return view('finance.slip',['sal'=>$sal]);
     }
 }

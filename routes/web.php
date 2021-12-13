@@ -99,3 +99,6 @@ Route::group(['prefix' => 'finance'], function () {
 	Route::get('/dashboard','financeController@index')->name('fin.index');
 	Route::post('/import','financeController@import');
 });
+
+Route::get('/salary','financeController@salary');
+

@@ -83,21 +83,26 @@
                             class="nav-link-text">{{ __('งานบริหารทั่วไป') }}
                         </span>
                     </a>
-                    <div class="collapse {{ (request()->is('leave*','note*','worktime*')) ? 'show' : '' }}" id="navbar-office">
+                    <div class="collapse {{ (request()->is('leave*','note*','worktime*','salary*')) ? 'show' : '' }}" id="navbar-office">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item {{ (request()->is('leave*')) ? 'active' : '' }}">
                                 <a class="nav-link" href="/leave">
                                     {{ __('ระบบวันลาออนไลน์') }}
                                 </a>
                             </li>
-                            <li class="nav-item {{ (request()->is('note*')) ? 'active' : '' }}">
+                            {{-- <li class="nav-item {{ (request()->is('note*')) ? 'active' : '' }}">
                                 <a class="nav-link" href="/note">
                                     {{ __('ระบบขออนุมัติเดินทาง') }}
                                 </a>
-                            </li>
+                            </li> --}}
                             <li class="nav-item {{ (request()->is('worktime*')) ? 'active' : '' }}">
                                 <a class="nav-link" href="/worktime">
                                     {{ __('ระบบบันทึกเวลาเข้างาน') }}
+                                </a>
+                            </li>
+                            <li class="nav-item {{ (request()->is('salary*')) ? 'active' : '' }}">
+                                <a class="nav-link" href="/salary">
+                                    {{ __('ใบรับรองการจ่ายเงินเดือน') }}
                                 </a>
                             </li>
                         </ul>
