@@ -42,6 +42,14 @@
                                 </div>
                             </div>
                         </div>
+                        @php 
+                            $income = $data->salary + $data->pos_incom + $data->son + $data->school + $data->ot 
+                                    + $data->health + $data->store + $data->life + $data->other_income;
+                            $outcome = $data->tax + $data->co_ordinate + $data->dead + $data->car + $data->house 
+                                    + $data->trat_store + $data->save_life + $data->water_elect + $data->other_pay
+                                    + $data->p5 + $data->p7;
+                            $total = $income - $outcome;
+                        @endphp
                         <div class="col-md-12">
                             <div class="row">
                                 <div class="col-md-6" style="font-size: 14px;">
@@ -76,6 +84,12 @@
                                             <td>{{ number_format($data->school,2) }}</td>
                                             <td>ค่าครองชีพฯ</td>
                                             <td>{{ number_format($data->other_income,2) }}</td>
+                                        </tr>
+                                        <tr style="font-weight: bold;">
+                                            <td>รวมรายรับ</td>
+                                            <td colspan="3">
+                                                {{ number_format($income,2) }}
+                                            </td>
                                         </tr>
                                     </table>
                                 </div>
@@ -118,6 +132,12 @@
                                             <td>กองทุนศพ</td>
                                             <td>{{ number_format($data->other_pay,2) }}</td>
                                         </tr>
+                                        <tr style="font-weight: bold;">
+                                            <td>รวมรายจ่าย</td>
+                                            <td colspan="3">
+                                                {{ number_format($outcome,2) }}
+                                            </td>
+                                        </tr>
                                     </table>
                                 </div>
                             </div>
@@ -130,7 +150,7 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        window.print();
+        // window.print();
     </script>
 </body>
 
