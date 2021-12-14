@@ -79,4 +79,18 @@ class financeController extends Controller
 
         return view('finance.view',['slip'=>$slip]);
     }
+
+    public function slip_print($id)
+    {
+        for ($i = 0; $i < 10; $i++)
+        {
+            $id = base64_decode($id);
+        }
+        $data = DB::table('salary')
+                ->join('users', 'users.acc_no', '=', 'salary.acc_no')
+                ->where('salary_id', $id)
+                ->first();
+
+        return view('finance.sal_print',['data'=>$data]);
+    }
 }

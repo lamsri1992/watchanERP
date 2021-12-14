@@ -103,5 +103,6 @@ Route::group(['prefix' => 'finance'], function () {
 Route::group(['prefix' => 'salary'], function () {
 	Route::get('/','financeController@salary');
 	Route::get('/{id}','financeController@slip')->name('salary.slip');
+	Route::get('/print/{id}','financeController@slip_print')->name('salary.slip_print');
 });
 

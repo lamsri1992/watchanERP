@@ -190,12 +190,22 @@
                                 </div>
                             </div>
                         </div>
+                        @php
+                            $id = $slip->salary_id;
+                            for ($i = 0; $i < 10; $i++)
+                            {
+                                $id = base64_encode($id);
+                            }
+                        @endphp
                         <div class="col-md-12">
                             <div class="jumbotron text-center">
                                 <h1 class="display-4" style="font-size: 2rem;">
                                     <i class="fa fa-piggy-bank text-info" style="font-size: 3rem;"></i> 
                                     คงเหลือ  {{ number_format($total,2) }} ฿
                                 </h1>
+                                <a href="{{ route('salary.slip_print', $id) }}" class="btn btn-light btn-sm" target="_blank">
+                                    <i class="fa fa-print"></i> พิมพ์สลิปเงินเดือน
+                                </a>
                             </div>
                         </div>
                     </div>
