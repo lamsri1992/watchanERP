@@ -50,7 +50,7 @@ class LeaveController extends Controller
         $intTotalDay = ((strtotime($strEndDate) - strtotime($strStartDate))/  ( 60 * 60 * 24 )) + 1;
         while (strtotime($strStartDate) <= strtotime($strEndDate)) {
             $DayOfWeek = date("w", strtotime($strStartDate));
-            if($DayOfWeek == 0 or $DayOfWeek ==6){ $intHoliday++; }
+            if($DayOfWeek == 0 or $DayOfWeek == 6){ $intHoliday++; }
             else{ $intWorkDay++; }
             $strStartDate = date ("Y-m-d", strtotime("+1 day", strtotime($strStartDate)));
         }
@@ -60,7 +60,7 @@ class LeaveController extends Controller
         // if (!isset(Auth::User()->line_token)){
         //     $statusID = '1';
         // }
-        if (Auth::User()->unit == 1){
+        if (Auth::User()->unit == 134){
             $statusID = '2';
         }else{
             $statusID = '1';
@@ -177,7 +177,7 @@ class LeaveController extends Controller
                 ->where('leave_list.leave_id', $id)
                 ->first();
         if($list->leave_status == 1){
-            // echo "Send To PJ";
+            // echo "Send To DR";
             DB::table('leave_list')->where('leave_id', $id)->update(
                 [
                     'leave_hnote' => $request->get('hnote'),
