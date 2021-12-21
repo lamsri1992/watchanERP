@@ -43,15 +43,17 @@
                                         + $sals->health + $sals->store + $sals->life + $sals->other_income;
                                 $outcome = $sals->tax + $sals->co_ordinate + $sals->dead + $sals->car + $sals->house 
                                         + $sals->trat_store + $sals->save_life + $sals->water_elect + $sals->other_pay
-                                        + $sals->p5 + $sals->p7;
+                                        + $sals->p5 + $sals->p7 + $sals->sav_1;
                                 $total = $income - $outcome;
                                 $i++;
                             @endphp
                             <div class="col-md-3" style="margin-bottom: 1rem;">
-                                <div class="card">
+                                <div class="card" style="height: 100%;">
                                     <div class="card-body">
                                         <h2 class="card-title text-center" style="font-weight: bold;">
-                                           <i class="far fa-calendar"></i>
+                                            @if ($sals->salary_ot == 1)
+                                            OT : 
+                                            @endif
                                             เดือน{{ MonthThai(date($sals->year."-".$sals->month)) }}
                                             @if ($i == 1)
                                             <span class="badge badge-danger"><i class="far fa-bell"></i> New</span>
@@ -85,7 +87,7 @@
                                             }
                                         @endphp
                                         <div class="text-center">
-                                            <a href="{{ route('salary.slip', $id) }}"
+                                            <a href="{{ route('salary.slip_ot', $id) }}"
                                                 class="btn btn-sm btn-light">
                                                 <i class="fa fa-search"></i> VIEW
                                             </a>

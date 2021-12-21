@@ -91,6 +91,28 @@ $(document).ready(function () {
             },
         });
     });
+
+$(document).ready(function () {
+    $('#datatableBasic2').dataTable({
+        lengthMenu: [
+            [10, 50, 100, -1],
+            [10, 50, 100, "All"]
+        ],
+        // scrollX: true,
+            oLanguage: {
+            oPaginate: {
+                sFirst: '<small>หน้าแรก</small>',
+                sLast: '<small>หน้าสุดท้าย</small>',
+                sNext: '<small>ถัดไป</small>',
+                sPrevious: '<small>กลับ</small>'
+            },
+                sSearch: '<small><i class="fa fa-search"></i> ค้นหา</small>',
+                sInfo: '<small>ทั้งหมด _TOTAL_ รายการ</small>',
+                sLengthMenu: '<small>แสดง _MENU_ รายการ</small>',
+                sInfoEmpty: '<small>ไม่มีข้อมูล</small>'
+            },
+        });
+    });
 </script>
 @section('script')
 @show

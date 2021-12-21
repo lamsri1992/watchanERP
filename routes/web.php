@@ -98,11 +98,14 @@ Route::group(['prefix' => 'helpdesk'], function () {
 Route::group(['prefix' => 'finance'], function () {
 	Route::get('/dashboard','financeController@index')->name('fin.index');
 	Route::post('/import','financeController@import');
+	Route::post('/importOT','financeController@import_ot');
 });
 
 Route::group(['prefix' => 'salary'], function () {
 	Route::get('/','financeController@salary');
 	Route::get('/{id}','financeController@slip')->name('salary.slip');
+	Route::get('/ot/{id}','financeController@slip_ot')->name('salary.slip_ot');
 	Route::get('/print/{id}','financeController@slip_print')->name('salary.slip_print');
+	Route::get('/print/ot/{id}','financeController@ot_print')->name('salary.ot_print');
 });
 

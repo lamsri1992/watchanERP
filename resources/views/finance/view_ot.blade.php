@@ -25,7 +25,7 @@
                                                 ใบรับรองการจ่ายเงินเดือน : {{ Auth::user()->name }}
                                             </a>
                                         </li>
-                                        <li class="breadcrumb-item active" aria-current="page"> เดือน{{ MonthThai(date($slip->year."-".$slip->month)) }}</li>
+                                        <li class="breadcrumb-item active" aria-current="page">ค่าล่วงเวลา เดือน{{ MonthThai(date($slip->year."-".$slip->month)) }}</li>
                                     </ol>
                                 </nav>
                             </div>
@@ -37,7 +37,7 @@
                             + $slip->health + $slip->store + $slip->life + $slip->other_income;
                     $outcome = $slip->tax + $slip->co_ordinate + $slip->dead + $slip->car + $slip->house 
                             + $slip->trat_store + $slip->save_life + $slip->water_elect + $slip->other_pay
-                            + $slip->p5 + $slip->p7;
+                            + $slip->p5 + $slip->p7 + $slip->sav_1;
                     $total = $income - $outcome;
                 @endphp
                 <div class="card-body">
@@ -46,31 +46,19 @@
                             <div class="card" style="height: 100%;">
                                 <div class="card-body">
                                     <h2 class="card-title text-center" style="font-weight: bold;">
-                                        <i class="fa fa-file-download text-success"></i> รายการรับ
+                                        <i class="fa fa-file-download text-success"></i> ค่าล่วงเวลา
                                     </h2>
                                     <table class="table table-borderless table-sm">
                                         <tr>
-                                            <td style="font-weight: bold;">เงินเดือน</td>
+                                            <td style="font-weight: bold;">OT</td>
                                             <td style="font-weight: bold;" class="text-right text-success">
                                                 + {{ number_format($slip->salary,2) }} ฿
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td style="font-weight: bold;">เงินเดือนตกเบิก</td>
-                                            <td style="font-weight: bold;" class="text-right text-success">
-                                                + {{ number_format($slip->pos_incom,2) }} ฿
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="font-weight: bold;">เงินช่วยเหลือบุตร</td>
+                                            <td style="font-weight: bold;">ค่ารีเฟอร์</td>
                                             <td style="font-weight: bold;" class="text-right text-success">
                                                 + {{ number_format($slip->son,2) }} ฿
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="font-weight: bold;">ค่ารักษาพยาบาล</td>
-                                            <td style="font-weight: bold;" class="text-right text-success">
-                                                + {{ number_format($slip->health,2) }} ฿
                                             </td>
                                         </tr>
                                         <tr>
@@ -89,12 +77,6 @@
                                             <td style="font-weight: bold;">เงิน พตส.</td>
                                             <td style="font-weight: bold;" class="text-right text-success">
                                                 + {{ number_format($slip->ot,2) }} ฿
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="font-weight: bold;">ค่าช่วยเหลือการศึกษาบุตร</td>
-                                            <td style="font-weight: bold;" class="text-right text-success">
-                                                + {{ number_format($slip->school,2) }} ฿
                                             </td>
                                         </tr>
                                         <tr>
@@ -117,67 +99,7 @@
                                         <tr>
                                             <td style="font-weight: bold;">ภาษีหัก ณ ที่จ่าย</td>
                                             <td style="font-weight: bold;" class="text-right text-danger">
-                                                - {{ number_format($slip->tax,2) }} ฿
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="font-weight: bold;">ฌกส.</td>
-                                            <td style="font-weight: bold;" class="text-right text-danger">
-                                                - {{ number_format($slip->dead,2) }} ฿
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="font-weight: bold;">สหกรณ์ออมทรัพย์</td>
-                                            <td style="font-weight: bold;" class="text-right text-danger">
-                                                - {{ number_format($slip->co_ordinate,2) }} ฿
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="font-weight: bold;">รถตามโครงการฯ</td>
-                                            <td style="font-weight: bold;" class="text-right text-danger">
-                                                - {{ number_format($slip->car,2) }} ฿
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="font-weight: bold;">ธกส.</td>
-                                            <td style="font-weight: bold;" class="text-right text-danger">
-                                                - {{ number_format($slip->trat_store,2) }} ฿
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="font-weight: bold;">ค่าน้ำ/ค่าไฟฟ้า</td>
-                                            <td style="font-weight: bold;" class="text-right text-danger">
-                                                - {{ number_format($slip->water_elect,2) }} ฿
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="font-weight: bold;">ปกส.</td>
-                                            <td style="font-weight: bold;" class="text-right text-danger">
-                                                - {{ number_format($slip->save_life,2) }} ฿
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="font-weight: bold;">เบี้ยประกันชีวิต</td>
-                                            <td style="font-weight: bold;" class="text-right text-danger">
-                                                - {{ number_format($slip->p7,2) }} ฿
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="font-weight: bold;">ธนาคารออมสิน</td>
-                                            <td style="font-weight: bold;" class="text-right text-danger">
-                                                - {{ number_format($slip->house,2) }} ฿
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="font-weight: bold;">กองทุนสำรองเลี้ยงชีพ</td>
-                                            <td style="font-weight: bold;" class="text-right text-danger">
-                                                - {{ number_format($slip->p5,2) }} ฿
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="font-weight: bold;">กองทุนศพ</td>
-                                            <td style="font-weight: bold;" class="text-right text-danger">
-                                                - {{ number_format($slip->other_pay,2) }} ฿
+                                                - {{ number_format($slip->sav_1,2) }} ฿
                                             </td>
                                         </tr>
                                         <tr>
@@ -203,7 +125,7 @@
                                     <i class="fa fa-piggy-bank text-info" style="font-size: 3rem;"></i> 
                                     คงเหลือ  {{ number_format($total,2) }} ฿
                                 </h1>
-                                <a href="{{ route('salary.slip_print', $id) }}" class="btn btn-light btn-sm" target="_blank">
+                                <a href="{{ route('salary.ot_print', $id) }}" class="btn btn-light btn-sm" target="_blank">
                                     <i class="fa fa-print"></i> พิมพ์สลิปเงินเดือน
                                 </a>
                             </div>
