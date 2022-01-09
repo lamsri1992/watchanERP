@@ -30,7 +30,7 @@
                 <div class="card-body">
                     <div class="" style="margin-bottom: 1rem;">
                         <div class="col-md-6">
-                            <h1><i class="fa fa-comments-dollar"></i> ข้อมูลการจ่ายเงินเดือนปี พ.ศ. {{ date('Y')+543 }}</h1>
+                            <h1><i class="fa fa-comments-dollar"></i> ข้อมูลการจ่ายเงินเดือนปี / เงินค่าล่วงเวลา OT</h1>
                         </div>
                         <div class="alert alert-danger text-center" role="alert">
                             <small><i class="fa fa-exclamation-circle"></i> ข้อมูลทางการเงิน เป็นข้อมูลสำคัญ กรุณาเก็บรักษาไว้เป็นความลับ</small>
@@ -58,6 +58,7 @@
                                             @if ($i == 1)
                                             <span class="badge badge-danger"><i class="far fa-bell"></i> New</span>
                                             @endif
+                                            <br><small class="text-muted">{{ $sals->year }}</small>
                                         </h2>
                                         <table class="table table-borderless table-sm">
                                             <tr>
