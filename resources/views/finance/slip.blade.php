@@ -55,10 +55,10 @@
                                             OT : 
                                             @endif
                                             เดือน{{ MonthThai(date($sals->year."-".$sals->month)) }}
+                                            <br><small class="text-muted">{{ $sals->year }}</small>
                                             @if ($i == 1)
                                             <span class="badge badge-danger"><i class="far fa-bell"></i> New</span>
                                             @endif
-                                            <br><small class="text-muted">{{ $sals->year }}</small>
                                         </h2>
                                         <table class="table table-borderless table-sm">
                                             <tr>
