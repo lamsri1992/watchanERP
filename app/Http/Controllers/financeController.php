@@ -89,12 +89,12 @@ class financeController extends Controller
 
     public function salary()
     {
-        $year = date('Y')+543;
+        // $year = date('Y')+543;
         $accno = Auth::User()->acc_no;
         $sal = DB::table('salary')
                 ->join('users', 'users.acc_no', '=', 'salary.acc_no')
                 ->where('users.acc_no', $accno)
-                ->where('salary.year',$year)
+                // ->where('salary.year',$year)
                 ->orderby('month','desc')
                 ->get();
         // return dd($sal);
